@@ -4,6 +4,8 @@
 <head>        
         <!-- meta section -->
         <title>Demo SAT</title>
+
+
         
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
         <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -49,8 +51,17 @@
                             </div>
                         </div>
 
-                        <div class="input-group">
-                            <img ng-src="https://cfdiau.sat.gob.mx/nidp/jcaptcha.jpg">
+
+                        <div class="input-group center-block">
+                            <img src="data:image/png;base64,$captcha" alt="IMG DESC" class="center-block">
+                        </div>
+
+                        <br>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
+                                <input type="password" class="form-control" placeholder="Escribe los caracteres de la imagen">
+                            </div>
                         </div>
 
                         <div class="form-group no-border margin-top-20">
@@ -76,13 +87,13 @@
             var app = angular.module("app",[]);
 
             app.controller("mainController",function($scope){
-
+/*
                  $scope.captcha = "/img/captcha.jpg";
 
                 setInterval(function(){
                     $scope.captcha = "/img/captcha.jpg?cache=" + new Date().getTime();
                 }, 5000);
-
+*/
 
 
             });

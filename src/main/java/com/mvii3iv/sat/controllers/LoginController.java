@@ -3,92 +3,60 @@ package com.mvii3iv.sat.controllers;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.*;
+import com.mvii3iv.sat.models.SatLogin;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xerces.impl.dv.util.Base64;
-import org.omg.CORBA_2_3.portable.InputStream;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 @Controller
 public class LoginController {
 
+    /*
+        RFC LULR860821MTA
+        PAS goluna21
+     */
     private static WebClient webClient;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getLogin() {
-        login();
-        return "login";
-    }
-
-    private void satLogin() {
-        HtmlPage page = null;
-        try {
-            page = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
-
-
-            System.out.println(page.getTitleText());
-
-
-            HtmlImage image = page.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
-            //File imageFile = new File("C:\\Users\\edomingu\\Desktop\\SATDemo\\src\\main\\resources\\static\\img\\captcha.jpg");
-            File imageFile = new File("C:\\captcha.jpg");
-
-            image.saveAs(imageFile);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    private boolean proxyEnabled;
+    HtmlPage browser;
 
 
     @ResponseBody
-    @RequestMapping(value = "/image", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public void getLastReport(HttpServletResponse response)
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    public void login(HttpServletResponse response)
             throws IOException {
 
         init();
 
-        HtmlPage page = null;
+        browser = null;
+
         try {
-            page = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
+            browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
 
+            System.out.println(browser.getTitleText());
 
-            System.out.println(page.getTitleText());
-
-
-            HtmlImage image = page.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
-            File imageFile = new File("C:\\Users\\edomingu\\Desktop\\SATDemo\\src\\main\\resources\\static\\img\\captcha.jpg");
-
-
+            HtmlImage image = browser.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
+            File imageFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
 
             image.saveAs(imageFile);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 
         String captcha = "";
@@ -96,47 +64,84 @@ public class LoginController {
         String loginTemplate = "";
 
         try {
-            loginTemplate = FileUtils.readFileToString(   new File(this.getClass().getResource("/templates/login.html").toURI()), "UTF-8");
+            loginTemplate = FileUtils.readFileToString(new File(this.getClass().getResource("/templates/login.html").toURI()), "UTF-8");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
 
-
-        //try (java.io.InputStream templateStream = getClass().getResourceAsStream("/img/captcha.jpg")) {
-        Path path = Paths.get("C:\\Users\\edomingu\\Desktop\\SATDemo\\src\\main\\resources\\static\\img\\captcha.jpg");
+        Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
         bytes = Files.readAllBytes(path);
 
 
-
         String encodedImage = Base64.encode(bytes);
-        loginTemplate = loginTemplate.replace("$captcha",encodedImage);
+        loginTemplate = loginTemplate.replace("$captcha", encodedImage);
 
 
         response.getOutputStream().write(loginTemplate.getBytes());
 
-        //response.getOutputStream().write("The report is not available".getBytes());
-
     }
 
 
-    private void login() {
-        init();
-        satLogin();
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String enterLoginData(@ModelAttribute SatLogin satLogin) {
+
+        try {
+
+        HtmlForm loginForm = browser.getFormByName("IDPLogin");
+        HtmlInput rfc = loginForm.getInputByName("Ecom_User_ID");
+        HtmlPasswordInput pass = loginForm.getInputByName("Ecom_Password");
+        HtmlInput captcha = loginForm.getInputByName("jcaptcha");
+        HtmlSubmitInput sendButton = loginForm.getInputByName("submit");
+
+        rfc.setValueAttribute(satLogin.getRfc());
+        pass.setValueAttribute(satLogin.getPass());
+        captcha.setValueAttribute(satLogin.getCaptcha());
+
+
+        browser = sendButton.click();
+            webClient.waitForBackgroundJavaScript(5000);
+        browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
+        browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "result";
     }
+
 
     private void init() {
-        webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER, "proxy.autozone.com", 8080);
 
-        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log",
-                "org.apache.commons.logging.impl.NoOpLog");
+
+        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
         java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
-        webClient.getOptions().setCssEnabled(false);
 
-        DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
-        credentialsProvider.addCredentials("edomingu", "mULLEN20855-");
+
+
+        if (proxyEnabled) {
+            webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER, "proxy.autozone.com", 8080);
+            DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
+            credentialsProvider.addCredentials("edomingu", "mULLEN20855-");
+        } else {
+            webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
+        }
+
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+        webClient.getOptions().setCssEnabled(false);
+        webClient.getOptions().setJavaScriptEnabled(true);
+        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+
+
+
+        //CookieManager cookieMan = new CookieManager();
+        //cookieMan = browser.getCookieManager();
+        //cookieMan.setCookiesEnabled(true);
+
     }
 
 }

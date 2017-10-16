@@ -37,17 +37,17 @@
                 <!--a class="dev-page-login-block__logo">Intuitive</a-->
                 <div class="dev-page-login-block__form">
                     <div class="title"><strong>Bienvenido</strong>, Ingresa tus datos</div>
-                    <form action="" method="post">
+                    <form action="/login" method="post">
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="RFC">
+                                <input type="text" class="form-control" placeholder="RFC" name="rfc">
                             </div>
                         </div>                        
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                <input type="password" class="form-control" placeholder="Contraseña">
+                                <input type="password" class="form-control" placeholder="Contraseña" name="pass">
                             </div>
                         </div>
 
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
-                                <input type="password" class="form-control" placeholder="Escribe los caracteres de la imagen">
+                                <input type="password" class="form-control" placeholder="Escribe los caracteres de la imagen" name="captcha">
                             </div>
                         </div>
 
@@ -104,14 +104,6 @@
     </body>
 
 </html>
-
-
-
-
-
-
-
-
 
 
 

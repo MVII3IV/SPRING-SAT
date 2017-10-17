@@ -11,9 +11,23 @@ public class Bills {
     private String emitedDate;
     private String certificationDate;
     private String certifiedPAC;
-    private Long total;
+    private String total;
     private String voucherEffect;
     private String voucherStatus;
+
+    public Bills(String fiscalId, String emisorRFC, String emisorName, String receiverRFC, String receiverName, String emitedDate, String certificationDate, String certifiedPAC, String total, String voucherEffect, String voucherStatus) {
+        this.fiscalId = fiscalId;
+        this.emisorRFC = emisorRFC;
+        this.emisorName = emisorName;
+        this.receiverRFC = receiverRFC;
+        this.receiverName = receiverName;
+        this.emitedDate = emitedDate;
+        this.certificationDate = certificationDate;
+        this.certifiedPAC = certifiedPAC;
+        this.total = total;
+        this.voucherEffect = voucherEffect;
+        this.voucherStatus = voucherStatus;
+    }
 
     public String getFiscalId() {
         return fiscalId;
@@ -79,11 +93,11 @@ public class Bills {
         this.certifiedPAC = certifiedPAC;
     }
 
-    public Long getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(Long total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 

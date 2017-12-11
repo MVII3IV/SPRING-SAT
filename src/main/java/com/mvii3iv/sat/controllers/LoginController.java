@@ -50,6 +50,7 @@ public class LoginController {
         this.billsService = billsService;
     }
 
+
     @ResponseBody
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     public void login(HttpServletResponse response)
@@ -136,12 +137,35 @@ public class LoginController {
         return 200;
     }
 
-    /*
-    <img id="BtnVerDetalle" name="BtnVerDetalle" src="Images/Sitemap - Flowchart.png" height="25" width="25" class="BtnVerDetalle" onclick="AccionCfdi('Detalle.aspx?Datos=5OBoE7X+LA+6h7FzS3dcMf3LLnLjonUzSxuxWGSFRtUsZaMmABH2mK/s2e3CVXDjXY2PX40Jemf/k70XMpHknjPMcv6uzvJHF0oZkXrm52bMHFu17eKPs+tx0hchyeE52RBK1UR4L6apOmCN2DZoomBDKviRoKHM2o6M+GYAGPWeklCUUJc38UM0g5k74JVqg0ehqNCiIk1GblrvmvqZ/SdIyJGAUg7wtgBcGMI/LegRJht4+EegTmwGmvK0EQW22tMNpQj7xsUX4Cpr7CW0GHcIwwUvOuKPXRf//KoZLneCht14uQLc3k6qptwxX0RhImf2FE1jVjflP+0UfwFzsYroMVVEmYT/MDO6Fwujhc5Vk9L2ylRb3inH7n6Wt+2bvc/Ad181sQCjdshgb1w1I06SYgV3gY0ozkX3X3dv8zw/dha00DEgZ0JuZlxuO/JnyG6CKBLHMj+aA26srbWd7Xyv2ANM5+PjmkX5bWRgU1s9CjHpgzwVTcKS9mkfF2Sf','Detalle');" title="Ver detalle" style="cursor:pointer">
+    private boolean login(SatLogin satLogin){
 
-     https://portalcfdi.facturaelectronica.sat.gob.mx/Detalle.aspx?Datos=5OBoE7X+LA+6h7FzS3dcMf3LLnLjonUzSxuxWGSFRtUsZaMmABH2mK/s2e3CVXDjXY2PX40Jemf/k70XMpHknjPMcv6uzvJHF0oZkXrm52bMHFu17eKPs+tx0hchyeE52RBK1UR4L6apOmCN2DZoomBDKviRoKHM2o6M+GYAGPWeklCUUJc38UM0g5k74JVqg0ehqNCiIk1GblrvmvqZ/SdIyJGAUg7wtgBcGMI/LegRJht4+EegTmwGmvK0EQW22tMNpQj7xsUX4Cpr7CW0GHcIwwUvOuKPXRf//KoZLneCht14uQLc3k6qptwxX0RhImf2FE1jVjflP+0UfwFzsYroMVVEmYT/MDO6Fwujhc5Vk9L2ylRb3inH7n6Wt+2bvc/Ad181sQCjdshgb1w1I06SYgV3gY0ozkX3X3dv8zw/dha00DEgZ0JuZlxuO/JnyG6CKBLHMj+aA26srbWd7Xyv2ANM5+PjmkX5bWRgU1s9CjHpgzwVTcKS9mkfF2Sf
+        try {
+            HtmlForm loginForm = browser.getFormByName("IDPLogin");
+            HtmlInput rfc = loginForm.getInputByName("Ecom_User_ID");
+            HtmlPasswordInput pass = loginForm.getInputByName("Ecom_Password");
+            HtmlInput captcha = loginForm.getInputByName("jcaptcha");
+            HtmlInput sendButton = loginForm.getInputByName("submit");
 
-     */
+            rfc.setValueAttribute(satLogin.getRfc());
+            pass.setValueAttribute(satLogin.getPass());
+            captcha.setValueAttribute(satLogin.getCaptcha());
+
+            browser = sendButton.click();
+
+            webClient.waitForBackgroundJavaScript(5000);
+            browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
+
+            if(browser.getPage().getTitleText().toLowerCase().equals("sat autenticación")){
+                return false;
+            }
+
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -149,19 +173,11 @@ public class LoginController {
 
         try {
 
-            HtmlForm loginForm = browser.getFormByName("IDPLogin");
-            HtmlInput rfc = loginForm.getInputByName("Ecom_User_ID");
-            HtmlPasswordInput pass = loginForm.getInputByName("Ecom_Password");
-            HtmlInput captcha = loginForm.getInputByName("jcaptcha");
-            HtmlInput sendButton = loginForm.getInputByName("submit");
+            if(!login(satLogin)){
+                return "login";
+            }
 
-            rfc.setValueAttribute("LULR860821MTA"/*satLogin.getRfc()*/);
-            pass.setValueAttribute("goluna21"/*satLogin.getPass()*/);
-            captcha.setValueAttribute(satLogin.getCaptcha());
 
-            browser = sendButton.click();
-            webClient.waitForBackgroundJavaScript(5000);
-            browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
 
 
@@ -207,7 +223,7 @@ public class LoginController {
         if (proxyEnabled) {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER, "proxy.autozone.com", 8080);
             DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
-            credentialsProvider.addCredentials("edomingu", "mULLEN20855-");
+            credentialsProvider.addCredentials("edomingu", "A17934862-");
         } else {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
         }

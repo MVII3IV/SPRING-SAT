@@ -13,9 +13,12 @@ import org.apache.xerces.impl.dv.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.w3c.css.sac.ErrorHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -53,50 +56,84 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public void login(HttpServletResponse response)
-            throws IOException {
-
-        init();
-
-        browser = null;
+    public void login(HttpServletResponse response){
 
         try {
+            init();
+            browser = null;
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
 
-            System.out.println(browser.getTitleText());
+            saveCaptcha();
+            String loginTemplate = insertCaptcha( getTemplate("/templates/login.html"));
 
-            HtmlImage image = browser.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
-            File imageFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
-
-            image.saveAs(imageFile);
-
+            response.getOutputStream().write(loginTemplate.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
 
-        String captcha = "";
-        byte[] bytes = null;
-        String loginTemplate = "";
 
+
+
+
+    /**
+     * Saves the captcha from the SAT page in to the local server
+     * @return true is the captcha has been saved
+     */
+    private boolean saveCaptcha(){
         try {
-            loginTemplate = FileUtils.readFileToString(new File(this.getClass().getResource("/templates/login.html").toURI()), "UTF-8");
-        } catch (URISyntaxException e) {
+            HtmlImage image = browser.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
+            File imageFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
+            image.saveAs(imageFile);
+        } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
 
-
-        Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
-        bytes = Files.readAllBytes(path);
-
-
-        String encodedImage = Base64.encode(bytes);
-        loginTemplate = loginTemplate.replace("$captcha", encodedImage);
-
-
-        response.getOutputStream().write(loginTemplate.getBytes());
-
+        return true;
     }
+
+
+    /**
+     * Inserts the downloaded captcha in to the login template
+     * @param template
+     * @return the same template but with the captcha inserted
+     */
+    private String insertCaptcha(String template){
+        try {
+            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
+            byte[] bytes = new byte[0];
+            bytes = Files.readAllBytes(path);
+            String encodedImage = Base64.encode(bytes);
+            return template.replace("$captcha", encodedImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    /**
+     * Returns any template by its path ("/templates/login.html")
+     * @param path
+     * @return
+     */
+    private String getTemplate(String path){
+        try {
+            return FileUtils.readFileToString(new File(this.getClass().getResource(path).toURI()), "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
 
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -155,9 +192,8 @@ public class LoginController {
             webClient.waitForBackgroundJavaScript(5000);
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
 
-            if(browser.getPage().getTitleText().toLowerCase().equals("sat autenticación")){
+            if(browser.getPage().getTitleText().toLowerCase().equals("sat autenticación"))
                 return false;
-            }
 
             return true;
 
@@ -168,13 +204,15 @@ public class LoginController {
     }
 
 
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String enterLoginData(@ModelAttribute SatLogin satLogin) {
+    public String enterLoginData(HttpServletRequest request, @ModelAttribute SatLogin satLogin) {
 
         try {
 
             if(!login(satLogin)){
-                return "login";
+                String redirectUrl = request.getScheme() + "://localhost:8080";
+                return "redirect:" + redirectUrl;
             }
 
 

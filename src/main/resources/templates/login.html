@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>        
         <!-- meta section -->
@@ -36,7 +37,8 @@
             <div class="dev-page-login-block">
                 <!--a class="dev-page-login-block__logo">Intuitive</a-->
                 <div class="dev-page-login-block__form">
-                    <div class="title"><strong>Bienvenido</strong>, Ingresa tus datos</div>
+                    <div class="title"><strong>Bienvenido</strong>, Ingresa tus datos </div>
+                    <p th:text="#{message}">Welcome to our grocery store!</p>
                     <form action="/login" method="post">
                         <div class="form-group">
                             <div class="input-group">

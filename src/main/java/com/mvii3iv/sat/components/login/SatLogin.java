@@ -1,4 +1,4 @@
-package com.mvii3iv.sat.models;
+package com.mvii3iv.sat.components.login;
 
 
 public class SatLogin {

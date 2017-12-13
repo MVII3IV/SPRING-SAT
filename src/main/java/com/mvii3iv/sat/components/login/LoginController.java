@@ -1,26 +1,21 @@
-package com.mvii3iv.sat.controllers;
+package com.mvii3iv.sat.components.login;
 
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
-import com.mvii3iv.sat.models.Bills;
-import com.mvii3iv.sat.models.SatLogin;
-import com.mvii3iv.sat.services.AntiCaptchaService;
-import com.mvii3iv.sat.services.BillsService;
+import com.mvii3iv.sat.components.bills.Bills;
+import com.mvii3iv.sat.components.anticaptcha.AntiCaptchaService;
+import com.mvii3iv.sat.components.bills.BillsService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xerces.impl.dv.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.w3c.css.sac.ErrorHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -42,16 +37,20 @@ public class LoginController {
         RFC AACD9001011X8
         PAS Luxdom03
      */
+
     private static WebClient webClient;
-    private boolean proxyEnabled = false;
+    private boolean proxyEnabled = true;
     private HtmlPage browser = null;
     private String decodedCaptcha;
     private String loginMessage = "";
-
-    BillsService billsService;
-    AntiCaptchaService antiCaptchaService;
-
     List bills = new ArrayList<Bills>();
+
+    /**
+     * Services
+     */
+    private BillsService billsService;
+    private AntiCaptchaService antiCaptchaService;
+
 
     @Autowired
     public LoginController(BillsService billsService, AntiCaptchaService antiCaptchaService) {
@@ -61,20 +60,19 @@ public class LoginController {
 
 
     /**
-     * This method is in change od load the the login
+     * This method is in change of load the the login
      * @param
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String login(Model model){
+    public String login(Model model, HttpServletRequest request){
 
         try {
             init();
-            //browser = null;
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
-            saveCaptcha();
+            saveCaptcha(request.getSession().getId());
             model.addAttribute("message", loginMessage);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -83,18 +81,17 @@ public class LoginController {
 
 
 
-
-
-
     /**
      * Saves the captcha from the SAT page in to the local server
+     * @param sessionId
      * @return true is the captcha has been saved
      */
-    private boolean saveCaptcha(){
+    private boolean saveCaptcha(String sessionId){
         try {
             HtmlImage image = browser.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
-            File imageFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
+            File imageFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".jpg");
             image.saveAs(imageFile);
+            System.out.println("Captcha id: " + sessionId);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -104,8 +101,10 @@ public class LoginController {
     }
 
 
+
     /**
-     * Inserts the downloaded captcha in to the login template
+     * Inserts the downloaded captcha in to the login template (not used anymore, leave the code as future reference)
+     * @deprecated
      * @param template
      * @return the same template but with the captcha inserted
      */
@@ -122,14 +121,22 @@ public class LoginController {
         }
     }
 
-    private String decodeCaptcha(){
+
+
+    /**
+     * decodes the captcha delegating data to the AntiCaptchaService.decode
+     * @param sessionId
+     * @return an string with the captcha decoded
+     */
+    private String decodeCaptcha(String sessionId){
         try {
-            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
+            System.out.println("Decoding captcha id: " + sessionId);
+            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".jpg");
             byte[] bytes = new byte[0];
             bytes = Files.readAllBytes(path);
-
-
             decodedCaptcha = antiCaptchaService.decode(bytes);
+            System.out.println("Captcha decoded: " + decodedCaptcha);
+            deleteCaptchaFromServer(path.toAbsolutePath().toString());
             return decodedCaptcha;
 
         } catch (IOException e) {
@@ -139,8 +146,33 @@ public class LoginController {
     }
 
 
+
+    private boolean deleteCaptchaFromServer(String path){
+        try{
+
+            File file = new File(path);
+
+            if(file.delete()){
+                System.out.println(file.getName() + " is deleted!");
+            }else{
+                System.out.println("Delete operation is failed.");
+                return false;
+            }
+
+            return true;
+
+        }catch(Exception e){
+
+            e.printStackTrace();
+            return false;
+
+        }
+    }
+
+
+
     /**
-     * Returns any template by its path ("/templates/login.html")
+     *  Returns any template by its path ("/templates/login.html")
      * @param path
      * @return
      */
@@ -160,91 +192,24 @@ public class LoginController {
 
 
 
-
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index() {
-        return "pages-profile";
-    }
-
-    @RequestMapping(value = "/data", method = RequestMethod.GET)
-    public String data() {
-        return "data";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/pdf", method = RequestMethod.GET)
-    public int downloadPDF() throws IOException, URISyntaxException {
-
-
-        String javascript = ((DomAttr)browser.getByXPath("//*[@id=\"ctl00_MainContent_tblResult\"]/tbody/tr[17]/td[1]/div/img/@onclick").get(1)).getValue();
-
-        ScriptResult result = browser.executeJavaScript(javascript);
-        webClient.waitForBackgroundJavaScript(10000);
-
-        InputStream input = result.getNewPage().getWebResponse().getContentAsStream();
-
-        OutputStream output = new FileOutputStream(
-                new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\pdf\\test.pdf"));
-
-        int c = 0;
-        byte[] buf = new byte[8192];
-        while ((c = input.read(buf, 0, buf.length)) > 0) {
-            output.write(buf, 0, c);
-            output.flush();
-        }
-
-        output.close();
-        input.close();
-
-        return 200;
-    }
-
-    private boolean login(SatLogin satLogin){
-
-        try {
-            HtmlForm loginForm = browser.getFormByName("IDPLogin");
-            HtmlInput rfc = loginForm.getInputByName("Ecom_User_ID");
-            HtmlPasswordInput pass = loginForm.getInputByName("Ecom_Password");
-            HtmlInput captcha = loginForm.getInputByName("jcaptcha");
-            HtmlInput sendButton = loginForm.getInputByName("submit");
-
-            rfc.setValueAttribute(satLogin.getRfc());
-            pass.setValueAttribute(satLogin.getPass());
-            captcha.setValueAttribute(decodeCaptcha()/*satLogin.getCaptcha()*/);
-
-            browser = sendButton.click();
-
-            webClient.waitForBackgroundJavaScript(5000);
-            browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
-
-            if(browser.getPage().getTitleText().toLowerCase().equals("sat autenticación"))
-                return false;
-
-            return true;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-
-
+    /**
+     * in charge of login the application and pass to the next page section
+     * @param request
+     * @param satLogin
+     * @return pages-profile view
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String enterLoginData(HttpServletRequest request, @ModelAttribute SatLogin satLogin) {
 
         try {
 
-            if(!login(satLogin)){
+            if(!login(satLogin, request.getSession().getId())){
                 String redirectUrl = request.getScheme() + "://localhost:8080";
                 loginMessage = "Datos incorrectos intenta nuevamente";
                 return "redirect:" + redirectUrl;
             }
 
-
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
-
-
             browser.getHtmlElementById("ctl00_MainContent_RdoFechas").click();
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaInicial2_Calendario_text")).setValueAttribute("01/01/2017");
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaFinal2_Calendario_text")).setValueAttribute("05/10/2017");
@@ -282,6 +247,49 @@ public class LoginController {
     }
 
 
+
+
+    /**
+     *
+     * @param satLogin
+     * @param sessionId
+     * @return
+     */
+    private boolean login(SatLogin satLogin, String sessionId){
+
+        try {
+            HtmlForm loginForm = browser.getFormByName("IDPLogin");
+            HtmlInput rfc = loginForm.getInputByName("Ecom_User_ID");
+            HtmlPasswordInput pass = loginForm.getInputByName("Ecom_Password");
+            HtmlInput captcha = loginForm.getInputByName("jcaptcha");
+            HtmlInput sendButton = loginForm.getInputByName("submit");
+
+            rfc.setValueAttribute(satLogin.getRfc());
+            pass.setValueAttribute(satLogin.getPass());
+            captcha.setValueAttribute(decodeCaptcha(sessionId));
+
+            browser = sendButton.click();
+
+            webClient.waitForBackgroundJavaScript(5000);
+            browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
+
+            if(browser.getPage().getTitleText().toLowerCase().equals("sat autenticación"))
+                return false;
+
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+    /**
+     * initiates HtmlUnit and some global variables
+     */
     private void init() {
 
         if (proxyEnabled) {

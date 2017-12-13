@@ -1,9 +1,6 @@
-package com.mvii3iv.sat.controllers;
+package com.mvii3iv.sat.components.bills;
 
-import com.mvii3iv.sat.models.Bills;
-import com.mvii3iv.sat.services.BillsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

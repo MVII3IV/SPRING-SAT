@@ -1,7 +1,6 @@
-package com.mvii3iv.sat.services;
+package com.mvii3iv.sat.components.bills;
 
 
-import com.mvii3iv.sat.models.Bills;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

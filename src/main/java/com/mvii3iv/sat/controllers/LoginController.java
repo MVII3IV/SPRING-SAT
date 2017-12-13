@@ -6,6 +6,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 import com.mvii3iv.sat.models.Bills;
 import com.mvii3iv.sat.models.SatLogin;
+import com.mvii3iv.sat.services.AntiCaptchaService;
 import com.mvii3iv.sat.services.BillsService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.LogFactory;
@@ -42,34 +43,42 @@ public class LoginController {
         PAS Luxdom03
      */
     private static WebClient webClient;
-    private boolean proxyEnabled = true;
-    private HtmlPage browser;
+    private boolean proxyEnabled = false;
+    private HtmlPage browser = null;
+    private String decodedCaptcha;
+    private String loginMessage = "";
 
     BillsService billsService;
+    AntiCaptchaService antiCaptchaService;
+
     List bills = new ArrayList<Bills>();
 
     @Autowired
-    public LoginController(BillsService billsService) {
+    public LoginController(BillsService billsService, AntiCaptchaService antiCaptchaService) {
         this.billsService = billsService;
+        this.antiCaptchaService = antiCaptchaService;
     }
 
 
-    @ResponseBody
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public void login(HttpServletResponse response){
+    /**
+     * This method is in change od load the the login
+     * @param
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String login(Model model){
 
         try {
             init();
-            browser = null;
+            //browser = null;
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
-
             saveCaptcha();
-            String loginTemplate = insertCaptcha( getTemplate("/templates/login.html"));
+            model.addAttribute("message", loginMessage);
 
-            response.getOutputStream().write(loginTemplate.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return "login";
     }
 
 
@@ -111,6 +120,22 @@ public class LoginController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private String decodeCaptcha(){
+        try {
+            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
+            byte[] bytes = new byte[0];
+            bytes = Files.readAllBytes(path);
+
+
+            decodedCaptcha = antiCaptchaService.decode(bytes);
+            return decodedCaptcha;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
@@ -185,7 +210,7 @@ public class LoginController {
 
             rfc.setValueAttribute(satLogin.getRfc());
             pass.setValueAttribute(satLogin.getPass());
-            captcha.setValueAttribute(satLogin.getCaptcha());
+            captcha.setValueAttribute(decodeCaptcha()/*satLogin.getCaptcha()*/);
 
             browser = sendButton.click();
 
@@ -212,6 +237,7 @@ public class LoginController {
 
             if(!login(satLogin)){
                 String redirectUrl = request.getScheme() + "://localhost:8080";
+                loginMessage = "Datos incorrectos intenta nuevamente";
                 return "redirect:" + redirectUrl;
             }
 

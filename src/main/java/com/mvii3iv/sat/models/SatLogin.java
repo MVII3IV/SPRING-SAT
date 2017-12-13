@@ -5,7 +5,6 @@ public class SatLogin {
 
     private String rfc;
     private String pass;
-    private String captcha;
 
     public String getRfc() {
         return rfc;
@@ -23,11 +22,4 @@ public class SatLogin {
         this.pass = pass;
     }
 
-    public String getCaptcha() {
-        return captcha;
-    }
-
-    public void setCaptcha(String captcha) {
-        this.captcha = captcha;
-    }
 }

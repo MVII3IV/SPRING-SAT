@@ -7,24 +7,25 @@ import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 import com.mvii3iv.sat.components.bills.Bills;
 import com.mvii3iv.sat.components.anticaptcha.AntiCaptchaService;
 import com.mvii3iv.sat.components.bills.BillsService;
+import com.mvii3iv.sat.components.captcha.CaptchaService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xerces.impl.dv.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 
 @Controller
@@ -37,41 +38,61 @@ public class LoginController {
         RFC AACD9001011X8
         PAS Luxdom03
      */
-
     private static WebClient webClient;
     private boolean proxyEnabled = true;
     private HtmlPage browser = null;
-    private String decodedCaptcha;
     private String loginMessage = "";
     List bills = new ArrayList<Bills>();
+
+
+    private static final String LOGIN_URL = "https://portalcfdi.facturaelectronica.sat.gob.mx/";
+    private String HOST_NAME;
+    private String HOST_PORT;
+    private String HOST_SCHEME = "http://";
+
 
     /**
      * Services
      */
     private BillsService billsService;
-    private AntiCaptchaService antiCaptchaService;
-
+    private CaptchaService captchaService;
+    private Environment environment;
 
     @Autowired
-    public LoginController(BillsService billsService, AntiCaptchaService antiCaptchaService) {
+    public LoginController(BillsService billsService, CaptchaService captchaService, Environment environment) {
         this.billsService = billsService;
-        this.antiCaptchaService = antiCaptchaService;
+        this.captchaService = captchaService;
+        this.environment = environment;
+
+
+        try {
+            HOST_PORT = environment.getProperty("local.server.port");
+            HOST_NAME = InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
+
 
 
     /**
      * This method is in change of load the the login
-     * @param
+     * @param model
+     * @param request
+     *
+     * @return login view
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String login(Model model, HttpServletRequest request){
-
         try {
             init();
-            browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
-            saveCaptcha(request.getSession().getId());
-            model.addAttribute("message", loginMessage);
+            browser = webClient.getPage(LOGIN_URL);
 
+            //if the captcha couldn be saved then reload the site
+            if(!saveCaptcha(request.getSession().getId()))
+                return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
+
+            model.addAttribute("message", loginMessage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,93 +102,26 @@ public class LoginController {
 
 
 
+
     /**
-     * Saves the captcha from the SAT page in to the local server
-     * @param sessionId
-     * @return true is the captcha has been saved
+     * Just a simple call to the service in charge of save the captcha in to the service
+     * @return true if the image has been saved otherwise returns false
      */
     private boolean saveCaptcha(String sessionId){
-        try {
-            HtmlImage image = browser.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
-            File imageFile = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".jpg");
-            image.saveAs(imageFile);
-            System.out.println("Captcha id: " + sessionId);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if(sessionId == null || sessionId.length() == 0)
             return false;
-        }
 
-        return true;
-    }
+        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".jpg";
+        HtmlImage image = browser.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
 
-
-
-    /**
-     * Inserts the downloaded captcha in to the login template (not used anymore, leave the code as future reference)
-     * @deprecated
-     * @param template
-     * @return the same template but with the captcha inserted
-     */
-    private String insertCaptcha(String template){
-        try {
-            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
-            byte[] bytes = new byte[0];
-            bytes = Files.readAllBytes(path);
-            String encodedImage = Base64.encode(bytes);
-            return template.replace("$captcha", encodedImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-
-    /**
-     * decodes the captcha delegating data to the AntiCaptchaService.decode
-     * @param sessionId
-     * @return an string with the captcha decoded
-     */
-    private String decodeCaptcha(String sessionId){
-        try {
-            System.out.println("Decoding captcha id: " + sessionId);
-            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".jpg");
-            byte[] bytes = new byte[0];
-            bytes = Files.readAllBytes(path);
-            decodedCaptcha = antiCaptchaService.decode(bytes);
-            System.out.println("Captcha decoded: " + decodedCaptcha);
-            deleteCaptchaFromServer(path.toAbsolutePath().toString());
-            return decodedCaptcha;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-
-    private boolean deleteCaptchaFromServer(String path){
-        try{
-
-            File file = new File(path);
-
-            if(file.delete()){
-                System.out.println(file.getName() + " is deleted!");
-            }else{
-                System.out.println("Delete operation is failed.");
-                return false;
-            }
-
+        if(captchaService.saveCaptcha(image, path)){
             return true;
-
-        }catch(Exception e){
-
-            e.printStackTrace();
+        }else{
             return false;
-
         }
     }
+
 
 
 
@@ -206,7 +160,7 @@ public class LoginController {
             if(!login(satLogin, request.getSession().getId())){
                 String redirectUrl = request.getScheme() + "://localhost:8080";
                 loginMessage = "Datos incorrectos intenta nuevamente";
-                return "redirect:" + redirectUrl;
+                return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
             }
 
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
@@ -266,7 +220,7 @@ public class LoginController {
 
             rfc.setValueAttribute(satLogin.getRfc());
             pass.setValueAttribute(satLogin.getPass());
-            captcha.setValueAttribute(decodeCaptcha(sessionId));
+            captcha.setValueAttribute(captchaService.decodeCaptcha(sessionId));
 
             browser = sendButton.click();
 

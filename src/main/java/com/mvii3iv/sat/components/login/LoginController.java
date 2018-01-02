@@ -4,13 +4,12 @@ package com.mvii3iv.sat.components.login;
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
+import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
 import com.mvii3iv.sat.components.bills.Bills;
-import com.mvii3iv.sat.components.anticaptcha.AntiCaptchaService;
 import com.mvii3iv.sat.components.bills.BillsService;
 import com.mvii3iv.sat.components.captcha.CaptchaService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.LogFactory;
-import org.apache.xerces.impl.dv.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -20,12 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
 import java.util.logging.Level;
 
 @Controller
@@ -37,12 +34,25 @@ public class LoginController {
 
         RFC AACD9001011X8
         PAS Luxdom03
+
+        CASA8412202SA         17201720               Alberto
+        PACY920531TS9         ab45ac56               Yara
+        OIGO510728N20         ab45ac56               Olga
+        GORA870926A8A         13081308               Alexandra
+
+
+        times
+        login: 8.38s
+        enter:
+
      */
-    private static WebClient webClient;
+    //private static WebClient webClient;
     private boolean proxyEnabled = true;
-    private HtmlPage browser = null;
+    //private HtmlPage browser = null;
     private String loginMessage = "";
     List bills = new ArrayList<Bills>();
+    Map webClients = new HashMap<String, WebClient>();
+    Map browsers = new HashMap<String, HtmlPage>();
 
 
     private static final String LOGIN_URL = "https://portalcfdi.facturaelectronica.sat.gob.mx/";
@@ -85,11 +95,22 @@ public class LoginController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String login(Model model, HttpServletRequest request){
         try {
-            init();
-            browser = webClient.getPage(LOGIN_URL);
+            String sessionId = request.getSession().getId();
+            if( !webClients.containsKey(sessionId) ){
+                WebClient webClient = init();
+
+
+                webClients.put(sessionId, webClient);
+                HtmlPage browser = null;
+                browsers.put(sessionId, browser);
+            }
+
+            WebClient webClient = (WebClient) webClients.get(sessionId);
+
+            HtmlPage browser = webClient.getPage(LOGIN_URL);
 
             //if the captcha couldn be saved then reload the site
-            if(!saveCaptcha(request.getSession().getId()))
+            if(!saveCaptcha(request.getSession().getId() , browser))
                 return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
 
             model.addAttribute("message", loginMessage);
@@ -107,7 +128,7 @@ public class LoginController {
      * Just a simple call to the service in charge of save the captcha in to the service
      * @return true if the image has been saved otherwise returns false
      */
-    private boolean saveCaptcha(String sessionId){
+    private boolean saveCaptcha(String sessionId, HtmlPage browser){
 
         if(sessionId == null || sessionId.length() == 0)
             return false;
@@ -149,15 +170,21 @@ public class LoginController {
     /**
      * in charge of login the application and pass to the next page section
      * @param request
-     * @param satLogin
+     * @param user
      * @return pages-profile view
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String enterLoginData(HttpServletRequest request, @ModelAttribute SatLogin satLogin) {
+    public String enterLoginData(HttpServletRequest request, @ModelAttribute User user) {
+
+        String sessionId = request.getSession().getId();
+        WebClient webClient = (WebClient) webClients.get(sessionId);
+
+        HtmlPage browser = (HtmlPage) webClient.getCurrentWindow().getEnclosedPage();
 
         try {
 
-            if(!login(satLogin, request.getSession().getId())){
+            //if login fail then the user is redirectioned
+            if(!login(user, request.getSession().getId(), webClient)){
                 String redirectUrl = request.getScheme() + "://localhost:8080";
                 loginMessage = "Datos incorrectos intenta nuevamente";
                 return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
@@ -168,10 +195,25 @@ public class LoginController {
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaInicial2_Calendario_text")).setValueAttribute("01/01/2017");
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaFinal2_Calendario_text")).setValueAttribute("05/10/2017");
             browser = ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_BtnBusqueda")).click();
-            webClient.waitForBackgroundJavaScript(10000);
+            //webClient.waitForBackgroundJavaScript(5000);
 
 
-            final HtmlTable table = browser.getHtmlElementById("ctl00_MainContent_tblResult");
+
+
+
+            HtmlTable table = browser.getHtmlElementById("ctl00_MainContent_tblResult");
+
+            while(table.getRows().size() <= 1){
+                table = browser.getHtmlElementById("ctl00_MainContent_tblResult");
+                Thread.sleep(1000);
+            }
+
+
+
+
+
+
+
             for (final HtmlTableRow row : table.getRows()) {
 
                 bills.add(
@@ -195,9 +237,11 @@ public class LoginController {
             billsService.setBills(bills);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-       return "pages-profile";
+        return "pages-profile";
     }
 
 
@@ -205,11 +249,13 @@ public class LoginController {
 
     /**
      *
-     * @param satLogin
+     * @param user
      * @param sessionId
      * @return
      */
-    private boolean login(SatLogin satLogin, String sessionId){
+    private boolean login(User user, String sessionId, WebClient webClient ){
+
+        HtmlPage browser = (HtmlPage) webClient.getCurrentWindow().getEnclosedPage();
 
         try {
             HtmlForm loginForm = browser.getFormByName("IDPLogin");
@@ -218,8 +264,8 @@ public class LoginController {
             HtmlInput captcha = loginForm.getInputByName("jcaptcha");
             HtmlInput sendButton = loginForm.getInputByName("submit");
 
-            rfc.setValueAttribute(satLogin.getRfc());
-            pass.setValueAttribute(satLogin.getPass());
+            rfc.setValueAttribute(user.getRfc());
+            pass.setValueAttribute(user.getPass());
             captcha.setValueAttribute(captchaService.decodeCaptcha(sessionId));
 
             browser = sendButton.click();
@@ -244,7 +290,9 @@ public class LoginController {
     /**
      * initiates HtmlUnit and some global variables
      */
-    private void init() {
+    private WebClient init() {
+
+        WebClient webClient = new WebClient();
 
         if (proxyEnabled) {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER, "proxy.autozone.com", 8080);
@@ -304,7 +352,7 @@ public class LoginController {
             }
         });
 
-
+        return webClient;
         //CookieManager cookieMan = new CookieManager();
         //cookieMan = browser.getCookieManager();
         //cookieMan.setCookiesEnabled(true);

@@ -1,7 +1,7 @@
 package com.mvii3iv.sat.components.login;
 
 
-public class SatLogin {
+public class User {
 
     private String rfc;
     private String pass;

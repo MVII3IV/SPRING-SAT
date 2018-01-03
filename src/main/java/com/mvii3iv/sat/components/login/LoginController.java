@@ -4,7 +4,7 @@ package com.mvii3iv.sat.components.login;
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
+import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.bills.Bills;
 import com.mvii3iv.sat.components.bills.BillsService;
 import com.mvii3iv.sat.components.captcha.CaptchaService;
@@ -53,6 +53,7 @@ public class LoginController {
     List bills = new ArrayList<Bills>();
     Map webClients = new HashMap<String, WebClient>();
     Map browsers = new HashMap<String, HtmlPage>();
+    Map usersData = new HashMap<String, UserData>();
 
 
     private static final String LOGIN_URL = "https://portalcfdi.facturaelectronica.sat.gob.mx/";
@@ -70,12 +71,10 @@ public class LoginController {
 
     @Autowired
     public LoginController(BillsService billsService, CaptchaService captchaService, Environment environment) {
-        this.billsService = billsService;
-        this.captchaService = captchaService;
-        this.environment = environment;
-
-
         try {
+            this.billsService = billsService;
+            this.captchaService = captchaService;
+            this.environment = environment;
             HOST_PORT = environment.getProperty("local.server.port");
             HOST_NAME = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
@@ -84,33 +83,42 @@ public class LoginController {
     }
 
 
-
     /**
      * This method is in change of load the the login
+     *
      * @param model
      * @param request
-     *
      * @return login view
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String login(Model model, HttpServletRequest request){
+    public String login(Model model, HttpServletRequest request) {
+
         try {
+
             String sessionId = request.getSession().getId();
-            if( !webClients.containsKey(sessionId) ){
-                WebClient webClient = init();
 
+            //if (!webClients.containsKey(sessionId)) {
+            if (!usersData.containsKey(sessionId)) {
+                    //WebClient webClient = init();
+                    //webClients.put(sessionId, webClient);
+                    //HtmlPage browser = null;
+                    //browsers.put(sessionId, browser);
 
-                webClients.put(sessionId, webClient);
-                HtmlPage browser = null;
-                browsers.put(sessionId, browser);
+                    UserData userData = new UserData(init(), null, new ArrayList<Bills>(), new User());
+                    usersData.put(sessionId, userData);
             }
 
-            WebClient webClient = (WebClient) webClients.get(sessionId);
+            //WebClient webClient = (WebClient) webClients.get(sessionId);
+            UserData userData = ((UserData)usersData.get(sessionId));
+            WebClient webClient = userData.getWebClient();
 
-            HtmlPage browser = webClient.getPage(LOGIN_URL);
+
+            //HtmlPage browser = webClient.getPage(LOGIN_URL);
+            //HtmlPage browser = userData.getBrowser();
+            userData.setBrowser(webClient.getPage(LOGIN_URL));
 
             //if the captcha couldn be saved then reload the site
-            if(!saveCaptcha(request.getSession().getId() , browser))
+            if (!saveCaptcha(request.getSession().getId(), userData.getBrowser()))
                 return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
 
             model.addAttribute("message", loginMessage);
@@ -122,36 +130,34 @@ public class LoginController {
     }
 
 
-
-
     /**
      * Just a simple call to the service in charge of save the captcha in to the service
+     *
      * @return true if the image has been saved otherwise returns false
      */
-    private boolean saveCaptcha(String sessionId, HtmlPage browser){
+    private boolean saveCaptcha(String sessionId, HtmlPage browser) {
 
-        if(sessionId == null || sessionId.length() == 0)
+        if (sessionId == null || sessionId.length() == 0)
             return false;
 
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".jpg";
         HtmlImage image = browser.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
 
-        if(captchaService.saveCaptcha(image, path)){
+        if (captchaService.saveCaptcha(image, path)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
 
-
-
     /**
-     *  Returns any template by its path ("/templates/login.html")
+     * Returns any template by its path ("/templates/login.html")
+     *
      * @param path
      * @return
      */
-    private String getTemplate(String path){
+    private String getTemplate(String path) {
         try {
             return FileUtils.readFileToString(new File(this.getClass().getResource(path).toURI()), "UTF-8");
         } catch (IOException e) {
@@ -164,11 +170,9 @@ public class LoginController {
     }
 
 
-
-
-
     /**
      * in charge of login the application and pass to the next page section
+     *
      * @param request
      * @param user
      * @return pages-profile view
@@ -177,41 +181,48 @@ public class LoginController {
     public String enterLoginData(HttpServletRequest request, @ModelAttribute User user) {
 
         String sessionId = request.getSession().getId();
-        WebClient webClient = (WebClient) webClients.get(sessionId);
 
-        HtmlPage browser = (HtmlPage) webClient.getCurrentWindow().getEnclosedPage();
+
+        UserData userData = ((UserData)usersData.get(sessionId));
+        WebClient webClient = userData.getWebClient();
+        HtmlPage browser = userData.getBrowser();
+
+
+
+        //WebClient webClient = (WebClient) webClients.get(sessionId);
+        //HtmlPage browser = (HtmlPage) webClient.getCurrentWindow().getEnclosedPage();
 
         try {
 
             //if login fail then the user is redirectioned
-            if(!login(user, request.getSession().getId(), webClient)){
+            if (!login(user, request.getSession().getId(), webClient)) {
                 String redirectUrl = request.getScheme() + "://localhost:8080";
                 loginMessage = "Datos incorrectos intenta nuevamente";
                 return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
             }
 
+            /*
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
             browser.getHtmlElementById("ctl00_MainContent_RdoFechas").click();
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaInicial2_Calendario_text")).setValueAttribute("01/01/2017");
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaFinal2_Calendario_text")).setValueAttribute("05/10/2017");
             browser = ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_BtnBusqueda")).click();
+            */
             //webClient.waitForBackgroundJavaScript(5000);
 
 
+            //HtmlTable table = browser.getHtmlElementById("ctl00_MainContent_tblResult");
+            HtmlTable table = null;
+            browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
+            browser.getHtmlElementById("ctl00_MainContent_RdoFechas").click();
+            ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaInicial2_Calendario_text")).setValueAttribute("01/01/2017");
+            ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaFinal2_Calendario_text")).setValueAttribute("05/10/2017");
+            browser = ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_BtnBusqueda")).click();
 
-
-
-            HtmlTable table = browser.getHtmlElementById("ctl00_MainContent_tblResult");
-
-            while(table.getRows().size() <= 1){
+             do{
+                 webClient.waitForBackgroundJavaScript(1000);
                 table = browser.getHtmlElementById("ctl00_MainContent_tblResult");
-                Thread.sleep(1000);
-            }
-
-
-
-
-
+            }while (table.getRows().size() <= 1);
 
 
             for (final HtmlTableRow row : table.getRows()) {
@@ -234,10 +245,8 @@ public class LoginController {
 
             }
 
-            billsService.setBills(bills);
+            userData.setBills(bills);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -245,15 +254,12 @@ public class LoginController {
     }
 
 
-
-
     /**
-     *
      * @param user
      * @param sessionId
      * @return
      */
-    private boolean login(User user, String sessionId, WebClient webClient ){
+    private boolean login(User user, String sessionId, WebClient webClient) {
 
         HtmlPage browser = (HtmlPage) webClient.getCurrentWindow().getEnclosedPage();
 
@@ -270,21 +276,22 @@ public class LoginController {
 
             browser = sendButton.click();
 
-            webClient.waitForBackgroundJavaScript(5000);
-            browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
-
-            if(browser.getPage().getTitleText().toLowerCase().equals("sat autenticación"))
-                return false;
+            //webClient.waitForBackgroundJavaScript(5000);
+            do {
+                browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
+                Thread.sleep(1000);
+            }while (browser.getPage().getTitleText().toLowerCase().equals("sat autenticación"));
+                //return false;
 
             return true;
 
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return false;
     }
-
-
 
 
     /**

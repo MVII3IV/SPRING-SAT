@@ -14,15 +14,25 @@ public class UserData {
     private HtmlPage browser;
     private List<Bills> bills;
     private User user;
+    private boolean ready;
 
     public UserData() {
     }
 
-    public UserData(WebClient webClient, HtmlPage browser, List<Bills> bills, User user) {
+    public UserData(WebClient webClient, HtmlPage browser, List<Bills> bills, User user, boolean ready) {
         this.webClient = webClient;
         this.browser = browser;
         this.bills = bills;
         this.user = user;
+        this.ready = ready;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
     }
 
     public WebClient getWebClient() {

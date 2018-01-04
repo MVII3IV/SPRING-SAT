@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app" ng-controller="mainController">
     
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>        
@@ -85,12 +85,19 @@
                     <ul class="dev-page-navigation">
                         <li class="title">Menu principal</li>
                         <li class="active">
-                            <a href="index.html"><i class="fa fa-desktop"></i> <span>Mi perfil</span></a>
+                            <a href="index.html"><i class="fa fa-desktop"></i> <span>Pagina Principal</span></a>
                         </li>
-                        <li class="active">
-                            <a href="/data"><i class="fa fa-credit-card"></i> <span>Facturas Emitidas</span></a>
+
+                        <li class="inactive">
+                            <a><i class="fa fa-credit-card"></i><span>Gastos</span></a>
                         </li>
-                        <li class="active">
+                        <li class="inactive">
+                            <a href=""><i class="fa fa-credit-card"></i> <span>Simulador de Impuestos</span></a>
+                        </li>
+                        <li class="inactive">
+                            <a href="/data"><i class="fa fa-credit-card"></i> <span></span></a>
+                        </li>
+                        <li class="inactive">
                             <a href=""><i class="fa fa-credit-card"></i> <span>Facturas Recibidas</span></a>
                         </li>
                     </ul>
@@ -120,11 +127,15 @@
 
                         </div>
                         
-                        <div class="wrapper">
+                        <div class="wrapper" id="main">
+
+                            <!-- angular templating -->
+                            <!-- this is where content will be injected -->
+
                            <div class="row">
                                <br><br>
                                <div class="col-md-12 text-center">
-                                   <h1>Bienvenido SAT Demo</h1>
+                                   <h1>{{ message }}</h1>
                                    <p>En este sitio podras consultar tus facturas emitidas/recibidas de una manera facil y rapida.</p>
                                    <strong>Selecciona una categoria en el menu de la izquierda para poder comensar.</strong>
                                </div>
@@ -312,6 +323,8 @@
         <script type="text/javascript" src="js/dev-app.js"></script>
 
         <script type="text/javascript" src="js/plugins/angular/angular.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+        <script type="text/javascript" src="angular-app/script.js"></script>
         <!-- ./javascript -->                
     </body>
 </html>

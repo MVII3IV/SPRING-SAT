@@ -73,6 +73,11 @@ public class LoginController {
         }
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String profile(HttpServletRequest request) {
+        return "index";
+    }
+
 
     /**
      * This method is in change of load the the login
@@ -106,7 +111,7 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        return "login";
+        return "page-signin";
     }
 
 
@@ -150,10 +155,6 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String profile(HttpServletRequest request) {
-        return "pages-profile";
-    }
 
 
     /**
@@ -161,9 +162,9 @@ public class LoginController {
      *
      * @param request
      * @param user
-     * @return pages-profile view
+     * @return views-profile view
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public String enterLoginData(HttpServletRequest request, @ModelAttribute User user) {
 
         String sessionId = request.getSession().getId();
@@ -219,7 +220,7 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        return "pages-profile";
+        return "index";
     }
 
 

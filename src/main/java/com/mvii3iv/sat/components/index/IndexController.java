@@ -14,11 +14,11 @@ import java.net.URISyntaxException;
 public class IndexController {
 
     /**
-     * @return pages-profile view
+     * @return views-profile view
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "pages-profile";
+        return "views-profile";
     }
 
 

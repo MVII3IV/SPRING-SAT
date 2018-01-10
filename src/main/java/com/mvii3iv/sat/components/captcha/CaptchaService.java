@@ -3,6 +3,8 @@ package com.mvii3iv.sat.components.captcha;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.mvii3iv.sat.components.anticaptcha.AntiCaptchaService;
 import com.mvii3iv.sat.components.bills.BillsService;
+import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.jni.Directory;
 import org.apache.xerces.impl.dv.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,34 +19,46 @@ import java.nio.file.Paths;
 public class CaptchaService {
 
     private AntiCaptchaService antiCaptchaService;
+    private final String IMG_PATH = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+    private final String CAPTCHA_EXTENTION = ".PNG";
 
     @Autowired
     public CaptchaService(BillsService billsService, AntiCaptchaService antiCaptchaService) {
         this.antiCaptchaService = antiCaptchaService;
+        deleteAllCaptchasFromServer();
     }
-
 
 
     /**
      * Saves the captcha from the SAT page in to the local server
-     * @param image
-     * @param path
      *
+     * @param image
+     * @param sessionId
      * @return true is the captcha has been saved
      */
-    public boolean saveCaptcha(HtmlImage image, String path){
+    public boolean saveCaptcha(HtmlImage image, String sessionId) {
 
-        File imagePath = new File(path);
+        File imagePath = new File( IMG_PATH + sessionId + CAPTCHA_EXTENTION);
 
         try {
 
-            if(image == null || path.length() == 0){
+            if (image == null || (sessionId.isEmpty() || sessionId.equals("")))
+                return false;
+
+
+            if (!imagePath.getParentFile().exists()) {
+                System.out.println("Directory img didn't exist, has been created");
+                imagePath.getParentFile().mkdir();
+            }
+
+
+            if (image == null || sessionId.length() == 0) {
                 return false;
             }
 
             image.saveAs(imagePath);
 
-            if(!imagePath.exists())
+            if (!imagePath.exists())
                 throw new IOException();
 
             System.out.println("Captcha saved: " + imagePath.getName());
@@ -59,14 +73,14 @@ public class CaptchaService {
     }
 
 
-
     /**
      * Inserts the downloaded captcha in to the login template (not used anymore, leave the code as future reference)
-     * @deprecated
+     *
      * @param template
      * @return the same template but with the captcha inserted
+     * @deprecated
      */
-    public String insertCaptcha(String template){
+    public String insertCaptcha(String template) {
         try {
             Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
             byte[] bytes = new byte[0];
@@ -82,10 +96,11 @@ public class CaptchaService {
 
     /**
      * decodes the captcha delegating data to the AntiCaptchaService.decode
+     *
      * @param sessionId
      * @return an string with the captcha decoded
      */
-    public String decodeCaptcha(String sessionId){
+    public String decodeCaptcha(String sessionId) {
         try {
             System.out.println("Decoding captcha id: " + sessionId);
 
@@ -106,28 +121,44 @@ public class CaptchaService {
 
     /**
      * delete a captcha after has been decoded due it is not usable anymore
+     *
      * @param path
      * @return true if the operation was successfully
      */
-    private boolean deleteCaptchaFromServer(String path){
-        try{
+    private boolean deleteCaptchaFromServer(String path) {
+        try {
 
             File file = new File(path);
 
-            if(file.delete()){
+            if (file.delete()) {
                 System.out.println(file.getName() + " is deleted!");
-            }else{
+            } else {
                 System.out.println("Delete operation is failed.");
                 return false;
             }
 
             return true;
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
             return false;
 
+        }
+    }
+
+
+    /**
+     * Removes all the files stored in img folder
+     * @return true if files have been removed
+     */
+    private Boolean deleteAllCaptchasFromServer(){
+        try {
+            FileUtils.cleanDirectory(new File(IMG_PATH));
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

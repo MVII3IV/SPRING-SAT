@@ -125,10 +125,9 @@ public class LoginController {
         if (sessionId == null || sessionId.length() == 0)
             return false;
 
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".jpg";
         HtmlImage image = browser.<HtmlImage>getFirstByXPath("//*[@id='IDPLogin']/div[3]/label/img");
 
-        if (captchaService.saveCaptcha(image, path)) {
+        if (captchaService.saveCaptcha(image, sessionId)) {
             return true;
         } else {
             return false;

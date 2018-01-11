@@ -104,7 +104,7 @@ public class CaptchaService {
         try {
             System.out.println("Decoding captcha id: " + sessionId);
 
-            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".jpg");
+            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\" + sessionId + ".png");
             byte[] bytes = new byte[0];
             bytes = Files.readAllBytes(path);
             String decodedCaptcha = antiCaptchaService.decode(bytes);

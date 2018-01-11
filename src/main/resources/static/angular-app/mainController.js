@@ -1,56 +1,73 @@
 angular.module('app').controller("mainController", ['$scope', function ($scope) {
 
-    $scope.menuElements = [{
+    $scope.menuElements = [
+        {
             section: "Pagina Principal",
-            class: "active"
+            class: "active",
+            icon: "icon ion-home"
         },
         {
             section: "Ingresos",
-            class: ""
+            class: "",
+            icon: "icon ion-archive"
         },
         {
             section: "Gastos",
-            class: ""
-        }, {
+            class: "",
+            icon: "icon ion-document-text"
+        },
+        {
             section: "Simulador de Impuestos",
-            class: ""
-        }, {
+            class: "",
+            icon: "icon ion-document"
+        },
+        {
             section: "Declaracion",
-            class: ""
-        }, {
+            class: "",
+            icon: "icon ion-clipboard"
+        },
+        {
             section: "Facturas",
-            class: ""
-        }, {
+            class: "",
+            icon: "icon ion-folder"
+        },
+        {
             section: "Nominas",
-            class: ""
-        }, {
+            class: "",
+            icon: "icon ion-compose"
+        },
+        {
             section: "IMMS",
-            class: ""
-        }, {
+            class: "",
+            icon: "icon ion-person-stalker"
+        },
+        {
             section: "Pagos",
-            class: ""
-        }, {
+            class: "",
+            icon: "icon ion-forward"
+        },
+        {
             section: "Ayuda",
-            class: ""
+            class: "",
+            icon: "icon ion-help-buoy"
         }
     ];
 
 
-
-    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
 
       $scope.xaxis = 'y';
-      $scope.yaxis = '["a,b"]';
+      $scope.yaxis = '["a", "b"]';
 
-     	$scope.data = [
-        { y: "2006-07", a: 100, b: 90 },
-        { y: "2007-06", a: 75,  b: 65 },
-        { y: "2008-05", a: 50,  b: 40 },
-        { y: "2009-04", a: 40,  b: 65 },
-        { y: "2010-03", a: 30,  b: 40 },
-        { y: "2011-02", a: 10,  b: 65 },
-        { y: "2012-01", a: 0, b: 90 }
-    	];
+     $scope.data = [
+          { y: "2006", a: 100, b: 90 },
+          { y: "2007", a: 75,  b: 65 },
+          { y: "2008", a: 50,  b: 40 },
+          { y: "2009", a: 75,  b: 65 },
+          { y: "2010", a: 50,  b: 40 },
+          { y: "2011", a: 75,  b: 65 },
+          { y: "2012", a: 100, b: 90 }
+      ];
 
       $scope.xLabelFormat = function(x) { // <--- x.getMonth() returns valid index
         var month = months[x.getMonth()];
@@ -61,8 +78,6 @@ angular.module('app').controller("mainController", ['$scope', function ($scope) 
         var month = months[new Date(x).getMonth()];
         return month;
       }
-
-
 
 
 }]);

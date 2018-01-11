@@ -111,7 +111,7 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        return "page-signin";
+        return "pages-login";
     }
 
 

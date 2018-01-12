@@ -1,0 +1,24 @@
+{
+  "name": "SPRING-SAT",
+  "homepage": "https://github.com/MVII3IV/SPRING-SAT",
+  "authors": [
+    "Erick Mullen <afrosclothing@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/main/resources/static/plugins/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.8",
+    "angular-route": "^1.6.8",
+    "font-awesome": "^4.7.0"
+  }
+}

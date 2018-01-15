@@ -94,12 +94,14 @@
 
             <ul class="dev-page-navigation">
                 <li class="title">Navigation</li>
+
                 <li ng-repeat="menuElement in menuElements" class="{{menuElement.class}}">
-                    <a href="index.html">
+                    <a href="{{menuElement.href}}">
                         <i class="{{menuElement.icon}}" aria-hidden="true"></i>
                         <span>{{menuElement.section}}</span>
                     </a>
                 </li>
+
             </ul>
 
         </div>
@@ -207,6 +209,15 @@
 <script src="angular-app/routes.js"></script>
 
 <script src="angular-app/mainController.js"></script>
+<script src="angular-app/bills/billsController.js"></script>
+<script src="angular-app/declarations/declarationsController.js"></script>
+<script src="angular-app/help/helpController.js"></script>
+<script src="angular-app/income/incomeController.js"></script>
+<script src="angular-app/outgoings/outgoingsController.js"></script>
+<script src="angular-app/payments/paymentsController.js"></script>
+<script src="angular-app/paysheets/paysheetsController.js"></script>
+<script src="angular-app/social-security/socialSecurityController.js"></script>
+<script src="angular-app/tax-simulator/taxSimulatorController.js"></script>
 
 
 <!-- templates js files-->

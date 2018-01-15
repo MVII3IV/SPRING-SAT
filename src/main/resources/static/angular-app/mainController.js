@@ -4,52 +4,62 @@ angular.module('app').controller("mainController", ['$scope', function ($scope) 
         {
             section: "Pagina Principal",
             class: "active",
-            icon: "fa fa-home"
+            icon: "fa fa-home",
+            href: "../#!/landing-page"
         },
         {
             section: "Ingresos",
             class: "",
-            icon: "fa fa-archive"
+            icon: "fa fa-archive",
+            href: "../#!/income"
         },
         {
             section: "Gastos",
             class: "",
-            icon: "fa fa-sticky-note-o"
+            icon: "fa fa-sticky-note-o",
+            href: "../#!/outgoings"
         },
         {
             section: "Simulador de Impuestos",
             class: "",
-            icon: "fa fa-file-text"
+            icon: "fa fa-file-text",
+            href: "../#!/tax-simulator"
         },
         {
             section: "Declaracion",
             class: "",
-            icon: "fa fa-clipboard"
+            icon: "fa fa-clipboard",
+            href: "../#!/declarations"
         },
         {
             section: "Facturas",
             class: "",
-            icon: "fa fa-folder"
+            icon: "fa fa-folder",
+            href: "../#!/bills"
         },
         {
             section: "Nominas",
             class: "",
-            icon: "fa fa-file-text-o"
+            icon: "fa fa-file-text-o",
+            href: "../#!/paysheets"
         },
         {
             section: "IMMS",
             class: "",
-            icon: "fa fa-users"
+            icon: "fa fa-users",
+            href: "../#!/social-security"
         },
         {
             section: "Pagos",
             class: "",
-            icon: "fa fa-money"
+            icon: "fa fa-money",
+            href: "../#!/payments"
         },
         {
             section: "Ayuda",
             class: "",
-            icon: "fa fa-question"
+            icon: "fa fa-question",
+            href: "../#!/help"
         }
     ];
 

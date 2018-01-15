@@ -73,7 +73,7 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String profile(HttpServletRequest request) {
         return "index";
     }
@@ -86,7 +86,7 @@ public class LoginController {
      * @param request
      * @return login view
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/a", method = RequestMethod.GET)
     public String login(Model model, HttpServletRequest request) {
 
         try {

@@ -1,1 +1,81 @@
 <h1>{{title}}</h1>
+
+<!-- datatables plugin -->
+<div class="wrapper wrapper-white">
+    <div class="page-subtitle" ng-hide="true">
+        <h3>DataTables</h3>
+        <p>ls to any HTML table.</p>
+        <p>Add class <code>.table-sortable</code> to table to get zero configuration.</p>
+    </div>
+
+
+    <div class="table-responsive">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+            <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select
+                    name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select> entries</label></div>
+            <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search"
+                                                                                               class="form-control"
+                                                                                               placeholder=""
+                                                                                               aria-controls="DataTables_Table_0"></label>
+            </div>
+            <table class="table table-bordered table-striped table-sortable dataTable no-footer" id="DataTables_Table_0"
+                   role="grid" aria-describedby="DataTables_Table_0_info">
+                <thead>
+                <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        aria-label="Name: activate to sort column ascending" style="width: 231.011px;">Folio Fiscal
+                    </th>
+                    <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        aria-label="Position: activate to sort column descending" style="width: 333.011px;"
+                        aria-sort="ascending">RFC Receptor
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        aria-label="Office: activate to sort column ascending" style="width: 183.011px;">Nombre o Razon
+                        social del Receptor
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        aria-label="Age: activate to sort column ascending" style="width: 89.0114px;">Fecha de emision
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        aria-label="Start date: activate to sort column ascending" style="width: 188.011px;">Total
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                        aria-label="Salary: activate to sort column ascending" style="width: 138.011px;">Servicios
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="odd" ng-repeat="bill in bills | filter : search" ng-if="$index > 0" load-finished>
+                    <td>{{bill.fiscalId}}</td>
+                    <td>{{bill.receiverRFC}}</td>
+                    <td>{{bill.receiverName}}</td>
+                    <td>{{bill.emitedDate}}</td>
+                    <td>{{bill.total}}</td>
+                    <td>
+                        <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 16
+                of 16 entries
+            </div>
+            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a
+                    class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0"
+                    tabindex="0" id="DataTables_Table_0_previous">Previous</a><span><a class="paginate_button current"
+                                                                                       aria-controls="DataTables_Table_0"
+                                                                                       data-dt-idx="1"
+                                                                                       tabindex="0">1</a></span><a
+                    class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2"
+                    tabindex="0" id="DataTables_Table_0_next">Next</a></div>
+        </div>
+    </div>
+
+
+</div>
+<!-- ./datatables plugin -->

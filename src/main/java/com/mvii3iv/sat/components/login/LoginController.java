@@ -86,7 +86,7 @@ public class LoginController {
      * @param request
      * @return login view
      */
-    @RequestMapping(value = "/a", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, HttpServletRequest request) {
 
         try {

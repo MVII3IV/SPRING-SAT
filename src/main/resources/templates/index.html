@@ -35,7 +35,7 @@
 
                       .shadow {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-}
+
         </style>
 </head>
 <body>
@@ -47,7 +47,7 @@
 <div class="dev-page">
 
     <!-- page header -->
-    <div class="dev-page-header">
+    <div class="dev-page-header" style="position:fixed">
 
         <div class="dph-logo">
             <a href="index.html">Intuitive</a>
@@ -79,7 +79,7 @@
 
 
         <!-- page sidebar user image -->
-        <div class="dev-page-sidebar">
+        <div class="dev-page-sidebar" style="position:fixed">
 
             <div class="profile profile-transparent">
                 <div class="profile-image">
@@ -88,6 +88,7 @@
                 </div>
                 <div class="profile-info">
                     <h4>Silvia Olivas</h4>
+                    <h5>RFC123456789</h5>
                     <span>Actividad Prodesional</span>
                 </div>
             </div>
@@ -124,7 +125,7 @@
 
                                         <!-- views injection -->
                                         <div class="container-tabbed" id="main">
-                                            <div ng-view></div>
+                                            <div ng-view autoscroll="true"></div>
                                         </div>
                                         <!-- ./views injection -->
 

@@ -6,6 +6,14 @@ public class User {
     private String rfc;
     private String pass;
 
+    public User() {
+    }
+
+    public User(String rfc, String pass) {
+        this.rfc = rfc;
+        this.pass = pass;
+    }
+
     public String getRfc() {
         return rfc;
     }

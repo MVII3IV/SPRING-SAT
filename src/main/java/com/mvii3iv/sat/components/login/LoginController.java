@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class LoginController {
     private Environment environment;
 
 
+
     @Autowired
     public LoginController(BillsService billsService, CaptchaService captchaService, Environment environment, UserDataService userDataService) {
         try {
@@ -73,46 +75,13 @@ public class LoginController {
         }
     }
 
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String profile(HttpServletRequest request) {
         return "index";
     }
 
-
-    /**
-     * This method is in change of load the the login
-     *
-     * @param model
-     * @param request
-     * @return login view
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, HttpServletRequest request) {
-
-        try {
-
-            String sessionId = request.getSession().getId();
-
-            if (!UserDataService.usersData.containsKey(sessionId)) {
-                UserData userData = new UserData(init(), null, new ArrayList<Bills>(), new User(), false);
-                UserDataService.usersData.put(sessionId, userData);
-            }
-
-            UserData userData = ((UserData) UserDataService.usersData.get(sessionId));
-            WebClient webClient = userData.getWebClient();
-            userData.setBrowser(webClient.getPage(LOGIN_URL));
-
-            //if the captcha couldn be saved then reload the site
-            if (!saveCaptcha(request.getSession().getId(), userData.getBrowser()))
-                return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
-
-            model.addAttribute("message", loginMessage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "pages-login";
-    }
 
 
     /**
@@ -135,26 +104,6 @@ public class LoginController {
     }
 
 
-    /**
-     * Returns any template by its path ("/templates/login.html")
-     *
-     * @param path
-     * @return
-     */
-    private String getTemplate(String path) {
-        try {
-            return FileUtils.readFileToString(new File(this.getClass().getResource(path).toURI()), "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-
 
     /**
      * in charge of login the application and pass to the next page section
@@ -163,22 +112,51 @@ public class LoginController {
      * @param user
      * @return views-profile view
      */
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String enterLoginData(HttpServletRequest request, @ModelAttribute User user) {
-
-        String sessionId = request.getSession().getId();
-        UserData userData = ((UserData) UserDataService.usersData.get(sessionId));
-        WebClient webClient = userData.getWebClient();
-        HtmlPage browser = userData.getBrowser();
+    public void enterLoginData(HttpServletRequest request, User user, HttpServletResponse response) throws IOException {
 
         try {
+
+            String sessionId = request.getSession().getId();
+
+            if ( !UserDataService.usersData.containsKey(sessionId) ) {
+                UserData userData = new UserData(init(), null, new ArrayList<Bills>(), new User(), false);
+                UserDataService.usersData.put(sessionId, userData);
+            }
+
+            UserData userData = ((UserData) UserDataService.usersData.get(sessionId));
+            WebClient webClient = userData.getWebClient();
+            userData.setBrowser(webClient.getPage(LOGIN_URL));
+            HtmlPage browser = userData.getBrowser();
+
+
+
+            System.out.println("------------------------------------------STAGE 1-------------------------------------------------");
+
+
+
+            //if the captcha couldn be saved then reload the site
+            if (!saveCaptcha(request.getSession().getId(), browser))
+                response.sendRedirect("/login");
+
+
+
+            System.out.println("------------------------------------------STAGE 2-------------------------------------------------");
+
+
 
             //if login fails then the user is redirected
             if (!login(user, request.getSession().getId(), webClient)) {
                 String redirectUrl = request.getScheme() + "://localhost:8080";
                 loginMessage = "Datos incorrectos intenta nuevamente";
-                return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
+                response.sendRedirect("/login");
+                //return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;
             }
+
+
+
+            System.out.println("------------------------------------------STAGE 3-------------------------------------------------");
+
+
 
             HtmlTable table = null;
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
@@ -187,10 +165,22 @@ public class LoginController {
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaFinal2_Calendario_text")).setValueAttribute("05/10/2017");
             browser = ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_BtnBusqueda")).click();
 
+
+
+            System.out.println("------------------------------------------STAGE 4-------------------------------------------------");
+
+
+
             do {
                 webClient.waitForBackgroundJavaScript(1000);
                 table = browser.getHtmlElementById("ctl00_MainContent_tblResult");
             } while (table.getRows().size() <= 1);
+
+
+
+            System.out.println("------------------------------------------STAGE 5-------------------------------------------------");
+
+
 
             List bills = new ArrayList<>();
 
@@ -219,8 +209,9 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        return "index";
+        response.sendRedirect("/");
     }
+
 
 
     /**
@@ -258,6 +249,7 @@ public class LoginController {
     }
 
 
+
     /**
      * initiates HtmlUnit and some global variables
      */
@@ -272,7 +264,6 @@ public class LoginController {
         } else {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
         }
-
 
         LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);

@@ -1,5 +1,9 @@
 angular.module('app').controller("mainController", ['$scope', function ($scope) {
 
+    /*
+    * Menu element object
+    * Contains all the properties need to the proper functionality
+    */
     $scope.menuElements = [
         {
             section: "Pagina Principal",
@@ -62,5 +66,15 @@ angular.module('app').controller("mainController", ['$scope', function ($scope) 
             href: "../#!/help"
         }
     ];
+
+    /*
+    * Add class="active" to the clicked list element
+    */
+    $scope.selectListElement = function(elementSelected){
+        $scope.menuElements.forEach(function(menuElement){
+            menuElement.class = "";
+        });
+        elementSelected.class = "active";
+    }
 
 }]);

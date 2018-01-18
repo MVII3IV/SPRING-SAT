@@ -109,33 +109,20 @@ public class AntiCaptchaService {
             os.write(jsonData.getBytes());
             os.flush();
 
-            /*
-            if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
-            }*/
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (conn.getInputStream())));
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
             String output = "";
-            System.out.println("Output from Server .... \n");
+            System.out.println("Captcha server is processing data \n");
 
             while ((output = br.readLine()) != null) {
-                System.out.println(output);
-
                 AntiCaptchaCreatedTaskResponse response = new ObjectMapper().readValue(output, AntiCaptchaCreatedTaskResponse.class);
 
                 if (response.getErrorId() == 0)
                     return response;
                 else
                     System.out.println("anti-captcha returned error > 0");
-
-                System.out.println(output);
-
             }
             return null;
-
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -170,25 +157,19 @@ public class AntiCaptchaService {
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
-
-
                 OutputStream os = conn.getOutputStream();
                 os.write(jsonData.getBytes());
                 os.flush();
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        (conn.getInputStream())));
+                BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
-
-                System.out.println("Output from Server .... \n");
                 String output = br.readLine();
-                System.out.println(output);
-
                 AntiCaptchaTaskResult taskResult = new ObjectMapper().readValue(output, AntiCaptchaTaskResult.class);
 
                 if (taskResult.getErrorId() == 0) {
 
                     if (taskResult.getStatus().equals("ready")) {
+                        System.out.println(output);
                         return taskResult;
                     } else {
                         conn.disconnect();

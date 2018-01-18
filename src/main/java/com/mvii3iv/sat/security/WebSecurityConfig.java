@@ -8,9 +8,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
-@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -19,25 +19,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        BeanDefinitionBuilder providerManagerBldr = BeanDefinitionBuilder
-                .rootBeanDefinition(ProviderManager.class);
-        providerManagerBldr.addPropertyValue("eraseCredentialsAfterAuthentication",
-                false);
-
         http
             .authorizeRequests()
-                //.antMatchers("/").permitAll()
+                .antMatchers("/resources/static/**").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
+
             .formLogin().successHandler(customAuthenticationSuccessHandler)
                 .loginPage("/login")
                 .permitAll()
                 .and()
+
             .logout()
                 .permitAll()
                 .and()
-        .exceptionHandling().accessDeniedPage("/403");
+
+             .sessionManagement()
+                .sessionFixation().migrateSession()
+                .invalidSessionUrl("/invalidSession.html")
+                .maximumSessions(2)
+                .and()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .and()
+
+            .exceptionHandling()
+                .accessDeniedPage("/403");
     }
 
 

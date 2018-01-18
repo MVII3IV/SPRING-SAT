@@ -97,7 +97,7 @@
                 <li class="title">Navigation</li>
 
                 <li ng-repeat="menuElement in menuElements" class="{{menuElement.class}}">
-                    <a href="{{menuElement.href}}">
+                    <a href="{{menuElement.href}}" ng-click="selectListElement(menuElement)">
                         <i class="{{menuElement.icon}}" aria-hidden="true"></i>
                         <span>{{menuElement.section}}</span>
                     </a>
@@ -187,7 +187,7 @@
         <!-- ./page footer container -->
 
         <ul class="dev-page-footer-controls dev-page-footer-controls-auto pull-right">
-            <li><a class="dev-page-footer-collapse dev-page-footer-control-stuck tip" title="Logoff"><i class="fa fa-power-off"></i></a></li>
+            <li><a class="dev-page-footer-collapse dev-page-footer-control-stuck tip" title="Logoff"><i class="fa fa-power-off" ng-click="logOut()"></i></a></li>
         </ul>
     </div>
     <!-- ./page footer -->

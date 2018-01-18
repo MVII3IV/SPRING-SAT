@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -79,6 +80,8 @@ public class LoginController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String profile(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(-1);
         return "index";
     }
 
@@ -224,20 +227,29 @@ public class LoginController {
         HtmlPage browser = (HtmlPage) webClient.getCurrentWindow().getEnclosedPage();
 
         try {
+            int timeMultiplier = 2;
+            System.out.println("-->Stage 2.1");
+
             HtmlForm loginForm = browser.getFormByName("IDPLogin");
             HtmlInput rfc = loginForm.getInputByName("Ecom_User_ID");
             HtmlPasswordInput pass = loginForm.getInputByName("Ecom_Password");
             HtmlInput captcha = loginForm.getInputByName("jcaptcha");
             HtmlInput sendButton = loginForm.getInputByName("submit");
 
+            System.out.println("-->Stage 2.2");
             rfc.setValueAttribute(user.getRfc());
             pass.setValueAttribute(user.getPass());
             captcha.setValueAttribute(captchaService.decodeCaptcha(sessionId));
             browser = sendButton.click();
 
+            System.out.println("-->Stage 2.3");
             do {
                 browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/");
-                webClient.waitForBackgroundJavaScript(1000);
+                webClient.waitForBackgroundJavaScript(1000 * timeMultiplier++);
+
+                if(timeMultiplier > 10)
+                    return false;
+
             } while (browser.getPage().getTitleText().toLowerCase().equals("sat autenticación"));
 
             return true;

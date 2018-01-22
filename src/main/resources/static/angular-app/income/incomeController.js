@@ -11,7 +11,7 @@ angular.module('app')
 .controller("incomeController", ['$scope', '$http', function ($scope, $http) {
     $scope.title = "Ingresos";
 
-    $scope.billss = [
+    $scope.bills = [
         {
                 "fiscalId": "Folio Fiscal",
                 "emisorRFC": "RFC Emisor",
@@ -61,6 +61,14 @@ angular.module('app')
         $scope.myWelcome = response.statusText;
     });
 
+
+    $scope.players = [
+      {name: 'Gene', team: 'alpha'},
+      {name: 'George', team: 'beta'},
+      {name: 'Steve', team: 'gamma'},
+      {name: 'Paula', team: 'beta'},
+      {name: 'Scruath', team: 'gamma'}
+    ];
 
 }]);
 

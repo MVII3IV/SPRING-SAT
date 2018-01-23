@@ -1,16 +1,9 @@
-<div class="page-title">
-    <h1>{{title}}</h1>
-    <p>Visualiza tus ingresos</p>
 
-    <ul class="breadcrumb" ng-if="false">
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Forms</a></li>
-        <li>Form Elements</li>
-    </ul>
-</div>
 
 <!-- datatables plugin -->
 <div class="wrapper wrapper-white">
+
+    <h1>{{title}}</h1>
 
 
     <div class="table-responsive" style="margin-top:0px">
@@ -47,7 +40,14 @@
 
             </div>
 
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal_form">Agregar Ingreso Adicional</button>
+            </div>
+
         </div>
+
+
+
 
         <!--row-->
         <div class="row">
@@ -56,7 +56,7 @@
 
 
             <div class="col-md-7" style="margin-right:10px;margin-left:10px">
-                <h1 style="margin-top:30px">Totales por Cliente</h1>
+                <h1 style="margin-top:30px">Tus ingresos</h1>
                 <table class="table table-bordered table-striped table-sortable dataTable no-footer"
                        style="margin-top: 0px;">
                     <thead>
@@ -111,8 +111,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr role="row" class="odd" ng-repeat="(key, value) in bills | groupBy: 'receiverRFC'" >
-                            <td>Group name: {{ key }}</td>
+                        <tr role="row" class="odd" ng-repeat="(key, value) in bills | groupBy: 'receiverName'" ng-if="$index > 0">
+                            <td>{{ key }}</td>
+                            <td>{{ getTotal(value) | currency}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -129,3 +130,50 @@
 
 </div>
 <!-- ./datatables plugin -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Agregar Ingreso Adicional</h4>
+            </div>
+            <div class="modal-body">
+                <p>Con el fin de agregar un ingreso adicional es necesario que se llenen los siguientes campos</p>
+
+                <div class="form-group">
+                    <label>RFC</label>
+                    <input type="text" class="form-control" placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label>NOMBRE</label>
+                    <input type="text" class="form-control" placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label>CANTIDAD</label>
+                    <input type="text" class="form-control" placeholder="Your name">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Agreagar Ingreso</button>
+            </div>
+        </div>
+    </div>
+</div>

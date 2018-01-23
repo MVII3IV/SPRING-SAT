@@ -24,32 +24,6 @@ angular.module('app')
                 "total": "Total",
                 "voucherEffect": "Efecto del Comprobante",
                 "voucherStatus": "Estado del Comprobante"
-            },
-            {
-                "fiscalId": "AB930177-609A-4FBB-AA5E-5A730BC712AA",
-                "emisorRFC": "LULR860821MTA",
-                "emisorName": "ROSA IVET LUNA LOPEZ",
-                "receiverRFC": "ARD631206SX5",
-                "receiverName": "AUTOTRANSPORTES RAPIDOS DELICIAS SA DE CV",
-                "emitedDate": "2017-01-05T12:02:46",
-                "certificationDate": "2017-01-05T12:02:47",
-                "certifiedPAC": "CCC1007293K0",
-                "total": "$15,405.99",
-                "voucherEffect": "Ingreso",
-                "voucherStatus": "Vigente"
-            },
-            {
-                "fiscalId": "CBC2A62E-F664-45EA-826B-3D236D658F87",
-                "emisorRFC": "LULR860821MTA",
-                "emisorName": "ROSA IVET LUNA LOPEZ",
-                "receiverRFC": "BDE860408EF0",
-                "receiverName": "BRASA DESARROLLOS SA DE CV",
-                "emitedDate": "2017-01-05T12:10:32",
-                "certificationDate": "2017-01-05T12:10:32",
-                "certifiedPAC": "CCC1007293K0",
-                "total": "$7,759.14",
-                "voucherEffect": "Ingreso",
-                "voucherStatus": "Vigente"
             }
     ];
 
@@ -62,13 +36,13 @@ angular.module('app')
     });
 
 
-    $scope.players = [
-      {name: 'Gene', team: 'alpha'},
-      {name: 'George', team: 'beta'},
-      {name: 'Steve', team: 'gamma'},
-      {name: 'Paula', team: 'beta'},
-      {name: 'Scruath', team: 'gamma'}
-    ];
+    $scope.getTotal = function(value){
+        var total = 0;
+        value.forEach(function(iteratedElement){
 
+            total += Number(iteratedElement.total.replace(/[^0-9\.-]+/g,""))
+        });
+        return total;
+    }
 }]);
 

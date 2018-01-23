@@ -162,7 +162,10 @@ public class LoginController {
 
 
             HtmlTable table = null;
+            //incomes
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
+            //bills
+            //browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaReceptor.aspx");
             browser.getHtmlElementById("ctl00_MainContent_RdoFechas").click();
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaInicial2_Calendario_text")).setValueAttribute("01/01/2017");
             ((HtmlInput) browser.getHtmlElementById("ctl00_MainContent_CldFechaFinal2_Calendario_text")).setValueAttribute("05/10/2017");

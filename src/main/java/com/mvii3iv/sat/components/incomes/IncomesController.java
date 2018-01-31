@@ -1,4 +1,4 @@
-package com.mvii3iv.sat.components.bills;
+package com.mvii3iv.sat.components.incomes;
 
 import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.UserData.UserDataService;
@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-public class BillsController {
+@RequestMapping(value = "/incomes")
+public class IncomesController {
 
-    private BillsService billsService;
+    private IncomesService incomesService;
     private UserDataService userDataService;
 
     @Autowired
-    public BillsController(BillsService billsService){
-        this.billsService = billsService;
+    public IncomesController(IncomesService incomesService){
+        this.incomesService = incomesService;
         this.userDataService = userDataService;
     }
 
-    @RequestMapping(value = "/bills", method = RequestMethod.GET)
-    public List<Bills> getBills(HttpServletRequest request){
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public List<Incomes> getIcomes(HttpServletRequest request){
 
         String sessionId = request.getSession().getId();
         UserData userData = (UserData)UserDataService.usersData.get(sessionId);

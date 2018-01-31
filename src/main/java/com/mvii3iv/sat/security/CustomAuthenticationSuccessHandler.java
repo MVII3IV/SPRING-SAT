@@ -46,7 +46,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
             response.sendRedirect("/admin");
         }else{
             loginController.enterLoginData(request, new User(authentication.getName() ,authentication.getCredentials().toString()), response);
-            //response.sendRedirect("/access");
+            //response.sendRedirect("/");
         }
     }
 }

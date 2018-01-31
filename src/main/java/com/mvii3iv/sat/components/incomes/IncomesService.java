@@ -1,14 +1,13 @@
-package com.mvii3iv.sat.components.bills;
+package com.mvii3iv.sat.components.incomes;
 
 
-import com.mvii3iv.sat.components.UserData.UserDataService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BillsService {
+public class IncomesService {
 
 
     public List getBills() {
@@ -19,5 +18,5 @@ public class BillsService {
         this.bills = bills;
     }
 
-    private List bills = new ArrayList<Bills>();
+    private List bills = new ArrayList<Incomes>();
 }

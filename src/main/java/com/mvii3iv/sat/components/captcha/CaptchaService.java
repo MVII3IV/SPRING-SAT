@@ -2,9 +2,8 @@ package com.mvii3iv.sat.components.captcha;
 
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.mvii3iv.sat.components.anticaptcha.AntiCaptchaService;
-import com.mvii3iv.sat.components.bills.BillsService;
+import com.mvii3iv.sat.components.incomes.IncomesService;
 import org.apache.commons.io.FileUtils;
-import org.apache.tomcat.jni.Directory;
 import org.apache.xerces.impl.dv.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class CaptchaService {
     private final String CAPTCHA_EXTENTION = ".PNG";
 
     @Autowired
-    public CaptchaService(BillsService billsService, AntiCaptchaService antiCaptchaService) {
+    public CaptchaService(IncomesService incomesService, AntiCaptchaService antiCaptchaService) {
         this.antiCaptchaService = antiCaptchaService;
         deleteAllCaptchasFromServer();
     }

@@ -6,15 +6,13 @@ import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.UserData.UserDataService;
-import com.mvii3iv.sat.components.bills.Bills;
-import com.mvii3iv.sat.components.bills.BillsService;
+import com.mvii3iv.sat.components.incomes.Incomes;
+import com.mvii3iv.sat.components.incomes.IncomesService;
 import com.mvii3iv.sat.components.captcha.CaptchaService;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 
 @Controller
@@ -56,7 +52,7 @@ public class LoginController {
     private String HOST_PORT;
     private String HOST_SCHEME = "http://";
 
-    private BillsService billsService;
+    private IncomesService incomesService;
     private CaptchaService captchaService;
     private Environment environment;
 
@@ -66,9 +62,9 @@ public class LoginController {
 
 
     @Autowired
-    public LoginController(BillsService billsService, CaptchaService captchaService, Environment environment, UserDataService userDataService) {
+    public LoginController(IncomesService incomesService, CaptchaService captchaService, Environment environment, UserDataService userDataService) {
         try {
-            this.billsService = billsService;
+            this.incomesService = incomesService;
             this.captchaService = captchaService;
             this.environment = environment;
             HOST_PORT = environment.getProperty("server.port");
@@ -124,7 +120,7 @@ public class LoginController {
             String sessionId = request.getSession().getId();
 
             if ( !UserDataService.usersData.containsKey(sessionId) ) {
-                UserData userData = new UserData(init(), null, new ArrayList<Bills>(), new User(), false);
+                UserData userData = new UserData(init(), null, new ArrayList<Incomes>(), new User(), false);
                 UserDataService.usersData.put(sessionId, userData);
             }
 
@@ -195,7 +191,7 @@ public class LoginController {
             for (final HtmlTableRow row : table.getRows()) {
 
                 bills.add(
-                        new Bills(
+                        new Incomes(
                                 row.getCells().get(1).asText(), //fiscalId
                                 row.getCells().get(2).asText(), //emisorRFC
                                 row.getCells().get(3).asText(), //emisorName

@@ -1,38 +1,132 @@
 package com.mvii3iv.sat.components.incomes;
 
-import com.mvii3iv.sat.components.UserData.UserData;
-import com.mvii3iv.sat.components.UserData.UserDataService;
-import com.mvii3iv.sat.components.bills.Bills;
-import com.mvii3iv.sat.components.bills.BillsService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import org.springframework.data.annotation.Id;
 
-@RestController
-@RequestMapping(value = "/incomes")
 public class Incomes {
 
-    private BillsService billsService;
-    private UserDataService userDataService;
+    @Id
+    private String fiscalId;
+    private String emisorRFC;
+    private String emisorName;
+    private String receiverRFC;
+    private String receiverName;
+    private String emitedDate;
+    private String certificationDate;
+    private String certifiedPAC;
+    private String total;
+    private String voucherEffect;
+    private String voucherStatus;
 
-    @Autowired
-    public Incomes(BillsService billsService){
-        this.billsService = billsService;
-        this.userDataService = userDataService;
+    @Override
+    public String toString(){
+        return String.format("Incomes[fiscalId=%s, emisorRFC='%s', emisorName='%s', receiverRFC='%s', emitedDate='%s', certificationDate='%s', certifiedPAC='%s', total='%s', voucherEffect='%s', voucherStatus='%s' ]",
+                fiscalId, emisorRFC, emisorName, receiverRFC, receiverName, emitedDate, certificationDate, certifiedPAC, total, voucherEffect, voucherStatus);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Bills> getIcomes(HttpServletRequest request){
+    public Incomes(){
 
-        String sessionId = request.getSession().getId();
-        UserData userData = (UserData)UserDataService.usersData.get(sessionId);
-
-        return userData.getBills();
     }
 
+    public Incomes(String fiscalId, String emisorRFC, String emisorName, String receiverRFC, String receiverName, String emitedDate, String certificationDate, String certifiedPAC, String total, String voucherEffect, String voucherStatus) {
+        this.fiscalId = fiscalId;
+        this.emisorRFC = emisorRFC;
+        this.emisorName = emisorName;
+        this.receiverRFC = receiverRFC;
+        this.receiverName = receiverName;
+        this.emitedDate = emitedDate;
+        this.certificationDate = certificationDate;
+        this.certifiedPAC = certifiedPAC;
+        this.total = total;
+        this.voucherEffect = voucherEffect;
+        this.voucherStatus = voucherStatus;
+    }
+
+    public String getFiscalId() {
+        return fiscalId;
+    }
+
+    public void setFiscalId(String fiscalId) {
+        this.fiscalId = fiscalId;
+    }
+
+    public String getEmisorRFC() {
+        return emisorRFC;
+    }
+
+    public void setEmisorRFC(String emisorRFC) {
+        this.emisorRFC = emisorRFC;
+    }
+
+    public String getEmisorName() {
+        return emisorName;
+    }
+
+    public void setEmisorName(String emisorName) {
+        this.emisorName = emisorName;
+    }
+
+    public String getReceiverRFC() {
+        return receiverRFC;
+    }
+
+    public void setReceiverRFC(String receiverRFC) {
+        this.receiverRFC = receiverRFC;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getEmitedDate() {
+        return emitedDate;
+    }
+
+    public void setEmitedDate(String emitedDate) {
+        this.emitedDate = emitedDate;
+    }
+
+    public String getCertificationDate() {
+        return certificationDate;
+    }
+
+    public void setCertificationDate(String certificationDate) {
+        this.certificationDate = certificationDate;
+    }
+
+    public String getCertifiedPAC() {
+        return certifiedPAC;
+    }
+
+    public void setCertifiedPAC(String certifiedPAC) {
+        this.certifiedPAC = certifiedPAC;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getVoucherEffect() {
+        return voucherEffect;
+    }
+
+    public void setVoucherEffect(String voucherEffect) {
+        this.voucherEffect = voucherEffect;
+    }
+
+    public String getVoucherStatus() {
+        return voucherStatus;
+    }
+
+    public void setVoucherStatus(String voucherStatus) {
+        this.voucherStatus = voucherStatus;
+    }
 }

@@ -10,6 +10,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvii3iv.sat.components.anticaptcha.models.*;
 import org.apache.xerces.impl.dv.util.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,10 +20,12 @@ public class AntiCaptchaService {
     /**
      * Global and constant variables
      */
-    private final boolean USING_PROXY = true;
     private final String CLIENT_kEY = "d2e3cdd426d740b83ee2bd655067412e";
     private final String TASK_RESULT_URL = "https://api.anti-captcha.com/getTaskResult";
     private final String CREATE_TASK_URL = "https://api.anti-captcha.com/createTask";
+
+    @Autowired
+    private Environment env;
 
 
     /**
@@ -94,7 +98,7 @@ public class AntiCaptchaService {
             HttpURLConnection conn = null;
             URL url = new URL(u);
 
-            if (USING_PROXY) {
+            if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
                 Proxy proxy = new Proxy(Proxy.Type.HTTP,
                         new InetSocketAddress("proxy.autozone.com", 8080));
                 conn = (HttpURLConnection) url.openConnection(proxy);
@@ -146,7 +150,7 @@ public class AntiCaptchaService {
                 HttpURLConnection conn = null;
                 URL url = new URL(u);
 
-                if (USING_PROXY) {
+                if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
                     Proxy proxy = new Proxy(Proxy.Type.HTTP,
                             new InetSocketAddress("proxy.autozone.com", 8080));
                     conn = (HttpURLConnection) url.openConnection(proxy);

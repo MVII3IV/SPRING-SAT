@@ -51,7 +51,6 @@ public class LoginController {
      */
 
     private static final String LOGIN_URL = "https://portalcfdi.facturaelectronica.sat.gob.mx/";
-    private boolean proxyEnabled = true;
     private String loginMessage = "";
     private String HOST_NAME;
     private String HOST_PORT;
@@ -60,6 +59,9 @@ public class LoginController {
     private BillsService billsService;
     private CaptchaService captchaService;
     private Environment environment;
+
+    @Autowired
+    private Environment env;
 
 
 
@@ -272,10 +274,10 @@ public class LoginController {
 
         WebClient webClient = new WebClient();
 
-        if (proxyEnabled) {
+        if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER, "proxy.autozone.com", 8080);
             DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
-            credentialsProvider.addCredentials("edomingu", "A17934862-");
+            credentialsProvider.addCredentials("edomingu", "r<94Vk4=k'`PC'g");
         } else {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
         }

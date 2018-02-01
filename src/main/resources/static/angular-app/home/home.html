@@ -1,170 +1,201 @@
-<div class="container">
+<div class="wrapper wrapper-white">
 
-    <!-- title -->
-    <div class="wrapper">
-        <!-- page title -->
-        <div class="page-title">
-            <h1>Ingresos y Gastos</h1>
-            <p>Visualiza tus ingresos y gastos por mes</p>
+    <h1>{{title}}</h1>
+    <div class="table-responsive" style="margin-top:20px">
 
-            <ul class="breadcrumb">
-                <li><a href="#">Pagina Principal</a></li>
-                <li>Ingresos y Gastos</li>
-            </ul>
-        </div>
-        <!-- ./page title -->
-    </div>
-    <!-- ./title -->
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
 
 
-    <!-- earnings/outgoings -->
-    <div class="wrapper">
-        <div class="col-md-12">
-            <div class="wrapper padding-bottom-0">
-                <div class="dev-table">
+            <!-- DateTime -->
+            <div class="row well" style="padding-bottom: 0px; margin: 0px;">
 
-                    <!-- Earnings -->
-                    <div class="col-md-3">
+                <div class="row" style="margin-top: 20px; margin-left: 20px;">
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker10').datetimepicker({
+                                viewMode: 'years',
+                                format: 'MM/YYYY'
+                            });
+                        });
+                    </script>
 
-                        <div class="dev-widget dev-widget-success">
-                            <h2>Tus Ingresos</h2>
-
-                            <div class="dev-stat">$<span class="counter">1,000</span></div>
-                            <div class="progress progress-bar-xs">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- /.Earnings-->
-
-                    <!-- outgoings-->
-                    <div class="col-md-3">
-
-                        <div class="dev-widget dev-widget-transparent dev-widget-danger">
-                            <h2>Tus Gastos</h2>
-                            <div class="dev-stat">$<span class="counter">600</span></div>
-                            <div class="progress progress-bar-xs">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Seleccion de Mes</label>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker10'>
+                                        <input type='text' class="form-control"/>
+                                        <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- ./outgoings-->
+                    <div class="col-md-4">
+                        <button class="btn btn-default" data-target=""> Año Completo </button>
+                    </div>
+                </div>
 
-                    <!-- difference-->
-                    <div class="col-md-3">
+            </div>
+            <!-- ./DateTime -->
 
-                        <div class="dev-widget dev-widget-transparent dev-widget-success">
-                            <h2>Diferencia</h2>
-                            <div class="dev-stat">$<span class="counter">400</span></div>
-                            <div class="progress progress-bar-xs">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+            <div style="margin-top:40px;"></div>
+
+            <!-- earnings/outgoings -->
+            <div class="col-md-12">
+                    <div class="wrapper padding-bottom-0 padding-top-0">
+                        <div class="dev-table">
+
+                            <!-- Earnings -->
+                            <div class="col-md-3">
+
+                                <div class="dev-widget dev-widget-success">
+                                    <h2>Tus Ingresos</h2>
+
+                                    <div class="dev-stat">$<span class="counter">1,000</span></div>
+                                    <div class="progress progress-bar-xs" ng-if="false">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                    </div>
+                                    <p>El total de tus ingresos deacuerdo al mes de Febreso</p>
+
+                                </div>
+
                             </div>
+                            <!-- /.Earnings-->
+
+                            <!-- outgoings-->
+                            <div class="col-md-3">
+
+                                <div class="dev-widget dev-widget-transparent dev-widget-danger">
+                                    <h2>Tus Gastos</h2>
+                                    <div class="dev-stat">$<span class="counter">600</span></div>
+                                    <div class="progress progress-bar-xs" ng-if="false">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
+                                    </div>
+                                    <p>Tus gastos realizados en el mes de Febrero</p>
+                                </div>
+
+                            </div>
+                            <!-- ./outgoings-->
+
+                            <!-- difference-->
+                            <div class="col-md-3">
+
+                                <div class="dev-widget dev-widget-transparent dev-widget-success">
+                                    <h2>Diferencia</h2>
+                                    <div class="dev-stat">$<span class="counter">400</span></div>
+                                    <div class="progress progress-bar-xs" ng-if="false">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                    </div>
+                                    <p>El resultado de tus ingresos menos los gastos en Febrero</p>
+
+                                </div>
+
+                            </div>
+                            <!-- ./difference-->
+
+                            <!-- taxes-->
+                            <div class="col-md-3">
+
+                                <div class="dev-widget dev-widget-transparent dev-widget-danger">
+                                    <h2>Impuestos Por Pagar</h2>
+                                    <div class="dev-stat">$<span class="counter">45</span></div>
+                                    <div class="progress progress-bar-xs" ng-if="false">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
+                                    </div>
+                                    <p>Lo que debes pagar en impuestos deacuerdo a tus datos</p>
+                                </div>
+
+                            </div>
+                            <!-- ./taxes-->
 
                         </div>
-
                     </div>
-                    <!-- ./difference-->
+                </div>
+            <!-- ./earnings/outgoings -->
 
-                    <!-- taxes-->
-                    <div class="col-md-3">
 
-                        <div class="dev-widget dev-widget-transparent dev-widget-danger">
-                            <h2>Impuestos Por Pagar</h2>
-                            <div class="dev-stat">$<span class="counter">45</span></div>
-                            <div class="progress progress-bar-xs">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
-                            </div>
-                        </div>
+            <!-- charts -->
+            <canvas id="line-chart" width="800" height="300"></canvas>
+            <!-- ./charts -->
 
-                    </div>
-                    <!-- ./taxes-->
+
+            <!-- table -->
+            <div class="wrapper">
+                <div class="col-md-12">
+
+                    <h1 style="margin-top:30px">Totales</h1>
+                    <table class="table table-bordered table-striped table-sortable dataTable no-footer">
+                        <thead>
+                        <tr role="row">
+                            <th>Mes</th>
+                            <th>Ingresos</th>
+                            <th>Gastos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Enero</td>
+                            <td>$1,000.00</td>
+                            <td>$600.00</td>
+                        </tr>
+                        <tr>
+                            <td>Febrero</td>
+                            <td>$2,000.00</td>
+                            <td>$800.00</td>
+                        </tr>
+                        <tr>
+                            <td>Marzo</td>
+                            <td>$13,000.00</td>
+                            <td>$6700.00</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- ./earnings/outgoings -->
+            <!-- ./table -->
 
 
-    <!-- charts -->
-    <div class="wrapper">
-        <canvas id="line-chart" width="800" height="300"></canvas>
-    </div>
-    <!-- ./charts -->
-
-
-    <!-- table -->
-    <div class="wrapper">
-        <div class="col-md-12">
-
-            <h1 style="margin-top:30px">Totales</h1>
-            <table class="table table-bordered table-striped table-sortable dataTable no-footer">
-                <thead>
-                <tr role="row">
-                    <th>Mes</th>
-                    <th>Ingresos</th>
-                    <th>Gastos</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Enero</td>
-                    <td>$1,000.00</td>
-                    <td>$600.00</td>
-                </tr>
-                <tr>
-                    <td>Febrero</td>
-                    <td>$2,000.00</td>
-                    <td>$800.00</td>
-                </tr>
-                <tr>
-                    <td>Marzo</td>
-                    <td>$13,000.00</td>
-                    <td>$6700.00</td>
-                </tr>
-                </tbody>
-            </table>
+            <script>
+            //https://www.sitepoint.com/introduction-chart-js-2-0-six-examples/
+            //http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#2-line-chart
+            new Chart(document.getElementById("line-chart"), {
+              type: 'line',
+              data: {
+                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                datasets: [{
+                    data: [1000, 1200, 1110, 1150, 1200, 1250, 950, 1100, 1150, 1000, 1500, 1100],
+                    label: "Ingresos",
+                    borderColor: "#82b440",
+                    fill: false
+                  }, {
+                    data: [600, 800, 1200, 1000, 635, 809, 947, 1402, 1500, 500, 500, 210],
+                    label: "Gastos",
+                    borderColor: "#e74e40",
+                    fill: false
+                  }
+                ]
+              },
+              options: {
+                title: {
+                  display: false,
+                  text: 'Tabla de Ingresos y Gastos'
+                }
+              }
+            });
+            </script>
 
         </div>
+
     </div>
-    <!-- ./table -->
-
-
-
-    <script>
-    //https://www.sitepoint.com/introduction-chart-js-2-0-six-examples/
-    //http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#2-line-chart
-new Chart(document.getElementById("line-chart"), {
-  type: 'line',
-  data: {
-    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-    datasets: [{
-        data: [1000, 1200, 1110, 1150, 1200, 1250, 950, 1100, 1150, 1000, 1500, 1100],
-        label: "Ingresos",
-        borderColor: "#82b440",
-        fill: false
-      }, {
-        data: [600, 800, 1200, 1000, 635, 809, 947, 1402, 1500, 500, 500, 210],
-        label: "Gastos",
-        borderColor: "#e74e40",
-        fill: false
-      }
-    ]
-  },
-  options: {
-    title: {
-      display: false,
-      text: 'Tabla de Ingresos y Gastos'
-    }
-  }
-});
-    </script>
 
 </div>

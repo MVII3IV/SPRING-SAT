@@ -7,11 +7,13 @@ import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.UserData.UserDataService;
 import com.mvii3iv.sat.components.incomes.Incomes;
+import com.mvii3iv.sat.components.incomes.IncomesRepository;
 import com.mvii3iv.sat.components.incomes.IncomesService;
 import com.mvii3iv.sat.components.captcha.CaptchaService;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +55,8 @@ public class LoginController {
     private String HOST_SCHEME = "http://";
 
     private IncomesService incomesService;
+    private IncomesRepository incomesRepository;
+
     private CaptchaService captchaService;
     private Environment environment;
 
@@ -62,9 +66,11 @@ public class LoginController {
 
 
     @Autowired
-    public LoginController(IncomesService incomesService, CaptchaService captchaService, Environment environment, UserDataService userDataService) {
+    public LoginController(IncomesService incomesService, CaptchaService captchaService, Environment environment, UserDataService userDataService, IncomesRepository incomesRepository) {
         try {
             this.incomesService = incomesService;
+            this.incomesRepository = incomesRepository;
+
             this.captchaService = captchaService;
             this.environment = environment;
             HOST_PORT = environment.getProperty("server.port");
@@ -73,7 +79,6 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -108,27 +113,28 @@ public class LoginController {
 
     /**
      * in charge of login the application and pass to the next page section
-     *
      * @param request
-     * @param user
-     * @return views-profile view
+     * @param response
+     * @throws IOException
      */
-    public void enterLoginData(HttpServletRequest request, User user, HttpServletResponse response) throws IOException {
+    public void extractData(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        UserData userData = null;
         try {
 
             String sessionId = request.getSession().getId();
 
+
             if ( !UserDataService.usersData.containsKey(sessionId) ) {
-                UserData userData = new UserData(init(), null, new ArrayList<Incomes>(), new User(), false);
-                UserDataService.usersData.put(sessionId, userData);
+                System.out.println(">No session ID was created previously");
             }
 
-            UserData userData = ((UserData) UserDataService.usersData.get(sessionId));
+            userData = ((UserData) UserDataService.usersData.get(sessionId));
+            userData.setWebClient(init());
             WebClient webClient = userData.getWebClient();
             userData.setBrowser(webClient.getPage(LOGIN_URL));
             HtmlPage browser = userData.getBrowser();
-
+            User user = userData.getUser();
 
 
             System.out.println("------------------------------------------STAGE 1-------------------------------------------------");
@@ -186,11 +192,13 @@ public class LoginController {
 
 
 
-            List bills = new ArrayList<>();
+            List incomes = new ArrayList<Incomes>();
 
             for (final HtmlTableRow row : table.getRows()) {
 
-                bills.add(
+
+
+                incomes.add(
                         new Incomes(
                                 row.getCells().get(1).asText(), //fiscalId
                                 row.getCells().get(2).asText(), //emisorRFC
@@ -207,13 +215,14 @@ public class LoginController {
                 );
 
             }
-
-            userData.setBills(bills);
+            incomesRepository.save(incomes);
+            userData.setIncomes(incomes);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        response.sendRedirect("/");
+        //return userData.getIncomes();
+        //response.sendRedirect("/");
     }
 
 

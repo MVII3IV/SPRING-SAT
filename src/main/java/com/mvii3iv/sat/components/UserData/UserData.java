@@ -12,17 +12,17 @@ public class UserData {
 
     private WebClient webClient;
     private HtmlPage browser;
-    private List<Incomes> bills;
+    private List<Incomes> incomes;
     private User user;
     private boolean ready;
 
     public UserData() {
     }
 
-    public UserData(WebClient webClient, HtmlPage browser, List<Incomes> bills, User user, boolean ready) {
+    public UserData(WebClient webClient, HtmlPage browser, List<Incomes> incomes, User user, boolean ready) {
         this.webClient = webClient;
         this.browser = browser;
-        this.bills = bills;
+        this.incomes = incomes;
         this.user = user;
         this.ready = ready;
     }
@@ -51,12 +51,12 @@ public class UserData {
         this.browser = browser;
     }
 
-    public List<Incomes> getBills() {
-        return bills;
+    public List<Incomes> getIncomes() {
+        return incomes;
     }
 
-    public void setBills(List<Incomes> bills) {
-        this.bills = bills;
+    public void setIncomes(List<Incomes> incomes) {
+        this.incomes = incomes;
     }
 
     public User getUser() {

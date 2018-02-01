@@ -23,7 +23,7 @@ public class SatApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		/*
 		repository.deleteAll();
 
 		// save a couple of customers
@@ -60,6 +60,7 @@ public class SatApplication implements CommandLineRunner {
 		for (Incomes income : repository.findByEmisorRFC("LULR860821MTA")) {
 			System.out.println(income);
 		}
+		*/
 
 	}
 

@@ -67,6 +67,8 @@ angular.module('app').controller("mainController", ['$scope', function ($scope) 
         }
     ];
 
+    $scope.title = "Ingresos y Gastos";
+
     /*
     * Add class="active" to the clicked list element
     */

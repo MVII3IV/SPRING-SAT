@@ -10,6 +10,7 @@ angular.module('app')
 
 .controller("incomeController", ['$scope', '$http', function ($scope, $http) {
     $scope.title = "Ingresos";
+    $scope.grandTotal = 0;
 
     $scope.bills = [
         {
@@ -39,9 +40,9 @@ angular.module('app')
     $scope.getTotal = function(value){
         var total = 0;
         value.forEach(function(iteratedElement){
-
             total += Number(iteratedElement.total.replace(/[^0-9\.-]+/g,""))
         });
+        $scope.grandTotal += total;
         return total;
     }
 }]);

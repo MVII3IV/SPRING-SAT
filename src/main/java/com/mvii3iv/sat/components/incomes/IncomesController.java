@@ -15,12 +15,14 @@ import java.util.List;
 public class IncomesController {
 
     private IncomesService incomesService;
+    private IncomesRepository incomesRepository;
     private UserDataService userDataService;
 
     @Autowired
-    public IncomesController(IncomesService incomesService){
+    public IncomesController(IncomesService incomesService, IncomesRepository incomesRepository){
         this.incomesService = incomesService;
         this.userDataService = userDataService;
+        this.incomesRepository = incomesRepository;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -29,7 +31,8 @@ public class IncomesController {
         String sessionId = request.getSession().getId();
         UserData userData = (UserData)UserDataService.usersData.get(sessionId);
 
-        return userData.getBills();
+        //return userData.getIncomes();
+        return incomesRepository.findByEmisorRFC(userData.getUser().getRfc());
     }
 
 }

@@ -6,26 +6,14 @@
     <h1>{{title}}</h1>
 
 
-    <div class="table-responsive" style="margin-top:0px">
+    <div class="table-responsive" style="margin-top:20px">
 
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
 
-            <div class="col-md-6">
+            <!-- DateTime -->
+            <div class="row well" style="padding-bottom: 0px; margin: 0px;">
 
-                <h3>Mes seleccionado: Enero</h3>
-
-                <div class="container">
-                    <div class="col-sm-6" style="height:80px;">
-                        <div class="form-group">
-                            <div class='input-group date' id='datetimepicker10'>
-                                <input type='text' class="form-control"/>
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar">
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" style="margin-top: 20px; margin-left: 20px;">
                     <script type="text/javascript">
                         $(function () {
                             $('#datetimepicker10').datetimepicker({
@@ -33,98 +21,171 @@
                                 format: 'MM/YYYY'
                             });
                         });
-
                     </script>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Seleccion de Mes</label>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker10'>
+                                        <input type='text' class="form-control"/>
+                                        <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-default" data-target="#modal" data-toggle="modal"> Agregar Ingreso </button>
+                    </div>
                 </div>
 
-
             </div>
-
-            <div class="col-md-6">
-                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal_form">Agregar Ingreso Adicional</button>
-            </div>
-
-        </div>
+            <!-- ./DateTime -->
 
 
+            <!--tables-->
+            <div class="row">
 
 
-        <!--row-->
-        <div class="row">
-
-
-
-
-            <div class="col-md-7" style="margin-right:10px;margin-left:10px">
-                <h1 style="margin-top:30px">Tus ingresos</h1>
-                <table class="table table-bordered table-striped table-sortable dataTable no-footer"
-                       style="margin-top: 0px;">
-                    <thead>
-                    <tr role="row">
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            aria-label="Name: activate to sort column ascending" style="width: 231.011px;"
-                            ng-if="false">Folio Fiscal
-                        </th>
-                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            style="width: 20%" aria-sort="ascending">RFC
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            style="width: 183.011px;">Nombre
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            style="width: 89.0114px;">Fecha
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            style="width: 188.011px;">Total
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            ng-if="false">Servicios
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
-                        ng-if="$index > 0" load-finished>
-                        <td ng-if="false">{{bill.fiscalId}}</td>
-                        <td>{{bill.receiverRFC}}</td>
-                        <td>{{bill.receiverName}}</td>
-                        <td>{{bill.emitedDate}}</td>
-                        <td>{{bill.total}}</td>
-                        <td ng-if="false">
-                            <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
-
-            <div class="col-md-4">
-
-                <h1 style="margin-top:30px">Totales por Cliente</h1>
-                <table class="table table-bordered table-striped table-sortable dataTable no-footer">
-                    <thead>
+                <!-- incomes table -->
+                <div class="col-md-7" style="margin-right:10px;margin-left:10px">
+                    <h1 style="margin-top:30px">Tabla de Ingresos</h1>
+                    <table class="table table-bordered table-striped table-sortable dataTable no-footer"
+                           style="margin-top: 0px;">
+                        <thead>
                         <tr role="row">
-                            <th>Nombre</th>
-                            <th>Total</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                aria-label="Name: activate to sort column ascending" style="width: 231.011px;"
+                                ng-if="false">Folio Fiscal
+                            </th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                style="width: 20%" aria-sort="ascending">RFC
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                style="width: 183.011px;">Nombre
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                style="width: 89.0114px;">Fecha
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                style="width: 188.011px;">Total
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                ng-if="false">Servicios
+                            </th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr role="row" class="odd" ng-repeat="(key, value) in bills | groupBy: 'receiverName'" ng-if="$index > 0">
-                            <td>{{ key }}</td>
-                            <td>{{ getTotal(value) | currency}}</td>
+                        </thead>
+                        <tbody>
+                        <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
+                            ng-if="$index > 0" load-finished>
+                            <td ng-if="false">{{bill.fiscalId}}</td>
+                            <td>{{bill.receiverRFC}}</td>
+                            <td>{{bill.receiverName}}</td>
+                            <td>{{bill.emitedDate}}</td>
+                            <td>{{bill.total}}</td>
+                            <td ng-if="false">
+                                <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF</button>
+                            </td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+
+                    <!-- pagination -->
+                    <div class="col-md-6">
+                            <ul class="pagination">
+                                <li class="disabled">
+                                    <a href="#">«</a>
+                                </li>
+                                <li class="active">
+                                    <a href="#">1</a>
+                                </li>
+                                <li>
+                                    <a href="#">2</a>
+                                </li>
+                                <li>
+                                    <a href="#">3</a>
+                                </li>
+                                <li>
+                                    <a href="#">4</a>
+                                </li>
+                                <li>
+                                    <a href="#">5</a>
+                                </li>
+                                <li>
+                                    <a href="#">»</a>
+                                </li>
+                            </ul>
+                        </div>
+                    <!-- ./pagination -->
+
+                </div>
+                <!-- ./incomes table -->
+
+
+                <!-- total table -->
+                <div class="col-md-4">
+                    <h1 style="margin-top:30px">Tabla de Totales</h1>
+                    <table class="table table-bordered table-striped table-sortable dataTable no-footer">
+                        <thead>
+                            <tr role="row">
+                                <th>Nombre</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr role="row" class="odd" ng-repeat="(key, value) in bills | groupBy: 'receiverName'" ng-if="$index > 0">
+                                <td>{{ key }}</td>
+                                <td>{{ getTotal(value) | currency}}</td>
+                            </tr>
+                            <tr>
+                                <td>TOTAL</td>
+                                <td>{{grandTotal | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- pagination -->
+                    <div class="col-md-12">
+                        <ul class="pagination">
+                            <li class="disabled">
+                                <a href="#">«</a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li>
+                                <a href="#">4</a>
+                            </li>
+                            <li>
+                                <a href="#">5</a>
+                            </li>
+                            <li>
+                                <a href="#">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- ./pagination -->
+
+                </div>
+                <!-- ./total table -->
+
 
             </div>
-
-
-
+            <!--./tables-->
 
         </div>
-        <!--./row-->
+
     </div>
 
 
@@ -135,17 +196,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-<div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="margin-top: 120px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -155,18 +207,13 @@
                 <p>Con el fin de agregar un ingreso adicional es necesario que se llenen los siguientes campos</p>
 
                 <div class="form-group">
-                    <label>RFC</label>
-                    <input type="text" class="form-control" placeholder="Your name">
-                </div>
-
-                <div class="form-group">
                     <label>NOMBRE</label>
-                    <input type="text" class="form-control" placeholder="Your name">
+                    <input type="text" class="form-control" placeholder="Escribe el nombre del ingreso">
                 </div>
 
                 <div class="form-group">
                     <label>CANTIDAD</label>
-                    <input type="text" class="form-control" placeholder="Your name">
+                    <input type="text" class="form-control" placeholder="Escribe la cantidad">
                 </div>
 
             </div>

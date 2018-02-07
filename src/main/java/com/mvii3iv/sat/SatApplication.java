@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class SatApplication implements CommandLineRunner {
+public class SatApplication extends SpringBootServletInitializer implements CommandLineRunner  {
 
 
 	@Autowired
@@ -19,6 +21,11 @@ public class SatApplication implements CommandLineRunner {
 		SpringApplication.run(SatApplication.class, args);
 	}
 
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(SatApplication.class);
+	}
 
 
 	@Override

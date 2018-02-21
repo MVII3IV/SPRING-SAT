@@ -8,6 +8,10 @@
 
     <div class="table-responsive" style="margin-top:20px">
 
+
+
+
+
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
 
             <!-- DateTime -->
@@ -49,79 +53,194 @@
 
 
             <!--tables-->
-            <div class="row">
+            <div class="row" style="margin-top:60px">
+
+
+
 
 
                 <!-- incomes table -->
                 <div class="col-md-7" style="margin-right:10px;margin-left:10px">
-                    <h1 style="margin-top:30px">Tabla de Ingresos</h1>
-                    <table class="table table-bordered table-striped table-sortable dataTable no-footer"
-                           style="margin-top: 0px;">
-                        <thead>
-                        <tr role="row">
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                aria-label="Name: activate to sort column ascending" style="width: 231.011px;"
-                                ng-if="false">Folio Fiscal
-                            </th>
-                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                style="width: 20%" aria-sort="ascending">RFC
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                style="width: 183.011px;">Nombre
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                style="width: 89.0114px;">Fecha
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                style="width: 188.011px;">Total
-                            </th>
-                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                ng-if="false">Servicios
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
-                            ng-if="$index > 0" load-finished>
-                            <td ng-if="false">{{bill.fiscalId}}</td>
-                            <td>{{bill.receiverRFC}}</td>
-                            <td>{{bill.receiverName}}</td>
-                            <td>{{bill.emitedDate}}</td>
-                            <td>{{bill.total}}</td>
-                            <td ng-if="false">
-                                <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
 
-                    <!-- pagination -->
-                    <div class="col-md-6">
-                            <ul class="pagination">
-                                <li class="disabled">
-                                    <a href="#">«</a>
-                                </li>
-                                <li class="active">
-                                    <a href="#">1</a>
-                                </li>
-                                <li>
-                                    <a href="#">2</a>
-                                </li>
-                                <li>
-                                    <a href="#">3</a>
-                                </li>
-                                <li>
-                                    <a href="#">4</a>
-                                </li>
-                                <li>
-                                    <a href="#">5</a>
-                                </li>
-                                <li>
-                                    <a href="#">»</a>
-                                </li>
-                            </ul>
+
+
+                    <h1 style="margin-top:30px">Tabla de Ingresos</h1>
+
+                    <div class="tabs">
+                        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                            <li class="active"><a data-target="#tab-first" data-toggle="tab">Facturas Cobradas</a></li>
+                            <li class=""><a data-target="#tab-second" data-toggle="tab">Facturas no Cobradas</a></li>
+                        </ul>
+                        <div class="panel-body tab-content" id="my-tab-content">
+                            <div class="tab-pane active" id="tab-first">
+
+
+
+
+                                <table class="table table-bordered table-striped table-sortable dataTable no-footer"
+                                       style="margin-top: 0px;">
+                                    <thead>
+                                    <tr role="row">
+                                        <th width="20px">
+
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            aria-label="Name: activate to sort column ascending" style="width: 231.011px;"
+                                            ng-if="false">Folio Fiscal
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 20%" aria-sort="ascending">RFC
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 183.011px;">Nombre
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 89.0114px;">Fecha
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 188.011px;">Total
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            ng-if="false">Servicios
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
+                                        ng-if="$index > 0" load-finished>
+                                        <td width="20px">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="check_{{$index}}" >
+                                                <label for="check_{{$index}}"></label>
+                                            </div>
+                                        </td>
+                                        <td ng-if="false">{{bill.fiscalId}}</td>
+                                        <td>{{bill.receiverRFC}}</td>
+                                        <td>{{bill.receiverName}}</td>
+                                        <td>{{bill.emitedDate}}</td>
+                                        <td>{{bill.total}}</td>
+                                        <td ng-if="false">
+                                            <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- pagination -->
+                                <div class="col-md-6">
+                                    <ul class="pagination">
+                                        <li class="disabled">
+                                            <a href="#">«</a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">»</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- ./pagination -->
+
+
+                            </div>
+                            <div class="tab-pane" id="tab-second">
+                                <table class="table table-bordered table-striped table-sortable dataTable no-footer"
+                                       style="margin-top: 0px;">
+                                    <thead>
+                                    <tr role="row">
+                                        <th width="20px">
+
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            aria-label="Name: activate to sort column ascending" style="width: 231.011px;"
+                                            ng-if="false">Folio Fiscal
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 20%" aria-sort="ascending">RFC
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 183.011px;">Nombre
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 89.0114px;">Fecha
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 188.011px;">Total
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            ng-if="false">Servicios
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
+                                        ng-if="$index > 5" load-finished>
+                                        <td width="20px">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="check_{{$index}}" >
+                                                <label for="check_{{$index}}"></label>
+                                            </div>
+                                        </td>
+                                        <td ng-if="false">{{bill.fiscalId}}</td>
+                                        <td>{{bill.receiverRFC}}</td>
+                                        <td>{{bill.receiverName}}</td>
+                                        <td>{{bill.emitedDate}}</td>
+                                        <td>{{bill.total}}</td>
+                                        <td ng-if="false">
+                                            <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- pagination -->
+                                <div class="col-md-6">
+                                    <ul class="pagination">
+                                        <li class="disabled">
+                                            <a href="#">«</a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">»</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    <!-- ./pagination -->
+                    </div>
+
+
+
+
+
+
 
                 </div>
                 <!-- ./incomes table -->
@@ -149,33 +268,7 @@
                         </tbody>
                     </table>
 
-                    <!-- pagination -->
-                    <div class="col-md-12">
-                        <ul class="pagination">
-                            <li class="disabled">
-                                <a href="#">«</a>
-                            </li>
-                            <li class="active">
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">»</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- ./pagination -->
+
 
                 </div>
                 <!-- ./total table -->

@@ -15477,7 +15477,7 @@ Interactive Layer
   width: 100%;
   background: #2d3b50;
   color: #f0f4f6;
-  font-size: 13px;
+  font-size: 22px;
   font-weight: 500;
   line-height: 55px;
   text-decoration: none;
@@ -15499,7 +15499,7 @@ Interactive Layer
   height: 55px;
   line-height: 55px;
   text-align: center;
-  font-size: 14px;
+  font-size: 20px;
   color: #6382a9;
 }
 .dev-page-navigation > li.active > a {

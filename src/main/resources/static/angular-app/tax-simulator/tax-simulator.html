@@ -1,1 +1,70 @@
-<h1>Simulador de impuestos</h1>
+<div class="wrapper wrapper-white">
+    <div class="page-subtitle">
+        <h3>{{title}}</h3>
+        <p>Ingresa los datos como se pide a continuacion para realizar el calculo de impuestos</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-3 control-label" style="margin-right:10px;">Ingresos</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Ingresos">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" style="margin-right:10px;">Gastos</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Gastos">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" style="margin-right:10px;">Utilidad antes de impuestos</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Utilidad sin impuestos">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+
+                <div class="dev-widget dev-widget-success">
+                    <h2>Pagarias la cantidad de:</h2>
+
+                    <div class="dev-stat">$<span class="counter">1,000</span></div>
+                    <!-- ngIf: false -->
+                    <p>*Este es un total aproximado</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <table class="table table-bordered table-striped table-sortable dataTable no-footer" style="margin-top: 50px;">
+        <thead>
+            <th>Limite Inferior</th>
+            <th>Limite Superior</th>
+            <th>Cuota Fija</th>
+            <th>% Sobre limite inferior</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr role="row" class="odd" ng-repeat="tax in taxes">
+                <td>{{tax.lowerLimit | currency}}</td>
+                <td>{{tax.maxLimit | currency}}</td>
+                <td>{{tax.fixedFee | currency}}</td>
+                <td>{{tax.aboveInferiorLimit}}%</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+</div>

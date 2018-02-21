@@ -1,1 +1,189 @@
-<h1>{{title}}</h1>
+
+
+<!-- datatables plugin -->
+<div class="wrapper wrapper-white">
+
+    <h1>{{title}}</h1>
+
+
+    <div class="table-responsive" style="margin-top:20px">
+
+
+
+
+
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+
+            <!-- DateTime -->
+            <div class="row well" style="padding-bottom: 0px; margin: 0px;">
+
+                <div class="row" style="margin-top: 20px; margin-left: 20px;">
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker10').datetimepicker({
+                                viewMode: 'years',
+                                format: 'MM/YYYY'
+                            });
+                        });
+                    </script>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Seleccion de Mes</label>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker10'>
+                                        <input type='text' class="form-control"/>
+                                        <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ./DateTime -->
+
+
+            <!--tables-->
+            <div class="row" style="margin-top:60px">
+
+
+
+
+
+                <!-- incomes table -->
+                <div class="col-md-7" style="margin-right:10px;margin-left:10px">
+
+
+
+                    <h1 style="margin-top:30px">Gastos de Febrero</h1>
+
+
+                                <table class="table table-bordered table-striped table-sortable dataTable no-footer"
+                                       style="margin-top: 0px;">
+                                    <thead>
+                                    <tr role="row">
+                                        <th width="20px">
+
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            aria-label="Name: activate to sort column ascending" style="width: 231.011px;"
+                                            ng-if="false">Folio Fiscal
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 20%" aria-sort="ascending">RFC
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 183.011px;">Nombre
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 89.0114px;">Fecha
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 188.011px;">Total
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            ng-if="false">Servicios
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
+                                        ng-if="$index > 0" load-finished>
+                                        <td width="20px">
+                                            <div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="check_{{$index}}" >
+                                                <label for="check_{{$index}}"></label>
+                                            </div>
+                                        </td>
+                                        <td ng-if="false">{{bill.fiscalId}}</td>
+                                        <td>{{bill.receiverRFC}}</td>
+                                        <td>{{bill.receiverName}}</td>
+                                        <td>{{bill.emitedDate}}</td>
+                                        <td>{{bill.total}}</td>
+                                        <td ng-if="false">
+                                            <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- pagination -->
+                                <div class="col-md-6">
+                                    <ul class="pagination">
+                                        <li class="disabled">
+                                            <a href="#">«</a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">»</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- ./pagination -->
+
+
+                </div>
+                <!-- ./incomes table -->
+
+
+                <!-- total table -->
+                <div class="col-md-4">
+                    <h1 style="margin-top:30px">Total de Gastos</h1>
+                    <table class="table table-bordered table-striped table-sortable dataTable no-footer">
+                        <thead>
+                        <tr role="row">
+                            <th>Nombre</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr role="row" class="odd" ng-repeat="(key, value) in bills | groupBy: 'receiverName'" ng-if="$index > 0">
+                            <td>{{ key }}</td>
+                            <td>{{ getTotal(value) | currency}}</td>
+                        </tr>
+                        <tr>
+                            <td>TOTAL</td>
+                            <td>{{grandTotal | currency}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+                <!-- ./total table -->
+
+
+            </div>
+            <!--./tables-->
+
+        </div>
+
+    </div>
+
+
+</div>
+<!-- ./datatables plugin -->
+
+
+

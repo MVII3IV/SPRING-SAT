@@ -10,19 +10,19 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label" style="margin-right:10px;">Ingresos</label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="Ingresos">
+                        <input type="number" class="form-control" ng-model="incomes" ng-change="calculteFees()">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label" style="margin-right:10px;">Gastos</label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="Gastos">
+                        <input type="number" class="form-control"  ng-model="outcomes" ng-change="calculteFees()">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label" style="margin-right:10px;">Utilidad antes de impuestos</label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="Utilidad sin impuestos">
+                        <input type="number" class="form-control" placeholder="Utilidad sin impuestos" ng-model="incomesBeforeFees">
                     </div>
                 </div>
             </form>
@@ -33,7 +33,7 @@
                 <div class="dev-widget dev-widget-success">
                     <h2>Pagarias la cantidad de:</h2>
 
-                    <div class="dev-stat">$<span class="counter">1,000</span></div>
+                    <div class="dev-stat"><span class="counter">{{fees | currency }}</span></div>
                     <!-- ngIf: false -->
                     <p>*Este es un total aproximado</p>
 
@@ -42,29 +42,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <table class="table table-bordered table-striped table-sortable dataTable no-footer" style="margin-top: 50px;">
-        <thead>
-            <th>Limite Inferior</th>
-            <th>Limite Superior</th>
-            <th>Cuota Fija</th>
-            <th>% Sobre limite inferior</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr role="row" class="odd" ng-repeat="tax in taxes">
-                <td>{{tax.lowerLimit | currency}}</td>
-                <td>{{tax.maxLimit | currency}}</td>
-                <td>{{tax.fixedFee | currency}}</td>
-                <td>{{tax.aboveInferiorLimit}}%</td>
-            </tr>
-        </tbody>
-    </table>
-
-
-
-
 </div>

@@ -68,9 +68,6 @@
                                        style="margin-top: 0px;">
                                     <thead>
                                     <tr role="row">
-                                        <th width="20px">
-
-                                        </th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                                             aria-label="Name: activate to sort column ascending" style="width: 231.011px;"
                                             ng-if="false">Folio Fiscal
@@ -95,12 +92,6 @@
                                     <tbody>
                                     <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
                                         ng-if="$index > 0" load-finished>
-                                        <td width="20px">
-                                            <div class="checkbox checkbox-inline">
-                                                <input type="checkbox" id="check_{{$index}}" >
-                                                <label for="check_{{$index}}"></label>
-                                            </div>
-                                        </td>
                                         <td ng-if="false">{{bill.fiscalId}}</td>
                                         <td>{{bill.receiverRFC}}</td>
                                         <td>{{bill.receiverName}}</td>

@@ -1,1 +1,170 @@
-<h1>{{title}}</h1>
+<div class="wrapper wrapper-white">
+
+    <h1>{{title}}</h1>
+
+
+
+    <div class="row">
+
+
+            <div class="row well centered" style="padding-bottom: 0px; margin: 0px;">
+
+                <div class="col-md-4">
+                    <div class="page-subtitle">
+                        <h3>Firma electronica requerida</h3>
+                        <p>Por unica ocacion ingresa tu firma electronica dando click en el siguiente boton</p>
+                        <button class="btn btn-primary" data-target="#modal" data-toggle="modal">Ingresar datos</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+    </div>
+
+
+
+    <div class="row" style="margin-top:80px">
+
+        <div class="col-md-6">
+            <div class="page-subtitle">
+                <h3>Factura tu mismo</h3>
+                <p>Da click en el siguiente boton que te llevara a la pagina de hacienda para hacer el tramite tu mismo</p>
+                <button class="btn btn-primary">Ir al SAT</button>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="page-subtitle">
+                <h3>Te apoyamos con tu factura</h3>
+                <p>Da click en el siguiente boton y llena los campos, en un plazo mazimo de 24 horas tu tramite estara listo</p>
+                <button class="btn btn-primary" data-target="#facturationModal" data-toggle="modal">Llenar informacion</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" style="margin-top:80px">
+        <h1>Tus Facturas Listas</h1>
+        <table class="table table-bordered table-striped table-sortable dataTable no-footer">
+            <thead>
+            <tr role="row">
+                <th>RFC</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Archivos</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr role="row" class="odd">
+                <td>TEST123456ABC</td>
+                <td>Brasa SA CV</td>
+                <td>Facturacion a finales del mes</td>
+                <td><button class="btn btn-primary">Descargar Factura</button></td>
+            </tr>
+            <tr role="row" class="odd">
+                <td>DOEEE256344CH</td>
+                <td>ELECTRONICA SA CV</td>
+                <td>Piezas electronicas</td>
+                <td><button class="btn btn-primary">Descargar Factura</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="margin-top: 120px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Firma Electronica</h4>
+            </div>
+            <div class="modal-body">
+                <p>Con el fin de ayudarte es necesario que nos envies tu firma electronica llenando los campos que a continuacion se te muestran</p>
+
+                <div class="form-group">
+                    <label>Archivo .cer</label>
+                    <input type="file" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Archivo .key</label>
+                    <input type="file" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Tu Contraseña</label>
+                    <input type="text" class="form-control" placeholder="Escribe tu contraseña">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Enviar Firma</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="facturationModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="margin-top: 120px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Facturacion Asistida</h4>
+            </div>
+            <div class="modal-body">
+                <p>Llena los campos siguientes para poder ayudarte con tu facturazion</p>
+
+                <div class="form-group">
+                    <label>RFC</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Correo electronico</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Descripcion</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Cantidad</label>
+                    <input type="number" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Metodos de pago</label>
+                    <input type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label>Notas extra</label>
+                    <input type="text" class="form-control">
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Enviar Firma</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="wrapper wrapper-white">
+
+    <h1>{{title}}</h1>
+
+
+    <div class="table-responsive" style="margin-top:20px">
+
+
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+
+            <!-- DateTime -->
+            <div class="row well" style="padding-bottom: 0px; margin: 0px;">
+
+                <div class="row" style="margin-top: 20px; margin-left: 20px;">
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker10').datetimepicker({
+                                viewMode: 'years',
+                                format: 'MM/YYYY'
+                            });
+                        });
+                    </script>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Seleccion de Mes</label>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker10'>
+                                        <input type='text' class="form-control"/>
+                                        <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-default" data-target="#modal" data-toggle="modal"> Agregar Ingreso </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+</div>

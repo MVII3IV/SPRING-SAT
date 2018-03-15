@@ -36,7 +36,7 @@ angular.module('app').controller("mainController", ['$scope', function ($scope) 
             href: "../#!/declarations"
         },
         {
-            section: "Facturas",
+            section: "Facturacion",
             class: "",
             icon: "fa fa-folder",
             href: "../#!/bills"

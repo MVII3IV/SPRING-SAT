@@ -19,6 +19,7 @@
   "dependencies": {
     "angular": "^1.6.8",
     "angular-route": "^1.6.8",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "angular-pdfjs-viewer": "^0.8.1"
   }
 }

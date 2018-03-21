@@ -1,8 +1,4 @@
 <style>
-    .elements{
-        padding-top:25px;
-        margin:5px;
-    }
 
     canvas {
         padding-left: 0;
@@ -12,6 +8,59 @@
         display: block;
         width: 800px;
     }
+
+    .month{
+        background: #304056;
+        color: white;
+        height:70px;
+
+        text-align: center;
+        vertical-align: middle;
+        line-height: 70px;
+
+        font-size:18px;
+        border-style: solid;
+        border-color: #253244;
+        border-width: thin;
+    }
+
+    .month:hover{
+        background: #1968dc;
+
+        -webkit-transition: background 500ms linear;
+        -ms-transition: background 500ms linear;
+        transition: background 500ms linear;
+    }
+
+    .anual{
+        background: #82b440;
+        color: white;
+        height:70px;
+
+        text-align: center;
+        vertical-align: middle;
+        line-height: 70px;
+
+        font-size:18px;
+    }
+
+    .anual:hover{
+        background: #5b697b;
+    }
+
+    .disabled{
+        background: #888888;
+        color: white;
+        height:70px;
+
+        text-align: center;
+        vertical-align: middle;
+        line-height: 70px;
+
+        font-size:18px;
+    }
+
+
 </style>
 
 
@@ -20,8 +69,8 @@
 
 <div class="row">
 
-    <div class="btn btn-success col-md-3 elements">
-        <h1>Anual</h1>
+    <div class="anual col-md-4 col-md-offset-4">
+        Anual
     </div>
 
 </div>
@@ -29,80 +78,32 @@
 
 <div class="row">
 
-
-    <div class="btn btn-primary col-md-3 elements">
-        <h1>Enero</h1>
-    </div>
-
-    <div class="btn btn-primary col-md-3 elements">
-        <h1>Febrero</h1>
-    </div>
-
-    <div class="btn btn-primary col-md-3 elements">
-        <h1>Marzo</h1>
-    </div>
-
-
-</div>
-
-<div class="row">
-
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Abril</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Mayo</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Junio</h1>
+    <div ng-repeat="month in months" class="col-md-3 {{month.class}} text-center" ng-click="openDeclaration(month)">
+        {{month.name}}
     </div>
 
 </div>
 
 
-<div class="row">
-
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Julio</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Agosto</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Septiembre</h1>
-    </div>
-
-</div>
 
 
-<div class="row">
 
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Octubre</h1>
-    </div>
 
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Noviembre</h1>
-    </div>
 
-    <div class="btn btn-default col-md-3 elements">
-        <h1>Diciembre</h1>
-    </div>
+<div class="modal fade" id="modal_declaration" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" style="display: none; margin-top:50px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="largeModalHead">Previsualizacion de tu declaracion de {{selectedMonth}}</h4>
+            </div>
 
-</div>
+                <embed src="/js/plugins/pdfjs/test.pdf" width="100%" height="1000px" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
 
-<div class="row" style="margin-top:50px;">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Vista previa de tu factura de Marzo</h3>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-
-            <embed src="/js/plugins/pdfjs/test.pdf" width="100%" height="1000px" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
     </div>
 </div>
-
 

@@ -48,7 +48,7 @@ angular.module('app').controller("mainController", ['$scope', function ($scope) 
             href: "../#!/paysheets"
         },
         {
-            section: "IMMS",
+            section: "IMSS",
             class: "",
             icon: "fa fa-users",
             href: "../#!/social-security"

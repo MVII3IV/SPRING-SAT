@@ -1,6 +1,75 @@
 angular.module('app').controller("declarationsController", ['$scope', '$http', function ($scope, $http) {
     $scope.title = "Declaraciones";
 
+
+
+
+    $scope.months = [
+        {
+            name: "Enero",
+            class: "month"
+        },
+        {
+            name: "Febrero",
+            class: "month"
+        },
+        {
+            name: "Marzo",
+            class: "month"
+        },
+        {
+            name: "Abril",
+            class: "disabled"
+        },
+        {
+            name: "Mayo",
+            class: "disabled"
+        },
+        {
+            name: "Junio",
+            class: "disabled"
+        },
+        {
+            name: "Julio",
+            class: "disabled"
+        },
+        {
+            name: "Agosto",
+            class: "disabled"
+        },
+        {
+            name: "Septiembre",
+            class: "disabled"
+        },
+        {
+            name: "Octubre",
+            class: "disabled"
+        },
+        {
+            name: "Noviembre",
+            class: "disabled"
+        },
+        {
+            name: "Diciembre",
+            class: "disabled"
+        }
+    ]
+
+
+
+
+    $scope.openDeclaration = function(month){
+        if(month.class == 'disabled')
+            return
+
+        $scope.selectedMonth = month.name;
+        $('#modal_declaration').modal('show');
+    }
+
+
+
+
+
     // If absolute URL from the remote server is provided, configure the CORS
     // header on that server.
     var url = '/js/plugins/pdfjs/test.pdf';

@@ -24,6 +24,12 @@ angular.module('app').controller("mainController", ['$scope', function ($scope) 
             href: "../#!/outgoings"
         },
         {
+            section: "Tramites Diversos",
+            class: "",
+            icon: "fa fa-file-text",
+            href: "../#!/procedures"
+        },
+        {
             section: "Simulador de Impuestos",
             class: "",
             icon: "fa fa-file-text",

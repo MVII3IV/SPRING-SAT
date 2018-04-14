@@ -21,6 +21,10 @@ angular.module("app")
                 templateUrl: 'angular-app/tax-simulator/tax-simulator.html',
                 controller: 'taxSimulatorController'
             })
+            .when('/procedures', {
+                templateUrl: 'angular-app/procedures/procedures.html',
+                controller: 'proceduresController'
+            })
             .when('/declarations', {
                 templateUrl: 'angular-app/declarations/declarations.html',
                 controller: 'declarationsController'

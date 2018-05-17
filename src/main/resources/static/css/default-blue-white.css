@@ -14793,7 +14793,7 @@ Interactive Layer
 }
 .dev-page .dev-page-header .dph-logo a {
   width: 100%;
-  display: block;
+  /*display: block;*/
   height: 55px;
   /*background: url('../img/logo.png') top center no-repeat transparent;*/
   text-indent: -99999px;

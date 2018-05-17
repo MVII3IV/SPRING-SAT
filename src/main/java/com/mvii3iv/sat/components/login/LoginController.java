@@ -282,7 +282,7 @@ public class LoginController {
         if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER, "proxy.autozone.com", 8080);
             DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
-            credentialsProvider.addCredentials("edomingu", "r<94Vk4=k'`PC'g");
+            credentialsProvider.addCredentials("edomingu", "<^2mWfQ}kVwJ");
         } else {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
         }

@@ -1,76 +1,70 @@
 <div class="wrapper wrapper-white">
 
-    <h1>nominas</h1>
+    <h1>{{title}}</h1>
+    <p>Aqui podras encontrar los recibos de nomina de tus empleados registrados en el IMSS</p>
 
-    <div class="row" style="margin-top:80px">
-
-        <div class="col-md-6">
-            <div class="page-subtitle">
-                <h3>Con registro patronal</h3>
-                <p>Da click en el siguiente boton si tu ya cuentas con un registro patronal, sube tus datos y nosotros te contactamos en 24hrs habiles</p>
-                <button class="btn btn-primary" data-target="#modal" data-toggle="modal">Resgistrar</button>
-            </div>
+    <div class="col-md-7" style="margin-top:30px">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong>No Estas dado de alta como patron!</strong> Con el fin de mostrar informacion de tus empleados es necesario que te registres como patron.
         </div>
+    </div>
 
-        <div class="col-md-6">
-            <div class="page-subtitle">
-                <h3>Sin registro patronal</h3>
-                <p>Si aun no cuentas con tu registro patronal y quieres obtenerlo da click en el siguiente boton, te contactaremos en 24hrs habiles</p>
-                <button class="btn btn-primary" data-target="#modalRegister" data-toggle="modal">Solicitar Registro</button>
-            </div>
-        </div>
+
+
+
+    <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre Completo</th>
+                        <th>Sueldo</th>
+                        <th style="width: 2%">Faltas</th>
+                        <th>Recibos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Erick Dominguez Estrada</td>
+                        <td>1,000.00</td>
+                        <td>
+                            <input type="text" class="form-control" value="0">
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Carlos Contreras Lopez</td>
+                        <td>2,000.00</td>
+                        <td>
+                            <input type="text" class="form-control" value="0">
+                        </td>
+                        <td><i aria-hidden="true" class="fa fa-file-text"></i></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Edwin Enriquez Daniel</td>
+                        <td>2,500.00</td>
+                        <td>
+                            <input type="text" class="form-control" value="0">
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
 
     </div>
+    <div class="col-md-12">
+        <button class="btn btn-primary pull-right">Descargar todos los recibos</button>
+    </div>
+
 </div>
 
 
-
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog" style="margin-top: 120px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">Registro Patronal</h4>
-            </div>
-            <div class="modal-body">
-                <p>Con el fin de hacer mas facil tus tramites es necesario que subas los archivos que se piden acontinuacion y llenes el campo de contraseña</p>
-
-
-                <div class="form-group">
-                    <button class="btn btn-primary">Certificado</button>
-                    <button class="btn btn-primary">Registro Patronal</button>
-                </div>
-
-                <div class="form-group">
-                    <label>Contraseña</label>
-                    <input type="text" class="form-control" placeholder="Escribe el nombre del ingreso">
-                </div>
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Aceptar y subir</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog" style="margin-top: 120px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h3 class="modal-title" id="myModalRegisterLabel">Solicitar Registro Patronal</h3>
-            </div>
-            <div class="modal-body">
-                <p>En caso de no contar con un registro patronal nosotros podemos tramitarlo solo da click en la parte de abajo en el boton "Enviar Solicitud" y en un plazo de 24hrs habiles te estaremos contactando para dar seguimiento.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Enviar Solicitud</button>
-            </div>
-        </div>
-    </div>
-</div>

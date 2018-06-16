@@ -1,3 +1,21 @@
+<style>
+    .fa-file-text
+    {
+        font-size: 20px;
+    }
+
+    .fa-disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+</style>
+
+<script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
 <div class="wrapper wrapper-white">
 
     <h1>{{title}}</h1>
@@ -32,11 +50,11 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Sueldo Diario</th>
-                    <th>Comprobante de movimiento</th>
+
                     <th>Estatus</th>
-                    <th>
-                        Acciones
-                    </th>
+                    <th>Comprobante de altas</th>
+                    <th>Acciones</th>
+                    <th>Comprobante de bajas</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,13 +63,19 @@
                         <td>Erick</td>
                         <td>Dominguez</td>
                         <td>1,000.00</td>
-                        <td>
-                            <i aria-hidden="true" class="fa fa-file-text"></i></td>
+
                         <td>
                             <button class="btn btn-success" >Dado de Alta</button>
                         </td>
                         <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+
+                        <td>
                             <button class="btn btn-danger">Dar de baja</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
                         </td>
                     </tr>
                     <tr>
@@ -59,12 +83,19 @@
                         <td>Carlos</td>
                         <td>Contreras</td>
                         <td>1,500.00</td>
-                        <td><i aria-hidden="true" class="fa fa-file-text"></i></td>
+
                         <td>
                             <button class="btn btn-success">Dado de Alta</button>
                         </td>
                         <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+
+                        <td>
                             <button class="btn btn-danger">Dar de baja</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
                         </td>
                     </tr>
                     <tr>
@@ -72,13 +103,40 @@
                         <td>Edwin</td>
                         <td>Enriquez</td>
                         <td>2,000.00</td>
-                        <td>
-                            <i aria-hidden="true" class="fa fa-file-text"  data-toggle="modal" data-target="#modal_small"></i></td>
+
                         <td>
                             <button class="btn btn-warning">Procesando</button>
                         </td>
                         <td>
-                            <button class="btn btn-danger">Dar de baja</button>
+                            <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
+                        </td>
+
+                        <td>
+
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>Martin</td>
+                        <td>Chavez</td>
+                        <td>15,000.00</td>
+
+                        <td>
+                            <button class="btn btn-danger ">Dado de baja</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+
+                        <td>
+
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
                         </td>
                     </tr>
                 </tbody>

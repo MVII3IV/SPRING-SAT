@@ -54,14 +54,18 @@
                             <div class="col-md-3">
 
                                 <div class="dev-widget dev-widget-success">
-                                    <h2>Tus Ingresos</h2>
+                                    <h2>Tus Ingresos Enero</h2>
 
                                     <div class="dev-stat">$<span class="counter">1,000</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
                                     </div>
-                                    <p>El total de tus ingresos deacuerdo al mes de Febreso</p>
+                                    <div class="progress progress-bar-xs">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                    </div>
+                                    <p>El total de tus ingresos deacuerdo al mes de Enero</p>
+                                    <a href="/#!/income" class="dev-drop">Ir a tus ingresos<span class="fa fa-angle-right pull-right"></span></a>
 
                                 </div>
 
@@ -78,7 +82,11 @@
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
                                     </div>
+                                    <div class="progress progress-bar-xs">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                    </div>
                                     <p>Tus gastos realizados en el mes de Febrero</p>
+                                    <a href="/#!/outgoings" class="dev-drop">Ir a tus Gastos<span class="fa fa-angle-right pull-right"></span></a>
                                 </div>
 
                             </div>
@@ -94,7 +102,11 @@
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
                                     </div>
+                                    <div class="progress progress-bar-xs">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                    </div>
                                     <p>El resultado de tus ingresos menos los gastos en Febrero</p>
+                                    <a href="#" class="dev-drop">Take a closer look <span class="fa fa-angle-right pull-right"></span></a>
 
                                 </div>
 
@@ -102,7 +114,7 @@
                             <!-- ./difference-->
 
                             <!-- taxes-->
-                            <div class="col-md-3">
+                            <div class="col-md-3" ng-hide="true">
 
                                 <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                     <h2>Impuestos Por Pagar</h2>
@@ -111,7 +123,11 @@
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
                                     </div>
+                                    <div class="progress progress-bar-xs">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                    </div>
                                     <p>Lo que debes pagar en impuestos deacuerdo a tus datos</p>
+                                    <a href="#" class="dev-drop">Take a closer look <span class="fa fa-angle-right pull-right"></span></a>
                                 </div>
 
                             </div>
@@ -121,6 +137,102 @@
                     </div>
                 </div>
             <!-- ./earnings/outgoings -->
+
+            <!-- earnings/outgoings -->
+            <div class="col-md-12">
+                <div class="wrapper padding-bottom-0 padding-top-0">
+                    <div class="dev-table">
+
+                        <!-- Earnings -->
+                        <div class="col-md-3">
+
+                            <div class="dev-widget dev-widget-success">
+                                <h2>Tus Ingresos Febrero</h2>
+
+                                <div class="dev-stat">$<span class="counter">1,300</span></div>
+                                <div class="progress progress-bar-xs" ng-if="false">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                </div>
+                                <div class="progress progress-bar-xs">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                </div>
+                                <p>El total de tus ingresos deacuerdo al mes de Febreso</p>
+                                <a href="/#!/income" class="dev-drop">Ir a tus ingresos<span class="fa fa-angle-right pull-right"></span></a>
+
+                            </div>
+
+                        </div>
+                        <!-- /.Earnings-->
+
+                        <!-- outgoings-->
+                        <div class="col-md-3">
+
+                            <div class="dev-widget dev-widget-transparent dev-widget-danger">
+                                <h2>Tus Gastos</h2>
+                                <div class="dev-stat">$<span class="counter">850</span></div>
+                                <div class="progress progress-bar-xs" ng-if="false">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
+                                </div>
+                                <div class="progress progress-bar-xs">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                </div>
+                                <p>Tus gastos realizados en el mes de Febrero</p>
+                                <a href="/#!/outgoings" class="dev-drop">Ir a tus ingresos<span class="fa fa-angle-right pull-right"></span></a>
+                            </div>
+
+                        </div>
+                        <!-- ./outgoings-->
+
+                        <!-- difference-->
+                        <div class="col-md-3">
+
+                            <div class="dev-widget dev-widget-transparent dev-widget-success">
+                                <h2>Diferencia</h2>
+                                <div class="dev-stat">$<span class="counter">450</span></div>
+                                <div class="progress progress-bar-xs" ng-if="false">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                </div>
+                                <div class="progress progress-bar-xs">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                </div>
+                                <p>El resultado de tus ingresos menos los gastos en Febrero</p>
+                                <a href="#" class="dev-drop">Take a closer look <span class="fa fa-angle-right pull-right"></span></a>
+
+                            </div>
+
+                        </div>
+                        <!-- ./difference-->
+
+                        <!-- taxes-->
+                        <div class="col-md-3">
+
+                            <div class="dev-widget dev-widget-transparent dev-widget-danger">
+                                <h2>Total de Impuestos Por Pagar</h2>
+                                <div class="dev-stat">$<span class="counter">250</span></div>
+                                <div class="progress progress-bar-xs" ng-if="false">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
+                                </div>
+                                <div class="progress progress-bar-xs">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                </div>
+                                <p>Lo que debes pagar en impuestos deacuerdo a tus datos</p>
+                                <a href="#" class="dev-drop">Take a closer look <span class="fa fa-angle-right pull-right"></span></a>
+                            </div>
+
+                        </div>
+                        <!-- ./taxes-->
+
+                    </div>
+                </div>
+            </div>
+            <!-- ./earnings/outgoings -->
+
+
+
 
 
             <!-- charts -->

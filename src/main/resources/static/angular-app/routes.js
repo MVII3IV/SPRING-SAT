@@ -49,5 +49,11 @@ angular.module("app")
                 templateUrl: 'angular-app/help/help.html',
                 controller: 'helpController'
             })
+
+            .when('/admin', {
+                templateUrl: 'angular-app/admin/home/home.html',
+                controller: 'adminMainController'
+            })
+
             .otherwise('/landing-page');
     }]);

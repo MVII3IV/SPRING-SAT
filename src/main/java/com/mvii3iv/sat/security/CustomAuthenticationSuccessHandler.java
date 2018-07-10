@@ -38,7 +38,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
 
 
 
-
+        boolean admin = false;
         String sessionId = request.getSession().getId();
 
         if ( !UserDataService.usersData.containsKey(sessionId) ) {
@@ -49,20 +49,19 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         ((UserData)UserDataService.usersData.get(sessionId)).setUser(new User(authentication.getName(), authentication.getCredentials().toString()));
 
 
-
-
         //set our response to OK status
         response.setStatus(HttpServletResponse.SC_OK);
 
-        boolean admin = false;
+
 
         System.out.println(">User Granted");
+
+
 
         for (GrantedAuthority auth : authentication.getAuthorities()) {
             if ("ROLE_ADMIN".equals(auth.getAuthority())){
                 admin = true;
             }
-
         }
 
         if(admin){

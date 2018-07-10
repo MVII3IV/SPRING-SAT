@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="adminController" xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <!-- meta section -->
+    <title>Intuitive - Admin Dashboard Template</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" >
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" >
+    <!-- ./meta section -->
+
+    <!-- css styles -->
+    <link rel="stylesheet" type="text/css" href="css/default-blue-white.css" id="dev-css">
+    <!-- ./css styles -->
+
+    <!-- font-awesome-->
+    <link rel="stylesheet" type="text/css" href="js/plugins/font-awesome/css/font-awesome.css">
+    <!-- ./font-awesome-->
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" type="text/css" href="css/dev-other/dev-ie-fix.css">
+    <![endif]-->
+
+    <!-- javascripts -->
+    <script type="text/javascript" src="js/plugins/modernizr/modernizr.js"></script>
+    <!-- ./javascripts -->
+
+    <style>
+    .dev-page{
+        visibility: hidden;
+    }
+
+    .shadow {
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .centered{
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 10px 0;
+        align-items: center;
+        justify-content: space-around;
+        display: flex;
+        float: none;
+    }
+
+    </style>
+
+
+
+</head>
+<body>
+<!-- set loading layer -->
+<div class="dev-page-loading preloader"></div>
+<!-- ./set loading layer -->
+
+<!-- page wrapper -->
+<div class="dev-page">
+
+    <!-- page header -->
+    <div class="dev-page-header" style="position:fixed">
+
+        <div class="dph-logo">
+            <a href="index.html">
+                <img src="/assets/images/logo.png" width="">
+            </a>
+            <a class="dev-page-sidebar-collapse">
+                <div class="dev-page-sidebar-collapse-icon">
+                    <span class="line-one"></span>
+                    <span class="line-two"></span>
+                    <span class="line-three"></span>
+                </div>
+            </a>
+        </div>
+
+
+        <ul class="dph-buttons pull-right">
+            <li class="dph-button-stuck">
+                <a href="#" class="dev-page-rightbar-toggle">
+                    <img src="/assets/images/chat-icon.png" width="35px">
+                </a>
+            </li>
+        </ul>
+
+
+
+    </div>
+    <!-- ./page header -->
+
+    <!-- page container -->
+    <div class="dev-page-container">
+
+
+        <!-- page sidebar user image -->
+        <div class="dev-page-sidebar" style="position:fixed">
+
+            <div class="profile profile-transparent">
+                <div class="profile-image">
+                    <img src="assets/images/users/user_3.jpg">
+                    <div class="profile-status online"></div>
+                </div>
+                <div class="profile-info">
+                    <h4>Silvia Olivas</h4>
+                    <span>Administrador</span>
+                </div>
+            </div>
+
+            <ul class="dev-page-navigation">
+                <li class="title">Navigation</li>
+
+                <li ng-repeat="menuElement in menuElements" class="{{menuElement.class}}">
+                    <a href="{{menuElement.href}}" ng-click="selectListElement(menuElement)">
+                        <i class="{{menuElement.icon}}" aria-hidden="true"></i>
+                        <span>{{menuElement.section}}</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+        <!-- ./page sidebar user image -->
+
+
+
+        <!-- page content -->
+        <div class="dev-page-content">
+
+
+            <!-- container-->
+            <div class="container">
+                <div class="row row-condensed">
+                    <div class="col-lg-12">
+                        <div class="wrapper" style="height:100%">
+                            <div class="container-tabbed">
+                                <div class="container-tab active" id="setup">
+                                    <div class="wrapper wrapper-white shadow">
+
+                                        <!-- views injection -->
+                                        <div class="container-tabbed" id="main">
+                                            <div ng-view autoscroll="true"></div>
+                                        </div>
+                                        <!-- ./views injection -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright -->
+                <div class="copyright">
+                    <div class="pull-left">
+                        &copy; 2018 <strong>SAT</strong>. Derechos reservados.
+                    </div>
+                    <div class="pull-right">
+                        <a href="#">Teminos de uso</a> / <a href="#">Politica de privacidad</a>
+                    </div>
+                </div>
+                <!-- ./Copyright -->
+            </div>
+            <!-- ./container-->
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <!-- ./page content -->
+
+
+
+    </div>
+    <!-- ./page container -->
+
+
+
+
+
+    <div class="dev-page-rightbar" style="height: 971px;" >
+        <div class="rightbar-chat" style="height: 971px;">
+
+            <div class="rightbar-chat-frame-contacts scroll mCustomScrollbar _mCS_2 mCS-autoHide mCS_no_scrollbar" style="height: 971px;"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+                <div class="rightbar-title">
+                    <h3>Messages</h3>
+                    <a href="#" class="btn btn-default btn-rounded rightbar-close pull-right"><span class="fa fa-times"></span></a>
+                </div>
+                <ul class="contacts">
+                    <li class="title">online</li>
+                    <li>
+                        <a href="#" class="status online">
+                            <img src="assets/images/users/user_1.jpg" title="Aqvatarius" class="mCS_img_loaded"> John Doe
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="status online">
+                            <img src="assets/images/users/user_2.jpg" title="Aqvatarius" class="mCS_img_loaded"> Shannon Freeman
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="status away">
+                            <img src="assets/images/users/user_3.jpg" title="Aqvatarius" class="mCS_img_loaded"> Devin Stephens
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="status away">
+                            <img src="assets/images/users/user_4.jpg" title="Aqvatarius" class="mCS_img_loaded"> Marissa George
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="status dont">
+                            <img src="assets/images/users/user_5.jpg" title="Aqvatarius" class="mCS_img_loaded"> Sydney Reeves
+                        </a>
+                    </li>
+                    <li class="title">offline</li>
+                    <li>
+                        <a href="#" class="status">
+                            <img src="assets/images/users/user_6.jpg" title="Aqvatarius" class="mCS_img_loaded"> Kaitlynn Bowen
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="status">
+                            <img src="assets/images/users/user_7.jpg" title="Aqvatarius" class="mCS_img_loaded"> Karen Spencer
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="status">
+                            <img src="assets/images/users/user_8.jpg" title="Aqvatarius" class="mCS_img_loaded"> Darrell Wolfe
+                        </a>
+                    </li>
+                </ul>
+            </div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+
+            <div class="rightbar-chat-frame-chat" style="height: 971px;">
+                <div class="user">
+                    <div class="user-panel">
+                        <a href="#" class="btn btn-default btn-rounded rightbar-chat-close"><span class="fa fa-angle-left"></span></a>
+                        <a href="#" class="btn btn-default btn-rounded pull-right"><span class="fa fa-user"></span></a>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-info-image status online">
+                            <img src="assets/images/users/user_1.jpg">
+                        </div>
+                        <h5>Devin Stephens</h5>
+                        <span>UI/UX Designer</span>
+                    </div>
+                </div>
+                <div class="chat-wrapper scroll mCustomScrollbar _mCS_3 mCS-autoHide mCS_no_scrollbar"><div id="mCSB_3" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0"><div id="mCSB_3_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+                    <ul class="chat" id="rightbar_chat">
+                        <li class="inbox">
+                            Hi, you have a second? Need to ask you something.
+                            <span>about 1h ago</span>
+                        </li>
+                        <li class="sent">
+                            Sure i have...
+                            <span>59min ago</span>
+                        </li>
+                        <li class="inbox">
+                            It's about latest design you did...
+                            <span>14min ago</span>
+                        </li>
+                        <li class="sent">
+                            I will do my best to help you
+                            <span>2min ago</span>
+                        </li>
+                    </ul>
+                </div><div id="mCSB_3_scrollbar_vertical" class="mCSB_scrollTools mCSB_3_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_3_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; height: 0px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+
+                <form class="form" action="#" method="post" id="rightbar_chat_form">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default"><i class="fa fa-paperclip"></i></button>
+                            </div>
+                            <input type="text" class="form-control" name="message">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- page footer -->
+    <div class="dev-page-footer dev-page-footer-fixed"> <!-- dev-page-footer-closed dev-page-footer-fixed -->
+        <ul class="dev-page-footer-controls">
+            <li class="pull-right">
+                <a class="dev-page-sidebar-minimize tip" title="Toggle navigation"><i class="fa fa-outdent"></i></a>
+            </li>
+        </ul>
+
+        <!-- page footer container -->
+        <div class="dev-page-footer-container">
+            <!-- loader and close button -->
+            <div class="dev-page-footer-container-layer">
+                <a href="#" class="dev-page-footer-container-layer-button"></a>
+            </div>
+            <!-- ./loader and close button -->
+        </div>
+        <!-- ./page footer container -->
+
+        <ul class="dev-page-footer-controls dev-page-footer-controls-auto pull-right">
+            <li>
+                <a class="dev-page-footer-collapse dev-page-footer-control-stuck tip" title="Logoff">
+                    <i class="fa fa-power-off"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- ./page footer -->
+
+
+
+
+</div>
+<!-- ./page wrapper -->
+
+<!-- javascript -->
+<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="js/plugins/angular/angular.min.js"></script>
+<script type="text/javascript" src="js/plugins/angular-route/angular-route.js"></script>
+
+
+
+<script src="angular-app/app.js"></script>
+<script src="angular-app/routes.js"></script>
+
+<script src="angular-app/admin/adminController.js"></script>
+
+
+
+
+
+
+
+
+<!-- templates js files-->
+<script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+<script type="text/javascript" src="js/plugins/moment/moment.js"></script>
+<script type="text/javascript" src="js/plugins/knob/jquery.knob.min.js"></script>
+<script type="text/javascript" src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="js/plugins/smartwizard/jquery.smartWizard.js"></script>
+<script type="text/javascript" src="js/plugins/bootstrap-select/bootstrap-select.js"></script>
+<script type="text/javascript" src="js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.17/angular-filter.js"></script>
+<script type="text/javascript" src="js/plugins/nvd3/d3.min.js"></script>
+<script type="text/javascript" src="js/plugins/nvd3/nv.d3.min.js"></script>
+<script type="text/javascript" src="js/plugins/nvd3/lib/stream_layers.js"></script>
+<script type="text/javascript" src="js/plugins/waypoint/waypoints.min.js"></script>
+<script type="text/javascript" src="js/plugins/counter/jquery.counterup.min.js"></script>
+<script type="text/javascript" src="js/dev-loaders.js"></script>
+<script type="text/javascript" src="js/dev-layout-default.js"></script>
+<script type="text/javascript" src="js/demo.js"></script>
+<script type="text/javascript" src="js/dev-app.js"></script>
+<script type="text/javascript" src="js/demo-dashboard.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+
+<script type="text/javascript" src="/js/plugins/pdfjs/pdf.js"></script>
+
+
+<!-- ./templates js files-->
+
+<!-- ./javascript -->
+</body>
+
+<!-- Mirrored from aqvatarius.com/themes/intuitive/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Jan 2016 18:12:25 GMT -->
+</html>

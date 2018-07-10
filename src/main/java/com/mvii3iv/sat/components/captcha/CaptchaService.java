@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 public class CaptchaService {
 
     private AntiCaptchaService antiCaptchaService;
-    private final String IMG_PATH = "/tmp/img/";//System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\";
+    private final String IMG_PATH = "/tmp/img/";//System.getProperty("inbox.dir") + "\\src\\main\\resources\\static\\img\\";
     private final String CAPTCHA_EXTENTION = ".PNG";
 
     @Autowired
@@ -82,7 +82,7 @@ public class CaptchaService {
      */
     public String insertCaptcha(String template) {
         try {
-            Path path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
+            Path path = Paths.get(System.getProperty("inbox.dir") + "\\src\\main\\resources\\static\\img\\captcha.jpg");
             byte[] bytes = new byte[0];
             bytes = Files.readAllBytes(path);
             String encodedImage = Base64.encode(bytes);

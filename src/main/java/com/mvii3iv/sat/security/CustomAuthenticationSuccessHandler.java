@@ -65,7 +65,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         }
 
         if(admin){
-            response.sendRedirect("/admin");
+            response.sendRedirect("/admin/");
         }else{
             List<Incomes> incomes = incomesRepository.findByEmisorRFC(authentication.getName());
 

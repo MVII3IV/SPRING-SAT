@@ -1,4 +1,6 @@
-angular.module('app').controller("adminController", ['$scope', function ($scope) {
+angular.module('adminApp').controller("adminController", ['$scope', function ($scope) {
+
+    $scope.title = "Dashboard";
 
     /*
     * Menu element object
@@ -6,20 +8,19 @@ angular.module('app').controller("adminController", ['$scope', function ($scope)
     */
     $scope.menuElements = [
         {
-            section: "Pagina Principal",
+            section: "Dashboard",
             class: "active",
             icon: "fa fa-home",
-            href: "../#!/"
+            href: "#!/"
         },
         {
-            section: "Usuarios",
+            section: "Alertas",
             class: "",
             icon: "fa fa-archive",
-            href: "../#!/income"
+            href: "#!/inbox"
         }
     ];
 
-    $scope.title = "Panel de Administradores";
 
     /*
     * Add class="active" to the clicked list element

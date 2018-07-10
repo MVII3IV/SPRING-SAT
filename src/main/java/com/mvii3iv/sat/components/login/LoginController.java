@@ -151,7 +151,7 @@ public class LoginController {
 
 
 
-            //if login fails then the user is redirected
+            //if login fails then the inbox is redirected
             if (!login(user, request.getSession().getId(), webClient)) {
                 String redirectUrl = request.getScheme() + "://localhost:8080";
                 loginMessage = "Datos incorrectos intenta nuevamente";

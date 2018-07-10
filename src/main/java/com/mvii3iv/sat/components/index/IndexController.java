@@ -41,7 +41,7 @@ public class IndexController {
         InputStream input = result.getNewPage().getWebResponse().getContentAsStream();
 
         OutputStream output = new FileOutputStream(
-                new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\pdf\\test.pdf"));
+                new File(System.getProperty("inbox.dir") + "\\src\\main\\resources\\static\\pdf\\test.pdf"));
 
         int c = 0;
         byte[] buf = new byte[8192];

@@ -6,53 +6,48 @@ angular.module("app")
         $routeProvider
 
             .when('/landing-page', {
-                templateUrl: 'angular-app/home/home.html',
+                templateUrl: 'angular-app/customers/home/home.html',
                 controller: 'mainController'
             })
             .when('/income', {
-                templateUrl: 'angular-app/income/income.html',
+                templateUrl: 'angular-app/customers/income/income.html',
                 controller: 'incomeController'
             })
             .when('/outgoings', {
-                templateUrl: 'angular-app/outgoings/outgoings.html',
+                templateUrl: 'angular-app/customers/outgoings/outgoings.html',
                 controller: 'outgoingsController'
             })
             .when('/tax-simulator', {
-                templateUrl: 'angular-app/tax-simulator/tax-simulator.html',
+                templateUrl: 'angular-app/customers/tax-simulator/tax-simulator.html',
                 controller: 'taxSimulatorController'
             })
             .when('/procedures', {
-                templateUrl: 'angular-app/procedures/procedures.html',
+                templateUrl: 'angular-app/customers/procedures/procedures.html',
                 controller: 'proceduresController'
             })
             .when('/declarations', {
-                templateUrl: 'angular-app/declarations/declarations.html',
+                templateUrl: 'angular-app/customers/declarations/declarations.html',
                 controller: 'declarationsController'
             })
             .when('/bills', {
-                templateUrl: 'angular-app/bills/bills.html',
+                templateUrl: 'angular-app/customers/bills/bills.html',
                 controller: 'billsController'
             })
             .when('/paysheets', {
-                templateUrl: 'angular-app/paysheets/paysheets.html',
+                templateUrl: 'angular-app/customers/paysheets/paysheets.html',
                 controller: 'paysheetsController'
             })
             .when('/social-security', {
-                templateUrl: 'angular-app/social-security/socialsecurity.html',
+                templateUrl: 'angular-app/customers/social-security/socialsecurity.html',
                 controller: 'socialSecurityController'
             })
             .when('/payments', {
-                templateUrl: 'angular-app/payments/payments.html',
+                templateUrl: 'angular-app/customers/payments/payments.html',
                 controller: 'paymentsController'
             })
             .when('/help', {
-                templateUrl: 'angular-app/help/help.html',
+                templateUrl: 'angular-app/customers/help/help.html',
                 controller: 'helpController'
-            })
-
-            .when('/admin', {
-                templateUrl: 'angular-app/admin/home/home.html',
-                controller: 'adminMainController'
             })
 
             .otherwise('/landing-page');

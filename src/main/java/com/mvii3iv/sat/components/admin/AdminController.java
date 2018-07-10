@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping(value="/admin")
 public class AdminController {
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String profile(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(-1);

@@ -13,6 +13,14 @@ angular.module("adminApp")
                 templateUrl: '../angular-app/admin/inbox/inbox.html',
                 controller: 'inboxController'
             })
+            .when('/declarations', {
+                templateUrl: '../angular-app/admin/declarations/declarations.html',
+                controller: 'declarationsController'
+            })
+            .when('/paysheets', {
+                templateUrl: '../angular-app/admin/paysheets/paysheets.html',
+                controller: 'paysheetsController'
+            })
 
             .otherwise('/');
     }]);

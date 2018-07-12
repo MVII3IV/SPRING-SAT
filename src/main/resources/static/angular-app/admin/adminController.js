@@ -7,18 +7,30 @@ angular.module('adminApp').controller("adminController", ['$scope', function ($s
     * Contains all the properties need to the proper functionality
     */
     $scope.menuElements = [
-        {
+         {
             section: "Dashboard",
             class: "active",
             icon: "fa fa-home",
             href: "#!/"
-        },
-        {
-            section: "Alertas",
-            class: "",
-            icon: "fa fa-archive",
-            href: "#!/inbox"
-        }
+         },
+         {
+             section: "Alertas",
+             class: "",
+             icon: "fa fa-archive",
+             href: "#!/inbox"
+         },
+         {
+             section: "Declaraciones",
+             class: "",
+             icon: "fa fa-archive",
+             href: "#!/declarations"
+         },
+         {
+             section: "Nominas",
+             class: "",
+             icon: "fa fa-archive",
+             href: "#!/paysheets"
+         }
     ];
 
 

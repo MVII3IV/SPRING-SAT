@@ -1,17 +1,48 @@
 <div class="wrapper wrapper-white">
 
     <h1>{{title}}</h1>
-    <p>En esta vista podras subir las declaraciones de tus clientes</p>
+    <p>En esta vista podras subir multiples archivos para tus clientes</p>
 
     <div class="row well" style="padding-bottom: 0px; margin: 0px;">
 
         <div class="row" style="margin-top: 20px; margin-left: 20px; margin-bottom:30px;">
-            <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="RFC">
+
+
+
+
+
+
+
+
+
+            <div class="form-group">
+
+                <div class="col-md-3">
+                    <label>Tipo de documento</label>
+                    <select class="selectpicker">
+                        <option>Nominas</option>
+                        <option>Alta IMSS</option>
+                        <option>Baja IMSS</option>
+                        <option>Alta Empleados</option>
+                        <option>Baja Empleados</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Nombre de Usuario</label>
+                    <select class="selectpicker" data-live-search="true">
+                        <option data-tokens="ketchup mustard">Jorge Garza</option>
+                        <option data-tokens="mustard">Silvia Olivas</option>
+                        <option data-tokens="frosting">Erick Dominguez</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <button class="btn btn-primary" style="margin-top: 30px;" ng-click="display()">Buscar Formato</button>
+                </div>
             </div>
-            <div col-md-4>
-                <button class="btn btn-default" ng-click="show = true"> Cargar usuario </button>
-            </div>
+
+
         </div>
 
     </div>
@@ -87,3 +118,11 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $('.selectpicker').selectpicker({
+      style: 'btn-primary',
+      size: 4
+    });
+</script>

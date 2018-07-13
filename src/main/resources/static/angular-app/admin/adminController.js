@@ -30,7 +30,13 @@ angular.module('adminApp').controller("adminController", ['$scope', function ($s
              class: "",
              icon: "fa fa-archive",
              href: "#!/paysheets"
-         }
+         },
+          {
+              section: "Documentacion",
+              class: "",
+              icon: "fa fa-archive",
+              href: "#!/documentation"
+          }
     ];
 
 

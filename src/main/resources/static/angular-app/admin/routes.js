@@ -21,6 +21,10 @@ angular.module("adminApp")
                 templateUrl: '../angular-app/admin/paysheets/paysheets.html',
                 controller: 'paysheetsController'
             })
+            .when('/documentation', {
+                templateUrl: '../angular-app/admin/documentation/documentation.html',
+                controller: 'documentationController'
+            })
 
             .otherwise('/');
     }]);

@@ -1,4 +1,4 @@
-angular.module('app').controller("mainController", ['$scope', function ($scope) {
+angular.module('app').controller("mainController", ['$scope', '$timeout', function ($scope, $timeout) {
 
     /*
     * Menu element object
@@ -74,15 +74,16 @@ angular.module('app').controller("mainController", ['$scope', function ($scope) 
     ];
 
     $scope.title = "Ingresos y Gastos";
+    $scope.icomeIn01 = 1000;
+    $scope.icomeOut = 600;
+    $scope.$broadcast('timer-start');
 
-    /*
-    * Add class="active" to the clicked list element
-    */
-    $scope.selectListElement = function(elementSelected){
-        $scope.menuElements.forEach(function(menuElement){
-            menuElement.class = "";
-        });
-        elementSelected.class = "active";
+    $scope.runTimer = function(value){
+        while(value < 5000){
+        $timeout(1000);
+        value++;
+        }
+
     }
 
 }]);

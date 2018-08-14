@@ -25,6 +25,14 @@ angular.module("adminApp")
                 templateUrl: '../angular-app/admin/documentation/documentation.html',
                 controller: 'documentationController'
             })
+            .when('/users', {
+                templateUrl: '../angular-app/admin/users/users.html',
+                controller: 'usersController'
+            })
+            .when('/customers', {
+                templateUrl: '../angular-app/admin/customers/customers.html',
+                controller: 'customersController'
+            })
 
             .otherwise('/');
     }]);

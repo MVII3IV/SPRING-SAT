@@ -20,6 +20,18 @@ angular.module('adminApp').controller("adminController", ['$scope', function ($s
              href: "#!/inbox"
          },
          {
+             section: "Usuarios",
+             class: "",
+             icon: "fa fa-archive",
+             href: "#!/users"
+         },
+          {
+              section: "Clientes",
+              class: "",
+              icon: "fa fa-archive",
+              href: "#!/customers"
+          },
+         {
              section: "Declaraciones",
              class: "",
              icon: "fa fa-archive",

@@ -24,11 +24,15 @@
             <p>Direcc:  Brasil 207 col panamericana</p>
             <p>Empresa: Desarrollo de software a medida</p>
 
-            <div class="form-group">
+            <div class="form-group" ng-hide="true">
                 <label>Declaracion .PDF</label>
                 <input type="file" class="form-control">
             </div>
 
+            <p>Subir archivos:</p>
+            <form action="/file-upload" class="dropzone dropzone-mini dz-clickable">
+                <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+            </form>
 
 
 

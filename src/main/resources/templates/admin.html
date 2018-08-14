@@ -112,11 +112,13 @@
                 <li class="title">Navigation</li>
 
                 <li ng-repeat="menuElement in menuElements" class="{{menuElement.class}}">
-                    <a href="{{menuElement.href}}" ng-click="selectListElement(menuElement)">
+                    <a ng-if="menuElement.class!='title'" href="{{menuElement.href}}" ng-click="selectListElement(menuElement)">
                         <i class="{{menuElement.icon}}" aria-hidden="true"></i>
                         <span>{{menuElement.section}}</span>
                     </a>
+                    <span ng-if="menuElement.class=='title'">{{menuElement.section}}</span>
                 </li>
+                <!--li class="title">Components</li-->
 
             </ul>
 
@@ -337,15 +339,14 @@
 <script type="text/javascript" src="../js/plugins/angular-route/angular-route.js"></script>
 
 
+<script src="../angular-app/customers/app.js"></script>
+<script src="../angular-app/customers/services/menuService.js"></script>
 
 <script src="../angular-app/admin/app.js"></script>
 <script src="../angular-app/admin/routes.js"></script>
 
 <script src="../angular-app/admin/adminController.js"></script>
 <script src="../angular-app/admin/inbox/inboxController.js"></script>
-<script src="../angular-app/admin/declarations/declarationsController.js"></script>
-<script src="../angular-app/admin/paysheets/paysheetsController.js"></script>
-<script src="../angular-app/admin/documentation/documentationController.js"></script>
 <script src="../angular-app/admin/users/usersController.js"></script>
 <script src="../angular-app/admin/customers/customersController.js"></script>
 

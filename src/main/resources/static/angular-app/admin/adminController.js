@@ -1,4 +1,4 @@
-angular.module('adminApp').controller("adminController", ['$scope', function ($scope) {
+angular.module('adminApp').controller("adminController", ['$scope', 'menuService', function ($scope, menuService) {
 
     $scope.title = "Dashboard";
 
@@ -18,38 +18,39 @@ angular.module('adminApp').controller("adminController", ['$scope', function ($s
              class: "",
              icon: "fa fa-archive",
              href: "#!/inbox"
-         },
+         },/*
          {
-             section: "Usuarios",
-             class: "",
-             icon: "fa fa-archive",
-             href: "#!/users"
-         },
+            section: "Usuarios",
+            class: "",
+            icon: "fa fa-archive",
+            href: "#!/users"
+         },*/
           {
-              section: "Clientes",
-              class: "",
-              icon: "fa fa-archive",
-              href: "#!/customers"
+            section: "Clientes",
+            class: "",
+            icon: "fa fa-archive",
+            href: "#!/customers"
           },
-         {
-             section: "Declaraciones",
-             class: "",
-             icon: "fa fa-archive",
-             href: "#!/declarations"
-         },
-         {
-             section: "Nominas",
-             class: "",
-             icon: "fa fa-archive",
-             href: "#!/paysheets"
-         },
           {
-              section: "Documentacion",
-              class: "",
-              icon: "fa fa-archive",
-              href: "#!/documentation"
+            section: "Visualizador",
+            class: "title",
+            icon: "",
+            href: ""
           }
     ];
+
+
+
+    var combineMenuElements = function(adminData, customerData){
+        customerData.forEach(function(element){
+            element.href = element.href.replace('../', '');
+        });
+        Array.prototype.push.apply(adminData,customerData)
+        return adminData;
+    }
+
+
+     $scope.menuElements = combineMenuElements($scope.menuElements, menuService);
 
 
     /*
@@ -57,7 +58,8 @@ angular.module('adminApp').controller("adminController", ['$scope', function ($s
     */
     $scope.selectListElement = function(elementSelected){
         $scope.menuElements.forEach(function(menuElement){
-            menuElement.class = "";
+            if(menuElement.class != 'title')
+                menuElement.class = "";
         });
         elementSelected.class = "active";
     }

@@ -1,1 +1,1 @@
-var app = angular.module('adminApp', ['ngRoute','angular.filter']);
+var app = angular.module('adminApp', ['ngRoute','angular.filter', 'app']);

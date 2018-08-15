@@ -1,5 +1,5 @@
 angular.module("adminApp")
-    .config(['$routeProvider', function ($routeProvider) {
+    .config(['$routeProvider',  function ($routeProvider) {
 
         'use strict';
 
@@ -32,6 +32,11 @@ angular.module("adminApp")
             .when('/customers', {
                 templateUrl: '../angular-app/admin/customers/customers.html',
                 controller: 'customersController'
+            })
+
+            .when('/tax-simulator', {
+                templateUrl: '../angular-app/customers/tax-simulator/tax-simulator.html',
+                controller: 'taxSimulatorController'
             })
 
             .otherwise('/');

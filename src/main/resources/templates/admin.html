@@ -109,7 +109,6 @@
             </div>
 
             <ul class="dev-page-navigation">
-                <li class="title">Navigation</li>
 
                 <li ng-repeat="menuElement in menuElements" class="{{menuElement.class}}">
                     <a ng-if="menuElement.class!='title'" href="{{menuElement.href}}" ng-click="selectListElement(menuElement)">
@@ -345,6 +344,7 @@
 <script src="../angular-app/admin/app.js"></script>
 <script src="../angular-app/admin/routes.js"></script>
 
+<!-- ADMIN -->
 <script src="../angular-app/admin/adminController.js"></script>
 <script src="../angular-app/admin/inbox/inboxController.js"></script>
 <script src="../angular-app/admin/users/usersController.js"></script>
@@ -352,8 +352,8 @@
 
 
 
-
-
+<!-- CUSTOMERS -->
+<script src="../angular-app/customers/tax-simulator/taxSimulatorController.js"></script>
 
 
 <!-- templates js files-->

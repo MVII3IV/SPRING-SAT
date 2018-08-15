@@ -8,6 +8,12 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
     */
     $scope.menuElements = [
          {
+            section: "Menu de Administradores",
+            class: "title",
+            icon: "",
+            href: ""
+         },
+         {
             section: "Dashboard",
             class: "active",
             icon: "fa fa-home",
@@ -32,7 +38,7 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
             href: "#!/customers"
           },
           {
-            section: "Visualizador",
+            section: "Visualizador de clientes",
             class: "title",
             icon: "",
             href: ""

@@ -8,16 +8,5 @@ angular.module('app').controller("mainController", ['$scope', '$timeout', 'menuS
 
 
     $scope.title = "Ingresos y Gastos";
-    $scope.icomeIn01 = 1000;
-    $scope.icomeOut = 600;
-    $scope.$broadcast('timer-start');
-
-    $scope.runTimer = function(value){
-        while(value < 5000){
-        $timeout(1000);
-        value++;
-        }
-
-    }
 
 }]);

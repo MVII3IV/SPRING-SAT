@@ -113,16 +113,14 @@ public class LoginController {
 
     /**
      * in charge of login the application and pass to the next page section
-     * @param request
+     * @param sessionId
      * @param response
      * @throws IOException
      */
-    public void extractData(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void extractData(String sessionId, HttpServletResponse response) throws IOException {
 
         UserData userData = null;
         try {
-
-            String sessionId = request.getSession().getId();
 
 
             if ( !UserDataService.usersData.containsKey(sessionId) ) {
@@ -142,7 +140,7 @@ public class LoginController {
 
 
             //if the captcha couldn be saved then reload the site
-            if (!saveCaptcha(request.getSession().getId(), browser))
+            if (!saveCaptcha(sessionId, browser))
                 response.sendRedirect("/login");
 
 
@@ -152,8 +150,8 @@ public class LoginController {
 
 
             //if login fails then the inbox is redirected
-            if (!login(user, request.getSession().getId(), webClient)) {
-                String redirectUrl = request.getScheme() + "://localhost:8080";
+            if (!login(user, sessionId, webClient)) {
+                String redirectUrl = "http://localhost:8080";
                 loginMessage = "Datos incorrectos intenta nuevamente";
                 response.sendRedirect("/login");
                 //return "redirect:" + HOST_SCHEME + HOST_NAME + ":" + HOST_PORT;

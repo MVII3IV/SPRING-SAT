@@ -40,7 +40,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
 
         boolean admin = false;
         String sessionId = request.getSession().getId();
-
+        sessionId = authentication.getName();
         if ( !UserDataService.usersData.containsKey(sessionId) ) {
             UserData userData = new UserData(null, null, new ArrayList<Incomes>(), new User(), false);
             UserDataService.usersData.put(sessionId, userData);
@@ -72,7 +72,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
             if(incomes.size() > 0)
                 response.sendRedirect("/");
             else {
-                loginController.extractData(request, response);
+                loginController.extractData(sessionId, response);
                 response.sendRedirect("/");
             }
         }

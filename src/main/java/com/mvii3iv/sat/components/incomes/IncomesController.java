@@ -3,6 +3,7 @@ package com.mvii3iv.sat.components.incomes;
 import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.UserData.UserDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,13 +27,12 @@ public class IncomesController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Incomes> getIcomes(HttpServletRequest request){
+    public List<Incomes> getIcomes(HttpServletRequest request, Authentication authentication){
 
-        String sessionId = request.getSession().getId();
+        String sessionId = authentication.getName();
         UserData userData = (UserData)UserDataService.usersData.get(sessionId);
 
-        //return userData.getIncomes();
-        return incomesRepository.findByEmisorRFC(userData.getUser().getRfc());
+        return incomesRepository.findByEmisorRFC(sessionId);
     }
 
 }

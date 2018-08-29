@@ -141,6 +141,34 @@
 
                                         <!-- views injection -->
                                         <div class="container-tabbed" id="main">
+
+
+
+
+
+
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Buscador de  <span>clientes</span></label>
+                                                    <select class="form-control selectpicker" ng-model="customer" data-live-search="true" style="display: none;"  ng-change="setCustomer(customer)"
+                                                        ng-options="item.rfc as item.name for item in customers">
+                                                        <option ng-selected="true" disabled="disabled" value="">Selecciona a un cliente</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
                                             <div ng-view autoscroll="true"></div>
                                         </div>
                                         <!-- ./views injection -->
@@ -340,6 +368,8 @@
 
 <script src="../angular-app/customers/app.js"></script>
 <script src="../angular-app/customers/services/menuService.js"></script>
+<script src="../angular-app/customers/services/userService.js"></script>
+
 
 <script src="../angular-app/admin/app.js"></script>
 <script src="../angular-app/admin/routes.js"></script>
@@ -365,6 +395,7 @@
 <script src="../angular-app/customers/social-security/socialSecurityController.js"></script>
 <script src="../angular-app/customers/tax-simulator/taxSimulatorController.js"></script>
 <script src="../angular-app/customers/procedures/proceduresController.js"></script>
+
 
 <!-- templates js files-->
 <script type="text/javascript" src="../js/plugins/bootstrap/bootstrap.min.js"></script>

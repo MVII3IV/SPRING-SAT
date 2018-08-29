@@ -1,6 +1,12 @@
-angular.module('adminApp').controller("adminController", ['$scope', 'menuService', function ($scope, menuService) {
+angular.module('adminApp').controller("adminController", ['$scope', 'menuService', 'userService', '$http', function ($scope, menuService, userService, $http) {
 
     $scope.title = "Dashboard";
+
+    $http.get("../user/").then(function mySuccess(response) {
+        userService.data = response.data;
+    }, function myError(response) {
+        $scope.myWelcome = response.statusText;
+    });
 
     /*
     * Menu element object
@@ -47,6 +53,21 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
 
 
 
+    $scope.customers = [
+    {
+        rfc : "CASA8412202SA",
+        name : "Carrera Acosta Saul Alberto"
+    },
+    {
+        rfc : "LULR860821MTA",
+        name : "ROSA IVET LUNA LOPEZ"
+    }
+    ];
+
+
+
+
+
     var combineMenuElements = function(adminData, customerData){
         customerData.forEach(function(element){
             element.href = element.href.replace('../', '');
@@ -68,6 +89,10 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
                 menuElement.class = "";
         });
         elementSelected.class = "active";
+    }
+
+    $scope.setCustomer = function(customer){
+        userService.data.common = customer;
     }
 
 }]);

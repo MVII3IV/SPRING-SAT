@@ -4,8 +4,10 @@ import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.UserData.UserDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +28,13 @@ public class IncomesController {
         this.incomesRepository = incomesRepository;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Incomes> getIcomes(HttpServletRequest request, Authentication authentication){
-
-        String sessionId = authentication.getName();
-        UserData userData = (UserData)UserDataService.usersData.get(sessionId);
-
-        return incomesRepository.findByEmisorRFC(sessionId);
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Incomes> getIcomes(@RequestParam String userRFC, HttpServletRequest request, Authentication authentication){
+        //UserData userData = (UserData)UserDataService.usersData.get(userRFC);
+        if(authentication.getName().toLowerCase().equals("admin"))
+            return incomesRepository.findByEmisorRFC(userRFC);
+        else
+            return incomesRepository.findByEmisorRFC(authentication.getName());
     }
 
 }

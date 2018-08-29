@@ -8,7 +8,7 @@ angular.module('app')
       };
     })
 
-.controller("incomeController", ['$scope', '$http', function ($scope, $http) {
+.controller("incomeController", ['$scope', '$http', 'userService', function ($scope, $http, userService) {
     $scope.title = "Ingresos";
     $scope.grandTotal = 0;
 
@@ -29,7 +29,7 @@ angular.module('app')
     ];
 
 
-    $http.get("../incomes/").then(function mySuccess(response) {
+    $http.get("../incomes/?userRFC=" + userService.data.common).then(function mySuccess(response) {
         $scope.bills = response.data;
 
     }, function myError(response) {

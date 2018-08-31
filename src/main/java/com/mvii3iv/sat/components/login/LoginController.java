@@ -10,6 +10,7 @@ import com.mvii3iv.sat.components.incomes.Incomes;
 import com.mvii3iv.sat.components.incomes.IncomesRepository;
 import com.mvii3iv.sat.components.incomes.IncomesService;
 import com.mvii3iv.sat.components.captcha.CaptchaService;
+import com.mvii3iv.sat.components.user.Users;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -132,7 +133,7 @@ public class LoginController {
             WebClient webClient = userData.getWebClient();
             userData.setBrowser(webClient.getPage(LOGIN_URL));
             HtmlPage browser = userData.getBrowser();
-            User user = userData.getUser();
+            Users user = userData.getUser();
 
 
             System.out.println("------------------------------------------STAGE 1-------------------------------------------------");
@@ -230,7 +231,7 @@ public class LoginController {
      * @param sessionId
      * @return
      */
-    private boolean login(User user, String sessionId, WebClient webClient) {
+    private boolean login(Users user, String sessionId, WebClient webClient) {
 
         HtmlPage browser = (HtmlPage) webClient.getCurrentWindow().getEnclosedPage();
 

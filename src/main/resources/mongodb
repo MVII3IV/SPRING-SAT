@@ -1,0 +1,9 @@
+users
+
+{
+    "_id" : ObjectId("5b89b31b29d683ff2f885c25"),
+    "rfc" : "LULR860821MTA",
+    "name" : "test",
+    "common" : "",
+    "pass" : "goluna21"
+}

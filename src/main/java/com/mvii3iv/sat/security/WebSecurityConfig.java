@@ -12,33 +12,45 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+//https://www.codementor.io/gtommee97/rest-authentication-with-spring-security-and-mongodb-j8wgh8kg7
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
+    @Autowired
+    MongoUserDetailsService userDetailsService;
+
+    /*
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }*/
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-            .authorizeRequests()
+                .authorizeRequests()
                 .antMatchers("/resources/static/**").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
 
-            .formLogin().successHandler(customAuthenticationSuccessHandler)
+                .formLogin().successHandler(customAuthenticationSuccessHandler)
                 .loginPage("/login")
                 .permitAll()
                 .and()
 
-            .logout()
+                .logout()
                 .permitAll()
                 .and()
 
-             .sessionManagement()
+                .sessionManagement()
                 .sessionFixation().migrateSession()
                 .invalidSessionUrl("/invalidSession.html")
                 .maximumSessions(2)
@@ -46,13 +58,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
 
-            .exceptionHandling()
+                .exceptionHandling()
                 .accessDeniedPage("/403");
     }
 
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.userDetailsService(userDetailsService);
+
+        /*
         auth
                 //.userDetailsService(userDetailsService)
                 //.and()
@@ -62,6 +78,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("CASA8412202SA").password("17201720").roles("USER")
                 .and()
                 .withUser("admin").password("admin").roles("ADMIN");
-        auth.eraseCredentials(false);
+        auth.eraseCredentials(false);*/
     }
 }

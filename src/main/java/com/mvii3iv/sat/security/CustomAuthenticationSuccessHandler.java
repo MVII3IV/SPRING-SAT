@@ -5,7 +5,8 @@ import com.mvii3iv.sat.components.UserData.UserDataService;
 import com.mvii3iv.sat.components.incomes.Incomes;
 import com.mvii3iv.sat.components.incomes.IncomesRepository;
 import com.mvii3iv.sat.components.login.LoginController;
-import com.mvii3iv.sat.components.login.User;
+import com.mvii3iv.sat.components.user.UserRepository;
+import com.mvii3iv.sat.components.user.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,11 +25,13 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
 
     private LoginController loginController;
     private IncomesRepository incomesRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public CustomAuthenticationSuccessHandler(LoginController loginController, IncomesRepository incomesRepository){
+    public CustomAuthenticationSuccessHandler(LoginController loginController, IncomesRepository incomesRepository, UserRepository userRepository){
         this.loginController = loginController;
         this.incomesRepository = incomesRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -42,11 +45,12 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         String sessionId = request.getSession().getId();
         sessionId = authentication.getName();
         if ( !UserDataService.usersData.containsKey(sessionId) ) {
-            UserData userData = new UserData(null, null, new ArrayList<Incomes>(), new User(), false);
+            UserData userData = new UserData(null, null, new ArrayList<Incomes>(), new Users(), false);
             UserDataService.usersData.put(sessionId, userData);
         }
 
-        ((UserData)UserDataService.usersData.get(sessionId)).setUser(new User(authentication.getName(), authentication.getCredentials().toString()));
+        Users user = userRepository.findByRfc(authentication.getName());
+        ((UserData)UserDataService.usersData.get(sessionId)).setUser(user);
 
 
         //set our response to OK status
@@ -54,7 +58,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
 
 
 
-        System.out.println(">User Granted");
+        System.out.println(">Users Granted");
 
 
 

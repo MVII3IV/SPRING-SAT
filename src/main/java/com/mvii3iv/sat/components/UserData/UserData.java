@@ -4,7 +4,8 @@ package com.mvii3iv.sat.components.UserData;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.mvii3iv.sat.components.incomes.Incomes;
-import com.mvii3iv.sat.components.login.User;
+import com.mvii3iv.sat.components.user.Users;
+
 
 import java.util.List;
 
@@ -13,17 +14,17 @@ public class UserData {
     private WebClient webClient;
     private HtmlPage browser;
     private List<Incomes> incomes;
-    private User user;
+    private Users users;
     private boolean ready;
 
     public UserData() {
     }
 
-    public UserData(WebClient webClient, HtmlPage browser, List<Incomes> incomes, User user, boolean ready) {
+    public UserData(WebClient webClient, HtmlPage browser, List<Incomes> incomes, Users users, boolean ready) {
         this.webClient = webClient;
         this.browser = browser;
         this.incomes = incomes;
-        this.user = user;
+        this.users = users;
         this.ready = ready;
     }
 
@@ -59,11 +60,11 @@ public class UserData {
         this.incomes = incomes;
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users users) {
+        this.users = users;
     }
 }

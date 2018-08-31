@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public User getUser(Authentication authentication){
-        return new User(authentication.getName(), "Fake Name", "");
+    public Users getUser(Authentication authentication){
+        return new Users(authentication.getName(), "Fake Name", "");
     }
 
 }

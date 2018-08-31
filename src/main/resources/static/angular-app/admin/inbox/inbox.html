@@ -5,154 +5,196 @@
 
 
 
-    <div class="wrapper">
-        <div class="row">
-            <div class="col-md-4">
-                <a class="tile tile-default">
-                    4 <p>Alertas Totales</p>
-                    <div class="informer informer-danger dir-tr"><span class="fa fa-caret-down"></span></div>
-                    <button class="btn btn-default">Ingresos 2</button>
-                    <button class="btn btn-default">Facturacion 1</button>
-                    <button class="btn btn-default">IMSS 1</button>
-                </a>
+    <div class="tabs">
+        <ul class="nav nav-tabs nav-tabs-arrowed" role="tablist">
+            <li class="active"><a data-target="#tab1-first" role="tab" data-toggle="tab" aria-expanded="true">Alertas Pendientes</a></li>
+            <li class=""><a data-target="#tab1-second" role="tab" data-toggle="tab" aria-expanded="false">Alertas Terminadas</a></li>
+        </ul>
+        <div class="panel-body tab-content">
+            <div class="tab-pane active" id="tab1-first">
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="tile tile-default">
+                                4 <p>Alertas Totales</p>
+                                <div class="informer informer-danger dir-tr"><span class="fa fa-caret-down"></span></div>
+                                <button class="btn btn-default">Ingresos 2</button>
+                                <button class="btn btn-default">Facturacion 1</button>
+                                <button class="btn btn-default">IMSS 1</button>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="tile tile-danger">
+                                1 <p>Alertas Vencidas</p>
+                                <div class="informer informer-warning"><span class="fa fa-caret-down"></span></div>
+                                <div class="informer informer-default dir-tr"></div>
+                                <button class="btn btn-default">Facturacion 1</button>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="tile tile-warning">
+                                2 <p>Alertas Proximas a vencer</p>
+                                <div class="informer informer-default"></div>
+                                <div class="informer informer-danger dir-tr"><span class="fa fa-caret-up"></span></div>
+                                <button class="btn btn-default">IMSS 1</button>
+                                <button class="btn btn-default">Gastos 1</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover text-center">
+                        <tbody><tr>
+                            <th width="250" class="text-left">Usuario</th>
+                            <th width="150" class="text-left">Topico</th>
+                            <th>Fecha</th>
+                            <th>Asignado</th>
+                            <th>Status</th>
+                            <th>Acciones</th>
+                        </tr>
+
+                        <tr style="background:#e74e40">
+                            <td>
+                                <div class="list-contacts list-contacts-inline" style="width: 160px;">
+                                    <a href="#" class="list-contacts-item contact-online" style="color:white">
+                                        <img src="../assets/images/users/user_2.jpg"> Carlos Lopez
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-left table-products">
+                                <a href="#" style="color:white">Facturacion</a>
+                            </td>
+                            <td style="color:white">27/06/2018 15:32</td>
+                            <td class="text-left" style="color:white">
+                                Silvia Olivas
+                            </td>
+
+                            <td><span class="label label-success">En progreso</span></td>
+
+                            <td>
+                                <button class="btn btn-primary btn-rounded btn-clean" data-target="#modal" data-toggle="modal">Abrir Alerta</button>
+                            </td>
+                        </tr>
+
+                        <tr style="background:#f5c67d">
+                            <td>
+                                <div class="list-contacts list-contacts-inline" style="width: 160px;">
+                                    <a href="#" class="list-contacts-item contact-away">
+                                        <img src="../assets/images/users/user_3.jpg"> Maribel Estrada
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-left table-products">
+                                <a href="#">IMSS Alta</a>
+                            </td>
+                            <td>27/06/2018 8:21</td>
+                            <td class="text-left">
+                                Erick Dominguez
+                            </td>
+                            <td><span class="label label-success">En progreso</span></td>
+                            <td>
+                                <button class="btn btn-primary btn-rounded btn-clean">Abrir Alerta</button>
+                            </td>
+                        </tr>
+                        <tr style="background:#f5c67d">
+                            <td>
+                                <div class="list-contacts list-contacts-inline" style="width: 250px;">
+                                    <a href="#" class="list-contacts-item contact-away">
+                                        <img src="../assets/images/users/user_1.jpg"> Francisco Estrada
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-left table-products">
+                                <a href="#">Gastos</a>
+                            </td>
+                            <td>28/06/2018 10:45</td>
+                            <td class="text-left">
+                                <span class="label label-success" style="margin-right: 10px;">Sin Asignar</span>
+                            </td>
+                            <td><span class="label label-danger">Disponible</span></td>
+                            <td>
+                                <button class="btn btn-primary btn-rounded btn-clean">Abrir Alerta</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="list-contacts list-contacts-inline" style="width: 160px;">
+                                    <a href="#" class="list-contacts-item contact-offline">
+                                        <img src="../assets/images/users/user_4.jpg"> Edwin Enriquez
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-left table-products">
+                                <a href="#">Ingresos</a>
+                            </td>
+                            <td>29/06/2018 11:01</td>
+                            <td class="text-left">
+                                <span class="label label-success" style="margin-right: 10px;">Sin Asignar</span>
+                            </td>
+                            <td><span class="label label-success">Disponible</span></td>
+                            <td>
+                                <button class="btn btn-primary btn-rounded btn-clean">abrir alerta</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="list-contacts list-contacts-inline" style="width: 160px;">
+                                    <a href="#" class="list-contacts-item contact-offline">
+                                        <img src="../assets/images/users/user_4.jpg"> Edwin Enriquez
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-left table-products">
+                                <a href="#">Ingresos</a>
+                            </td>
+                            <td>1/07/2018 12:11</td>
+                            <td class="text-left">
+                                <span class="label label-success" style="margin-right: 10px;">Sin Asignar</span>
+                            </td>
+                            <td><span class="label label-success">Disponible</span></td>
+                            <td>
+                                <button class="btn btn-primary btn-rounded btn-clean">abrir alerta</button>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
             </div>
-            <div class="col-md-4">
-                <a class="tile tile-danger">
-                    1 <p>Alertas Vencidas</p>
-                    <div class="informer informer-warning"><span class="fa fa-caret-down"></span></div>
-                    <div class="informer informer-default dir-tr"></div>
-                    <button class="btn btn-default">Facturacion 1</button>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a class="tile tile-warning">
-                    2 <p>Alertas Proximas a vencer</p>
-                    <div class="informer informer-default"></div>
-                    <div class="informer informer-danger dir-tr"><span class="fa fa-caret-up"></span></div>
-                    <button class="btn btn-default">IMSS 1</button>
-                    <button class="btn btn-default">Gastos 1</button>
-                </a>
+            <div class="tab-pane" id="tab1-second">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover text-center">
+                        <tbody><tr>
+                            <th>Cliente</th>
+                            <th>Topico</th>
+                            <th>Fecha</th>
+                            <th>Cerrado Por</th>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="list-contacts list-contacts-inline">
+                                    <a href="#" class="list-contacts-item contact-online">
+                                        <img src="../assets/images/users/user_1.jpg"> Oscar Diaz
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="table-products">
+                                <a href="#">Facturacion</a>
+                            </td>
+                            <td>27/06/2018 15:32</td>
+                            <td>
+                                Silvia Olivas
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover text-center">
-            <tbody><tr>
-                <th width="250" class="text-left">Usuario</th>
-                <th width="150" class="text-left">Topico</th>
-                <th>Fecha</th>
-                <th>Asignado</th>
-                <th>Status</th>
-                <th>Acciones</th>
-            </tr>
 
-            <tr style="background:#e74e40">
-                <td>
-                    <div class="list-contacts list-contacts-inline" style="width: 160px;">
-                        <a href="#" class="list-contacts-item contact-online" style="color:white">
-                            <img src="../assets/images/users/user_2.jpg"> Carlos Lopez
-                        </a>
-                    </div>
-                </td>
-                <td class="text-left table-products">
-                    <a href="#" style="color:white">Facturacion</a>
-                </td>
-                <td style="color:white">27/06/2018 15:32</td>
-                <td class="text-left" style="color:white">
-                    Silvia Olivas
-                </td>
 
-                <td><span class="label label-success">En progreso</span></td>
 
-                <td>
-                    <button class="btn btn-primary btn-rounded btn-clean" data-target="#modal" data-toggle="modal">Abrir Alerta</button>
-                </td>
-            </tr>
-
-            <tr style="background:#f5c67d">
-                <td>
-                    <div class="list-contacts list-contacts-inline" style="width: 160px;">
-                        <a href="#" class="list-contacts-item contact-away">
-                            <img src="../assets/images/users/user_3.jpg"> Maribel Estrada
-                        </a>
-                    </div>
-                </td>
-                <td class="text-left table-products">
-                    <a href="#">IMSS Alta</a>
-                </td>
-                <td>27/06/2018 8:21</td>
-                <td class="text-left">
-                     Erick Dominguez
-                </td>
-                <td><span class="label label-success">En progreso</span></td>
-                <td>
-                    <button class="btn btn-primary btn-rounded btn-clean">Abrir Alerta</button>
-                </td>
-            </tr>
-            <tr style="background:#f5c67d">
-                <td>
-                    <div class="list-contacts list-contacts-inline" style="width: 250px;">
-                        <a href="#" class="list-contacts-item contact-away">
-                            <img src="../assets/images/users/user_1.jpg"> Francisco Estrada
-                        </a>
-                    </div>
-                </td>
-                <td class="text-left table-products">
-                    <a href="#">Gastos</a>
-                </td>
-                <td>28/06/2018 10:45</td>
-                <td class="text-left">
-                    <span class="label label-success" style="margin-right: 10px;">Sin Asignar</span>
-                </td>
-                <td><span class="label label-danger">Disponible</span></td>
-                <td>
-                    <button class="btn btn-primary btn-rounded btn-clean">Abrir Alerta</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="list-contacts list-contacts-inline" style="width: 160px;">
-                        <a href="#" class="list-contacts-item contact-offline">
-                            <img src="../assets/images/users/user_4.jpg"> Edwin Enriquez
-                        </a>
-                    </div>
-                </td>
-                <td class="text-left table-products">
-                    <a href="#">Ingresos</a>
-                </td>
-                <td>29/06/2018 11:01</td>
-                <td class="text-left">
-                    <span class="label label-success" style="margin-right: 10px;">Sin Asignar</span>
-                </td>
-                <td><span class="label label-success">Disponible</span></td>
-                <td>
-                    <button class="btn btn-primary btn-rounded btn-clean">abrir alerta</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="list-contacts list-contacts-inline" style="width: 160px;">
-                        <a href="#" class="list-contacts-item contact-offline">
-                            <img src="../assets/images/users/user_4.jpg"> Edwin Enriquez
-                        </a>
-                    </div>
-                </td>
-                <td class="text-left table-products">
-                    <a href="#">Ingresos</a>
-                </td>
-                <td>1/07/2018 12:11</td>
-                <td class="text-left">
-                    <span class="label label-success" style="margin-right: 10px;">Sin Asignar</span>
-                </td>
-                <td><span class="label label-success">Disponible</span></td>
-                <td>
-                    <button class="btn btn-primary btn-rounded btn-clean">abrir alerta</button>
-                </td>
-            </tr>
-            </tbody></table>
-    </div>
 
 </div>
 

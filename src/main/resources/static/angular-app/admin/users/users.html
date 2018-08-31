@@ -1,53 +1,55 @@
-<h1>{{title}}</h1>
-<div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover text-center">
-        <tbody><tr>
-            <th class="text-left">Usuario</th>
-            <th class="text-left">Rol</th>
-            <th>Clientes Asignados</th>
-            <th>Acciones</th>
-        </tr>
+<div class="wrapper wrapper-white">
+    <h1>{{title}}</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover text-center">
+            <tbody><tr>
+                <th class="text-left">Usuario</th>
+                <th class="text-left">Rol</th>
+                <th>Clientes Asignados</th>
+                <th>Acciones</th>
+            </tr>
 
-        <tr ng-repeat="user in users">
-            <td>
-                <div class="list-contacts list-contacts-inline">
-                    <a href="#" class="list-contacts-item contact-online">
-                        <img src="../assets/images/users/{{user.img}}.jpg"> {{user.name}}
-                    </a>
+            <tr ng-repeat="user in users">
+                <td>
+                    <div class="list-contacts list-contacts-inline">
+                        <a href="#" class="list-contacts-item contact-online">
+                            <img src="../assets/images/users/{{user.img}}.jpg"> {{user.name}}
+                        </a>
+                    </div>
+                </td>
+                <td class="text-left table-products">
+                    <a href="#">{{user.role}}</a>
+                </td>
+                <td>
+                    <p>{{user.customers.length}}</p>
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" data-target="#modal" data-toggle="modal">Asignar Clientes</button>
+                </td>
+            </tr>
+
+
+            </tbody></table>
+    </div>
+
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" style="margin-top: 120px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Clientes</h4>
                 </div>
-            </td>
-            <td class="text-left table-products">
-                <a href="#">{{user.role}}</a>
-            </td>
-            <td>
-                <p>{{user.customers.length}}</p>
-            </td>
+                <div class="modal-body">
+                    <p>Selecciona un cliente para agregar</p>
+                    <select class="form-group">
+                        <option ng-repeat="customer in customers">{{customer.name}}</option>
+                    </select>
 
-            <td>
-                <button class="btn btn-primary" data-target="#modal" data-toggle="modal">Asignar Clientes</button>
-            </td>
-        </tr>
-
-
-        </tbody></table>
-</div>
-
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog" style="margin-top: 120px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Clientes</h4>
-            </div>
-            <div class="modal-body">
-                <p>Selecciona un cliente para agregar</p>
-                <select class="form-group">
-                    <option ng-repeat="customer in customers">{{customer.name}}</option>
-                </select>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
+                </div>
             </div>
         </div>
     </div>

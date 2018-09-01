@@ -11,14 +11,24 @@ public class Users {
     private String name;
     private String common;
     private String pass;
+    private int admin;
 
     public Users(String rfc, String name, String common) {
         this.rfc = rfc;
         this.name = name;
         this.common = common;
+        this.admin = 0;
     }
 
     public Users() {
+    }
+
+    public int getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
     }
 
     public ObjectId get_id() {

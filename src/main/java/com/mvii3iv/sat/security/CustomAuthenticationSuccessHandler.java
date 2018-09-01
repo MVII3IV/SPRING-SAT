@@ -63,7 +63,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
 
 
         for (GrantedAuthority auth : authentication.getAuthorities()) {
-            if ("ROLE_ADMIN".equals(auth.getAuthority())){
+            if ("ADMIN".equals(auth.getAuthority())){
                 admin = true;
             }
         }

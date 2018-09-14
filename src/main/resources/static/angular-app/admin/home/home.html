@@ -2,4 +2,62 @@
 
     <h1>{{title}}</h1>
 
+
+    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+        <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select
+                name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select> entries</label></div>
+        <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search"
+                                                                                           class="form-control"
+                                                                                           placeholder=""
+                                                                                           aria-controls="DataTables_Table_0"></label>
+        </div>
+        <table class="table table-bordered table-striped dataTable no-footer" id="DataTables_Table_0">
+            <thead>
+                <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 146px;">
+                        imagen
+                    </th>
+                    <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 180px;">
+                        RFC
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 263px;">
+                        Nombre
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 141px;">
+                        Contraseña
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 67px;">
+                        Regimen Fiscal
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr role="row" class="odd" ng-repeat="user in users">
+                    <td>{{user.image}}</td>
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.pass}}</td>
+                    <td>{{user.taxRegime}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 16
+            entries
+        </div>
+        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a
+                class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0"
+                tabindex="0" id="DataTables_Table_0_previous">Previous</a><span><a class="paginate_button current"
+                                                                                   aria-controls="DataTables_Table_0"
+                                                                                   data-dt-idx="1" tabindex="0">1</a><a
+                class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a></span><a
+                class="paginate_button next" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0"
+                id="DataTables_Table_0_next">Next</a></div>
+    </div>
+
+
 </div>

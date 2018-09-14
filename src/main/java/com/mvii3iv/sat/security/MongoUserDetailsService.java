@@ -20,18 +20,18 @@ public class MongoUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = repository.findByRfc(username);
+        Users user = repository.findById(username);
 
         if(user == null) {
             throw new UsernameNotFoundException("Users not found");
         }
 
-        String role = "ADMIN";
+        String role = "ROLE_ADMIN";
 
-        if(user.getAdmin() == 0)
-            role = "USER";
+        if(!user.getRole().equals("ROLE_ADMIN"))
+            role = "ROLE_USER";
 
         List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(role));
-        return new User(user.getRfc(), user.getPass(), authorities);
+        return new User(user.getId(), user.getPass(), authorities);
     }
 }

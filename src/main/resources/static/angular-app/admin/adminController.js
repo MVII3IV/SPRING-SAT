@@ -1,12 +1,20 @@
 angular.module('adminApp').controller("adminController", ['$scope', 'menuService', 'userService', '$http', function ($scope, menuService, userService, $http) {
 
     $scope.title = "Dashboard";
+    $scope.users = [];
 
-    $http.get("../user/").then(function mySuccess(response) {
+    $http.get("../user/?user=mock").then(function mySuccess(response) {
         userService.data = response.data;
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
     });
+
+    $http.get("../user/").then(function mySuccess(response) {
+        $scope.users = response.data;
+    }, function myError(response) {
+        //error
+    });
+
 
     /*
     * Menu element object
@@ -49,19 +57,6 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
             icon: "",
             href: ""
           }
-    ];
-
-
-
-    $scope.customers = [
-    {
-        rfc : "CASA8412202SA",
-        name : "Carrera Acosta Saul Alberto"
-    },
-    {
-        rfc : "LULR860821MTA",
-        name : "ROSA IVET LUNA LOPEZ"
-    }
     ];
 
 

@@ -246,7 +246,7 @@ public class LoginController {
             HtmlInput sendButton = loginForm.getInputByName("submit");
 
             System.out.println("-->Stage 2.2");
-            rfc.setValueAttribute(user.getRfc());
+            rfc.setValueAttribute(user.getId());
             pass.setValueAttribute(user.getPass());
             captcha.setValueAttribute(captchaService.decodeCaptcha(sessionId));
             browser = sendButton.click();

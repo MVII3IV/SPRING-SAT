@@ -2,33 +2,61 @@ package com.mvii3iv.sat.components.user;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class Users {
 
     @Id
     private ObjectId _id;
-    private String rfc;
+    private String id;
+    private String image;
     private String name;
+    private String lastName;
     private String common;
     private String pass;
-    private int admin;
+    private String role;
+    private String taxRegime;
 
-    public Users(String rfc, String name, String common) {
-        this.rfc = rfc;
+    public Users(String id, String name, String common, String role) {
+        this.id = id;
         this.name = name;
         this.common = common;
-        this.admin = 0;
+        this.role = role;
     }
 
     public Users() {
     }
 
-    public int getAdmin() {
-        return admin;
+    public String getRole() {
+        return role;
     }
 
-    public void setAdmin(int admin) {
-        this.admin = admin;
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getTaxRegime() {
+        return taxRegime;
+    }
+
+    public void setTaxRegime(String taxRegime) {
+        this.taxRegime = taxRegime;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public ObjectId get_id() {
@@ -47,12 +75,12 @@ public class Users {
         this.pass = pass;
     }
 
-    public String getRfc() {
-        return rfc;
+    public String getId() {
+        return id;
     }
 
-    public void setRfc(String rfc) {
-        this.rfc = rfc;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

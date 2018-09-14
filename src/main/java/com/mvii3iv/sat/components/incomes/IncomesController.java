@@ -2,6 +2,8 @@ package com.mvii3iv.sat.components.incomes;
 
 import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.UserData.UserDataService;
+import com.mvii3iv.sat.components.user.UserRepository;
+import com.mvii3iv.sat.components.user.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -19,19 +21,19 @@ public class IncomesController {
 
     private IncomesService incomesService;
     private IncomesRepository incomesRepository;
-    private UserDataService userDataService;
+    private UserRepository userRepository;
 
     @Autowired
-    public IncomesController(IncomesService incomesService, IncomesRepository incomesRepository){
+    public IncomesController(IncomesService incomesService, IncomesRepository incomesRepository,UserRepository userRepository){
         this.incomesService = incomesService;
-        this.userDataService = userDataService;
         this.incomesRepository = incomesRepository;
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Incomes> getIcomes(@RequestParam String userRFC, HttpServletRequest request, Authentication authentication){
-        //UserData userData = (UserData)UserDataService.usersData.get(userRFC);
-        if(authentication.getName().toLowerCase().equals("admin"))
+        Users user = userRepository.findById(authentication.getName());
+        if(user.getRole().equals("ROLE_ADMIN"))
             return incomesRepository.findByEmisorRFC(userRFC);
         else
             return incomesRepository.findByEmisorRFC(authentication.getName());

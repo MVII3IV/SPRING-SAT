@@ -39,8 +39,6 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-
-
         boolean admin = false;
         String sessionId = request.getSession().getId();
         sessionId = authentication.getName();
@@ -49,24 +47,16 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
             UserDataService.usersData.put(sessionId, userData);
         }
 
-        Users user = userRepository.findByRfc(authentication.getName());
+        Users user = userRepository.findById(authentication.getName());
         ((UserData)UserDataService.usersData.get(sessionId)).setUser(user);
 
 
         //set our response to OK status
         response.setStatus(HttpServletResponse.SC_OK);
-
-
-
         System.out.println(">Users Granted");
 
-
-
-        for (GrantedAuthority auth : authentication.getAuthorities()) {
-            if ("ADMIN".equals(auth.getAuthority())){
-                admin = true;
-            }
-        }
+        if (user.getRole().equals("ROLE_ADMIN"))
+            admin = true;
 
         if(admin){
             response.sendRedirect("/admin/");

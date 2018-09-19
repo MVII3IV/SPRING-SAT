@@ -103,7 +103,8 @@
                     <div class="profile-status online"></div>
                 </div>
                 <div class="profile-info">
-                    <h4>Silvia Olivas</h4>
+                    <h4>Silvia Olivas </h4>
+                    <h3>{{selectedUser.id}}</h3>
                     <span>Administrador</span>
                 </div>
             </div>
@@ -148,28 +149,30 @@
 
 
 
-                                            <div class="col-md-3">
+                                            <!--div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label>Buscador de <span>clientes</span></label>
-                                                    <select class="form-control selectpicker" ng-model="test" data-live-search="true" style="display: none;"  ng-change="setCustomer(test)"
-                                                        ng-options="user.id as user.name for user in users">
-                                                        <option ng-selected="true" disabled="disabled" value="">Selecciona a un cliente</option>
+                                                    <label>Buscador de  <span>clientes</span></label>
+                                                    <select class="form-control" ng-model="customer" style="display: none;"  ng-change="setCustomer(customer)"
+                                                            ng-options="item.id as item.name for item in customers">
+                                                        <option ng-selected="true" disabled="disabled" ng-repeat="customer in customers" value="">Selecciona a un cliente</option>
                                                     </select>
                                                 </div>
+                                            </div-->
+
+
+
+
+
+
+
+
+
+
+
+
+                                            <div ng-view autoscroll="true">
+
                                             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                                            <div ng-view autoscroll="true"></div>
                                         </div>
                                         <!-- ./views injection -->
 
@@ -366,6 +369,8 @@
 <script type="text/javascript" src="../js/plugins/angular-route/angular-route.js"></script>
 
 
+
+
 <script src="../angular-app/customers/app.js"></script>
 <script src="../angular-app/customers/services/menuService.js"></script>
 <script src="../angular-app/customers/services/userService.js"></script>
@@ -418,6 +423,7 @@
 <script type="text/javascript" src="../js/dev-app.js"></script>
 <script type="text/javascript" src="../js/demo-dashboard.js"></script>
 <script type="text/javascript" src="../js/plugins/dropzone/dropzone.js"></script>
+<script type="text/javascript" src="../js/plugins/ng-bootstrap-select/ng-bootstrap-select.js"></script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>

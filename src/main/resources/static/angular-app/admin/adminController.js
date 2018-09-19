@@ -1,6 +1,7 @@
 angular.module('adminApp').controller("adminController", ['$scope', 'menuService', 'userService', '$http', function ($scope, menuService, userService, $http) {
 
     $scope.title = "Dashboard";
+    $scope.selectedUser = {};
     $scope.users = [];
 
     $http.get("../user/?user=mock").then(function mySuccess(response) {
@@ -11,6 +12,7 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
 
     $http.get("../user/").then(function mySuccess(response) {
         $scope.users = response.data;
+        $scope.customers = response.data;
     }, function myError(response) {
         //error
     });
@@ -60,6 +62,9 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
     ];
 
 
+    $scope.customers = [
+
+        ];
 
 
 
@@ -86,8 +91,9 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
         elementSelected.class = "active";
     }
 
-    $scope.setCustomer = function(customer){
-        userService.data.common = customer;
+    $scope.setUser = function(user){
+        $scope.selectedUser = user;
+        userService.data.common = user.id;
     }
 
 }]);

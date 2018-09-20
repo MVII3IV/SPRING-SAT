@@ -20,44 +20,59 @@
 
     <h1>{{title}}</h1>
 
-    <div class="row" style="margin-top:80px">
-
-        <div class="col-md-6">
-            <div class="page-subtitle">
-                <h3>Con registro patronal</h3>
-                <p>Da click en el siguiente boton si tu ya cuentas con un registro patronal, sube tus datos y nosotros te contactamos en 24hrs habiles</p>
-                <button class="btn btn-primary" data-target="#modal" data-toggle="modal">Resgistrar</button>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Modo <span>{{mode}}</span></label>
+                <br>
+                <label class="switch switch-lg">
+                    <input type="checkbox" name="switch" checked="" ng-model="checkbox" ng-change="setViewMode(checkbox)" value="0">
+                    <span></span>
+                </label>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="page-subtitle">
-                <h3>Sin registro patronal</h3>
-                <p>Si aun no cuentas con tu registro patronal y quieres obtenerlo da click en el siguiente boton, te contactaremos en 24hrs habiles</p>
-                <button class="btn btn-primary" data-target="#modalRegister" data-toggle="modal">Solicitar Registro</button>
-            </div>
-        </div>
-
     </div>
 
-    <div class="row" style="margin-top:80px">
 
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Sueldo Diario</th>
+    <div ng-show="showCustomer">
+        <div class="row" style="margin-top:80px">
 
-                    <th>Estatus</th>
-                    <th>Comprobante de altas</th>
-                    <th>Acciones</th>
-                    <th>Comprobante de bajas</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="col-md-6">
+                <div class="page-subtitle">
+                    <h3>Con registro patronal</h3>
+                    <p>Da click en el siguiente boton si tu ya cuentas con un registro patronal, sube tus datos y nosotros te contactamos en 24hrs habiles</p>
+                    <button class="btn btn-primary" data-target="#modal" data-toggle="modal">Resgistrar</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="page-subtitle">
+                    <h3>Sin registro patronal</h3>
+                    <p>Si aun no cuentas con tu registro patronal y quieres obtenerlo da click en el siguiente boton, te contactaremos en 24hrs habiles</p>
+                    <button class="btn btn-primary" data-target="#modalRegister" data-toggle="modal">Solicitar Registro</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top:80px">
+
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Sueldo Diario</th>
+
+                        <th>Estatus</th>
+                        <th>Comprobante de altas</th>
+                        <th>Acciones</th>
+                        <th>Comprobante de bajas</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td>1</td>
                         <td>Erick</td>
@@ -139,8 +154,8 @@
                             <i aria-hidden="true" class="fa fa-file-text"></i>
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
                 <div class="container">
                     <div class="row well">
@@ -190,9 +205,189 @@
 
                 </div>
 
+            </div>
+
+        </div>
+    </div>
+
+    <div ng-show="showAdmin">
+        <div class="row" style="margin-top:80px">
+
+            <div class="col-md-6">
+                <div class="page-subtitle">
+                    <h3>Con registro patronal</h3>
+                    <p>Da click en el siguiente boton si tu ya cuentas con un registro patronal, sube tus datos y nosotros te contactamos en 24hrs habiles</p>
+                    <button class="btn btn-primary" data-target="#modal" data-toggle="modal">Resgistrar</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="page-subtitle">
+                    <h3>Sin registro patronal</h3>
+                    <p>Si aun no cuentas con tu registro patronal y quieres obtenerlo da click en el siguiente boton, te contactaremos en 24hrs habiles</p>
+                    <button class="btn btn-primary" data-target="#modalRegister" data-toggle="modal">Solicitar Registro</button>
+                </div>
+            </div>
+
         </div>
 
+        <div class="row" style="margin-top:80px">
+
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Sueldo Diario</th>
+
+                        <th>Estatus</th>
+                        <th>Comprobante de altas</th>
+                        <th>Acciones</th>
+                        <th>Comprobante de bajas</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Erick</td>
+                        <td>Dominguez</td>
+                        <td>1,000.00</td>
+
+                        <td>
+                            <button class="btn btn-success" >Dado de Alta</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+
+                        <td>
+                            <button class="btn btn-danger">Dar de baja</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Carlos</td>
+                        <td>Contreras</td>
+                        <td>1,500.00</td>
+
+                        <td>
+                            <button class="btn btn-success">Dado de Alta</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+
+                        <td>
+                            <button class="btn btn-danger">Dar de baja</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Edwin</td>
+                        <td>Enriquez</td>
+                        <td>2,000.00</td>
+
+                        <td>
+                            <button class="btn btn-warning">Procesando</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
+                        </td>
+
+                        <td>
+
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>Martin</td>
+                        <td>Chavez</td>
+                        <td>15,000.00</td>
+
+                        <td>
+                            <button class="btn btn-danger ">Dado de baja</button>
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+
+                        <td>
+
+                        </td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="container">
+                    <div class="row well">
+
+                        <div class="form-group" style="margin-top: 20px;">
+
+                            <div class="col-md-2" style="margin-right: 5px;">
+                                <input type="text" class="form-control" placeholder="Nombre">
+                            </div>
+                            <div class="col-md-2" style="margin-right: 5px;">
+                                <input type="text" class="form-control" placeholder="Segundo Nombre">
+                            </div>
+
+                            <div class="col-md-2" style="margin-right: 5px;">
+                                <input type="text" class="form-control" placeholder="Apellido Paterno">
+                            </div>
+                            <div class="col-md-2" style="margin-right: 5px;">
+                                <input type="text" class="form-control" placeholder="Apellido Materno">
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group" style="margin-top: 20px;">
+                            <div class="col-md-3" style="margin-right: 5px;">
+                                <input type="text" class="form-control" placeholder="Numero de seguro">
+                            </div>
+                            <div class="col-md-2" style="margin-right: 5px;">
+                                <input type="text" class="form-control" placeholder="Curp">
+                            </div>
+                            <div class="col-md-2" style="margin-right: 5px;">
+                                <input type="text" class="form-control" placeholder="Sueldo Diario">
+                            </div>
+                            <div class="col-md-1" style="margin-right: 5px;">
+                                <button class="btn btn-primary">Agregar Empleado</button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
+
+
+
 </div>
 
 

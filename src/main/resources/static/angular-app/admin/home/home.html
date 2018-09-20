@@ -4,24 +4,28 @@
 
 
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
-        <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select
+        <div ng-hide="true" class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select
                 name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control">
             <option value="10">10</option>
             <option value="25">25</option>
             <option value="50">50</option>
             <option value="100">100</option>
         </select> entries</label></div>
-        <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Buscar Usuario:
-            <input type="search"
-                   class="form-control"
-                   placeholder=""
-                   aria-controls="DataTables_Table_0" ng-model="search"></label>
+
+        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+            <label>Buscar Usuario:
+                <input type="search"
+                       style="width: 250px;"
+                       class="form-control"
+                       placeholder=""
+                       aria-controls="DataTables_Table_0" ng-model="search">
+            </label>
         </div>
         <table class="table table-bordered table-striped dataTable no-footer" id="DataTables_Table_0">
             <thead>
             <tr role="row">
                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                    style="width: 146px;">
+                    style="width: 50px;">
                     imagen
                 </th>
                 <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
@@ -44,7 +48,9 @@
             </thead>
             <tbody>
             <tr role="row" class="odd" ng-repeat="user in users | filter : search" ng-click="setUser(user)">
-                <td>{{user.image}}</td>
+                <td style="text-align: center;">
+                    <img src="../assets/images/users/{{user.image}}.jpg" style="border-radius: 100px;" width="50px">
+                </td>
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
                 <td>{{user.pass}}</td>
@@ -52,7 +58,7 @@
             </tr>
             </tbody>
         </table>
-        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 16
+        <div ng-hide="true" class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 16
             entries
         </div>
         <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a

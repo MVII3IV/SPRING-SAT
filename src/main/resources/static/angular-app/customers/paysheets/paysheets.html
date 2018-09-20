@@ -46,7 +46,8 @@
                             <input type="text" class="form-control" value="0">
                         </td>
                         <td>
-                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                            <i aria-hidden="true" class="fa fa-file-text fa-2x"></i>
+                            <i class="fa fa-upload fa-2x" aria-hidden="true" data-target="#modal" data-toggle="modal" ng-show="showField()"></i>
                         </td>
                     </tr>
                     <tr>
@@ -56,7 +57,10 @@
                         <td>
                             <input type="text" class="form-control" value="0">
                         </td>
-                        <td><i aria-hidden="true" class="fa fa-file-text"></i></td>
+                        <td>
+                            <i aria-hidden="true" class="fa fa-file-text fa-2x"></i>
+                            <i class="fa fa-upload fa-2x" aria-hidden="true" data-target="#modal" data-toggle="modal" ng-show="showField()"></i>
+                        </td>
                     </tr>
                     <tr>
                         <td>3</td>
@@ -66,7 +70,8 @@
                             <input type="text" class="form-control" value="0">
                         </td>
                         <td>
-                            <i aria-hidden="true" class="fa fa-file-text"></i>
+                            <i aria-hidden="true" class="fa fa-file-text fa-2x"></i>
+                            <i class="fa fa-upload fa-2x" aria-hidden="true" data-target="#modal" data-toggle="modal" ng-show="showField()"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -79,5 +84,35 @@
     </div>
 
 </div>
+
+
+
+
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="margin-top: 120px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Subir Nomina</h4>
+            </div>
+            <div class="modal-body">
+                <p>En esta ventana podras subir al sistema la nomina de un cliente</p>
+
+                <div class="form-group">
+                    <label>Archivo pdf</label>
+                    <input type="file" class="form-control">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Subir Archivo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 

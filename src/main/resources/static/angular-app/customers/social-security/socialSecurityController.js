@@ -15,4 +15,9 @@ angular.module('app').controller("socialSecurityController", ['$scope', function
             $scope.mode = "Administrador";
         }
     }
+
+    $scope.fileChooser = function(){
+        $('#file-input').trigger('click');
+    }
+
 }]);

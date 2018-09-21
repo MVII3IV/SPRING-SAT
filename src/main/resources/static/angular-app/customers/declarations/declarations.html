@@ -33,87 +33,189 @@
 
 <h1>{{title}}</h1>
 
-<div class="row">
 
-    <div class="col-md-3 elements">
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Modo <span>{{mode}}</span></label>
+            <br>
+            <label class="switch switch-lg">
+                <input type="checkbox" name="switch" checked="" ng-model="checkbox" ng-change="setViewMode(checkbox)" value="0">
+                <span></span>
+            </label>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="showCustomer">
+
+    <div class="row">
+
+        <div class="col-md-3 elements">
+
+        </div>
+        <div class="btn btn-warning col-md-3 elements" data-target="#modal" data-toggle="modal">
+            <h1>Anual</h1>
+        </div>
 
     </div>
-    <div class="btn btn-warning col-md-3 elements" data-target="#modal" data-toggle="modal">
-        <h1>Anual</h1>
+
+
+    <div class="row">
+
+
+        <div class="btn btn-primary col-md-3 elements" data-target="#modal" data-toggle="modal">
+            <h1>Enero</h1>
+        </div>
+
+        <div class="btn btn-primary col-md-3 elements" data-target="#modal" data-toggle="modal">
+            <h1>Febrero</h1>
+        </div>
+
+        <div class="btn btn-primary col-md-3 elements" data-target="#modal" data-toggle="modal">
+            <h1>Marzo</h1>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Abril</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Mayo</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Junio</h1>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Julio</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Agosto</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Septiembre</h1>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Octubre</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Noviembre</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Diciembre</h1>
+        </div>
+
     </div>
 
 </div>
 
 
-<div class="row">
+<div ng-show="showAdmin">
 
+    <div class="row">
 
-    <div class="btn btn-primary col-md-3 elements" data-target="#modal" data-toggle="modal">
-        <h1>Enero</h1>
+        <div class="col-md-3 elements">
+
+        </div>
+        <div class="btn btn-warning col-md-3 elements" data-target="#uploadModal" data-toggle="modal">
+            <h1>Anual</h1>
+        </div>
+
     </div>
 
-    <div class="btn btn-primary col-md-3 elements" data-target="#modal" data-toggle="modal">
-        <h1>Febrero</h1>
+
+    <div class="row">
+
+
+        <div class="btn btn-primary col-md-3 elements" data-target="#uploadModal" data-toggle="modal">
+            <h1>Enero</h1>
+        </div>
+
+        <div class="btn btn-primary col-md-3 elements" data-target="#uploadModal" data-toggle="modal">
+            <h1>Febrero</h1>
+        </div>
+
+        <div class="btn btn-primary col-md-3 elements" data-target="#uploadModal" data-toggle="modal">
+            <h1>Marzo</h1>
+        </div>
+
+
     </div>
 
-    <div class="btn btn-primary col-md-3 elements" data-target="#modal" data-toggle="modal">
-        <h1>Marzo</h1>
+    <div class="row">
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Abril</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Mayo</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Junio</h1>
+        </div>
+
     </div>
 
+
+    <div class="row">
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Julio</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Agosto</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Septiembre</h1>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Octubre</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Noviembre</h1>
+        </div>
+
+        <div class="btn btn-default col-md-3 elements" disabled>
+            <h1>Diciembre</h1>
+        </div>
+
+    </div>
 
 </div>
-
-<div class="row">
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Abril</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Mayo</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Junio</h1>
-    </div>
-
-</div>
-
-
-<div class="row">
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Julio</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Agosto</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Septiembre</h1>
-    </div>
-
-</div>
-
-
-<div class="row">
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Octubre</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Noviembre</h1>
-    </div>
-
-    <div class="btn btn-default col-md-3 elements" disabled>
-        <h1>Diciembre</h1>
-    </div>
-
-</div>
-
-
 
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg" style="margin-top: 120px;">
@@ -131,3 +233,32 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="margin-top: 120px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Declaraciones</h4>
+            </div>
+            <div class="modal-body">
+                <p>Aqui podras subir las declaraciones para tu cliente</p>
+
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary" ng-click="fileChooser()" value="Subir Archivo">
+                </div>
+
+                <div class="form-group">
+                    <img src="http://ajaxuploader.com/images/drag-drop-file.gif" width="570px">
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="file-input" type="file" name="name" style="display: none;" />

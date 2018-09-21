@@ -1,7 +1,25 @@
 angular.module('app').controller("declarationsController", ['$scope', '$http', function ($scope, $http) {
     $scope.title = "Declaraciones";
 
+    $scope.showCustomer = false;
+    $scope.showAdmin = true;
+    $scope.mode = "Administrador";
 
+    $scope.setViewMode = function(checkbox){
+        if(checkbox){
+            $scope.showCustomer = true;
+            $scope.showAdmin = false;
+            $scope.mode = "Cliente";
+        }else{
+            $scope.showCustomer = false;
+            $scope.showAdmin = true;
+            $scope.mode = "Administrador";
+        }
+    }
+
+    $scope.fileChooser = function(){
+        $('#file-input').trigger('click');
+    }
 
 
     $scope.months = [

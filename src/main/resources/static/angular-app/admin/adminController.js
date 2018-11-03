@@ -46,13 +46,13 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
             class: "",
             icon: "fa fa-archive",
             href: "#!/users"
-         },*/
+         },
           {
             section: "Clientes",
             class: "",
             icon: "fa fa-archive",
             href: "#!/customers"
-          },
+          },*/
           {
             section: "Visualizador de clientes",
             class: "title",

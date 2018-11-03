@@ -23,3 +23,15 @@ users
     "role" : "ROLE_ADMIN",
     "taxRegime" : ""
 }
+
+
+{
+    "id" : "CASA8412202SA",
+    "name" : "alberto",
+    "lastName" : "casas",
+    "image" : "user_3",
+    "common" : "",
+    "pass" : "17201720",
+    "role" : "ROLE_CUSTOMER",
+    "taxRegime" : "RIF"
+}

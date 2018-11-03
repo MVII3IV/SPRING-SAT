@@ -5,7 +5,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <!-- meta section -->
-    <title>Intuitive - Admin Dashboard Template</title>
+    <title>Contabilidad</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -131,6 +131,14 @@
         <!-- page content -->
         <div class="dev-page-content">
 
+            <div class="alert alert-success" role="alert">
+
+                    <div style="margin-left: 20px;">
+                        <h4 style="margin-top: 10px;">Estas en una version demo de la aplicacion, termina tu registro para tener 1 mes gratis de servicio</h4>
+                        <button type="button" class="btn btn-success" data-target="#modal" data-toggle="modal">Terminar Registro</button>
+                    </div>
+
+            </div>
 
             <!-- container-->
             <div class="container">
@@ -140,6 +148,7 @@
                             <div class="container-tabbed">
                                 <div class="container-tab active" id="setup">
                                     <div class="wrapper wrapper-white shadow">
+
 
                                         <!-- views injection -->
                                         <div class="container-tabbed" id="main">
@@ -220,6 +229,38 @@
 </div>
 <!-- ./page wrapper -->
 
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="margin-top: 120px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Declaraciones</h4>
+            </div>
+            <div class="modal-body">
+                <p>Aqui podras subir las declaraciones para tu cliente</p>
+
+                <div class="form-group">
+                    <label>RFC</label>
+                    <input type="text" class="form-control" placeholder="Escribe tu RFC">
+                </div>
+
+                <div class="form-group">
+                    <label>RFC</label>
+                    <input type="text" class="form-control" placeholder="Escribe tu RFC">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <!-- javascript -->
 <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/plugins/angular/angular.min.js"></script>
@@ -289,3 +330,5 @@
 
 
 <form action="#" class="dropzone dropzone-mini dz-clickable"><div class="dz-default dz-message"><span>Drop files here to upload</span></div></form>
+
+

@@ -135,7 +135,7 @@
 
                     <div style="margin-left: 20px;">
                         <h4 style="margin-top: 10px;">Estas en una version demo de la aplicacion, termina tu registro para tener 1 mes gratis de servicio</h4>
-                        <button type="button" class="btn btn-success" data-target="#modal" data-toggle="modal">Terminar Registro</button>
+                        <button type="button" class="btn btn-success" data-target="#registerModal" data-toggle="modal">Terminar Registro</button>
                     </div>
 
             </div>
@@ -230,7 +230,7 @@
 <!-- ./page wrapper -->
 
 
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="margin-top: 120px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -238,21 +238,37 @@
                 <h4 class="modal-title">Declaraciones</h4>
             </div>
             <div class="modal-body">
-                <p>Aqui podras subir las declaraciones para tu cliente</p>
+                <div class="col-md-12">
+                    <p>Aqui podras subir las declaraciones para tu cliente</p>
 
-                <div class="form-group">
-                    <label>RFC</label>
-                    <input type="text" class="form-control" placeholder="Escribe tu RFC">
+                    <div class="form-group">
+                        <label>RFC</label>
+                        <input type="text" class="form-control" placeholder="Escribe tu RFC">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>RFC</label>
-                    <input type="text" class="form-control" placeholder="Escribe tu RFC">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Contraseña del SAT</label>
+                        <input type="text" class="form-control" placeholder="Escribe tu contraseña">
+                    </div>
                 </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label style="padding-top: 30px;">O</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Firma Electronica</label><br>
+                        <input type="button" class="btn btn-primary" ng-click="fileChooser()" value="Subir Archivos">
+                    </div>
+                </div>
+
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Finalizar Registro</button>
             </div>
         </div>
     </div>
@@ -329,6 +345,5 @@
 
 
 
-<form action="#" class="dropzone dropzone-mini dz-clickable"><div class="dz-default dz-message"><span>Drop files here to upload</span></div></form>
 
-
+<input id="file-input" type="file" multiple name="name" style="display: none;" />

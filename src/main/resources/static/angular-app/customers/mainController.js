@@ -12,6 +12,9 @@ angular.module('app').controller("mainController", ['$scope', '$http', '$timeout
         $scope.myWelcome = response.statusText;
     });
 
+    $scope.fileChooser = function(){
+        $('#file-input').trigger('click');
+    }
 
     $scope.title = "Ingresos y Gastos";
 

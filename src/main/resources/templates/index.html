@@ -131,11 +131,11 @@
         <!-- page content -->
         <div class="dev-page-content">
 
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-danger" role="alert">
 
                     <div style="margin-left: 20px;">
                         <h4 style="margin-top: 10px;">Estas en una version demo de la aplicacion, termina tu registro para tener 1 mes gratis de servicio</h4>
-                        <button type="button" class="btn btn-success" data-target="#registerModal" data-toggle="modal">Terminar Registro</button>
+                        <button type="button" class="btn btn-danger" data-target="#registerModal" data-toggle="modal">Terminar Registro</button>
                     </div>
 
             </div>
@@ -235,11 +235,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Declaraciones</h4>
+                <h4 class="modal-title">Finalizar Registro</h4>
             </div>
             <div class="modal-body">
                 <div class="col-md-12">
-                    <p>Aqui podras subir las declaraciones para tu cliente</p>
+                    <p>Finaliza tu registro llenando los siguientes campos.</p>
 
                     <div class="form-group">
                         <label>RFC</label>
@@ -261,19 +261,37 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Firma Electronica</label><br>
-                        <input type="button" class="btn btn-primary" ng-click="fileChooser()" value="Subir Archivos">
+                        <input id="key" type="button" class="btn btn-danger" ng-click="fileChooser('key')" value="Subir tu .key">
+                        <input id="cert" type="button" class="btn btn-danger" ng-click="fileChooser('cert')" value="Subir tu .cert">
+                        <input type="text" class="form-control" placeholder="Contraseña">
                     </div>
                 </div>
 
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Finalizar Registro</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-target="#confirmation" data-toggle="modal">Finalizar Registro</button>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="smallModalHead">Registro exitoso</h4>
+            </div>
+            <div class="modal-body">
+                <p>Tu registro se ha realizado con exito</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

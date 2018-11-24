@@ -77,9 +77,13 @@ angular.module('app').controller("taxSimulatorController", ['$scope', function (
         $scope.incomesBeforeFees = $scope.incomes - $scope.outcomes;
 
         if($scope.incomesBeforeFees > 0){
+            var done = false;
             $scope.taxes.forEach(function(fee){
                 if($scope.incomes >= fee.lowerLimit && $scope.incomes <= fee.maxLimit){
                     $scope.fees = (($scope.incomesBeforeFees - fee.lowerLimit) * (fee.aboveInferiorLimit / 100)) + fee.fixedFee;
+                    done = true;
+                }else if(fee.maxLimit == 0 && !done){
+                    $scope.fees = (($scope.incomesBeforeFees - fee.lowerLimit) * (.35) + fee.fixedFee);
                 }
             });
         }else{

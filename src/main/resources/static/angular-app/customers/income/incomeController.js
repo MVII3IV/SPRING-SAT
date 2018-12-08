@@ -11,6 +11,8 @@ angular.module('app')
 .controller("incomeController", ['$scope', '$http', 'userService', function ($scope, $http, userService) {
     $scope.title = "Ingresos";
     $scope.grandTotal = 0;
+    $scope.paidBills = [];
+    $scope.currentBill = {};
 
     $scope.bills = [
         {
@@ -31,10 +33,35 @@ angular.module('app')
 
     $http.get("../incomes/?userRFC=" + userService.data.common).then(function mySuccess(response) {
         $scope.bills = response.data;
-
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
     });
+
+
+    $scope.noPaid = function(bill, event){
+        if(event.target.checked){
+            $scope.paidBills.push(bill);
+            $("#" + bill.fiscalId).attr("style","background-color:#ff3c3c");
+            $("#" + bill.fiscalId + " > td").attr("style", "color:white");
+        }
+        else{
+            $("#" + bill.fiscalId).removeAttr("style");
+            $("#" + bill.fiscalId + " > td").removeAttr("style");
+            $scope.paidBills = [];
+        }
+
+    }
+
+    $scope.toPaid = function(bill){
+        $scope.currentBill = bill;
+    }
+
+    $scope.registerBill = function(){
+        $("#" + $scope.currentBill.fiscalId).removeAttr("style");
+        $("#" + $scope.currentBill.fiscalId + " > td").removeAttr("style");
+        $('#check_' + $scope.currentBill.fiscalId ).remove();
+        $scope.paidBills = [];
+    }
 
 
     $scope.getTotal = function(value){

@@ -107,10 +107,10 @@
                                     </thead>
                                     <tbody>
                                     <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
-                                        ng-if="$index > 0" load-finished>
+                                        ng-if="$index > 0" load-finished id="{{bill.fiscalId}}">
                                         <td width="20px">
-                                            <div class="checkbox checkbox-inline">
-                                                <input type="checkbox" id="check_{{$index}}" >
+                                            <div class="checkbox checkbox-inline" id="check_{{bill.fiscalId}}">
+                                                <input type="checkbox" id="check_{{$index}}" ng-click="noPaid(bill, $event)">
                                                 <label for="check_{{$index}}"></label>
                                             </div>
                                         </td>
@@ -186,12 +186,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
-                                        ng-if="$index > 5" load-finished>
+                                    <tr role="row" class="odd" ng-repeat="bill in paidBills" load-finished>
                                         <td width="20px">
                                             <div class="checkbox checkbox-inline">
-                                                <input type="checkbox" id="check_{{$index}}" >
-                                                <label for="check_{{$index}}"></label>
+                                                <input type="checkbox" id="check_no_{{$index}}" ng-click="toPaid(bill)" data-target="#paidBill" data-toggle="modal">
+                                                <label for="check_no_{{$index}}"></label>
                                             </div>
                                         </td>
                                         <td ng-if="true">{{bill.fiscalId}}</td>
@@ -313,6 +312,41 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary">Agreagar Ingreso</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="paidBill" tabindex="-1" role="dialog" aria-labelledby="paidBill" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="margin-top: 120px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Registrar Factura Pendiente</h4>
+            </div>
+            <div class="modal-body">
+                <p>Con el fin de agregar una factura pendiente, por favor llena los siguientes campos</p>
+
+                <div class="form-group">
+                    <label>Forma de pago</label>
+                    <input type="text" class="form-control" placeholder="Ingresa cual fue la forma de pago">
+                </div>
+
+                <div class="form-group">
+                    <label>Lugar de pago</label>
+                    <input type="text" class="form-control" placeholder="Escribe el lugar de pago">
+                </div>
+
+                <div class="form-group">
+                    <label>Cantidad</label>
+                    <input type="text" class="form-control" placeholder="Ingresa la cantidad de pago">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" ng-click="registerBill()" data-dismiss="modal">Registrar Factura</button>
             </div>
         </div>
     </div>

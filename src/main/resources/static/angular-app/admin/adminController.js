@@ -40,6 +40,12 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
              class: "",
              icon: "fa fa-archive",
              href: "#!/inbox"
+         },
+         {
+             section: "Archivos",
+             class: "",
+             icon: "fa fa-file-image-o",
+             href: "#!/files"
          },/*
          {
             section: "Usuarios",

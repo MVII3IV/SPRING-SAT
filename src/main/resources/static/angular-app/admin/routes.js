@@ -4,10 +4,13 @@ angular.module("adminApp")
         'use strict';
 
         $routeProvider
-
             .when('/', {
                 templateUrl: '../angular-app/admin/home/home.html',
                 controller: 'adminController'
+            })
+            .when('/files', {
+                templateUrl: '../angular-app/admin/files/files.html',
+                controller: 'filesController'
             })
             .when('/inbox', {
                 templateUrl: '../angular-app/admin/inbox/inbox.html',

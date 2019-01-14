@@ -8,26 +8,35 @@ angular.module('app')
       };
     })
 
+/*
+    .filter('myDateFormat', function myDateFormat($filter){
+      return function(text){
+        var  tempdate= new Date(text.replace(/-/g,"/"));
+        return $filter('date')(tempdate, "MMM-dd-yyyy");
+      }
+    })*/
+
 .controller("incomeController", ['$scope', '$http', 'userService', function ($scope, $http, userService) {
     $scope.title = "Ingresos";
     $scope.grandTotal = 0;
     $scope.paidBills = [];
     $scope.currentBill = {};
+    $scope.selectDate;
 
     $scope.bills = [
         {
-                "fiscalId": "Folio Fiscal",
-                "emisorRFC": "RFC Emisor",
-                "emisorName": "Nombre o Razón Social del Emisor",
-                "receiverRFC": "RFC Receptor",
-                "receiverName": "Nombre o Razón Social del Receptor",
-                "emitedDate": "Fecha de Emisión",
-                "certificationDate": "Fecha de Certificación",
-                "certifiedPAC": "PAC que Certificó",
-                "total": "Total",
-                "voucherEffect": "Efecto del Comprobante",
-                "voucherStatus": "Estado del Comprobante"
-            }
+            "fiscalId": "Folio Fiscal",
+             "emisorRFC": "RFC Emisor",
+             "emisorName": "Nombre o Razón Social del Emisor",
+             "receiverRFC": "RFC Receptor",
+             "receiverName": "Nombre o Razón Social del Receptor",
+             "emitedDate": "Fecha de Emisión",
+             "certificationDate": "Fecha de Certificación",
+             "certifiedPAC": "PAC que Certificó",
+             "total": "Total",
+             "voucherEffect": "Efecto del Comprobante",
+             "voucherStatus": "Estado del Comprobante"
+         }
     ];
 
 
@@ -65,12 +74,13 @@ angular.module('app')
 
 
     $scope.getTotal = function(value){
+    /*
         var total = 0;
         value.forEach(function(iteratedElement){
             total += Number(iteratedElement.total.replace(/[^0-9\.-]+/g,""))
         });
         $scope.grandTotal += total;
-        return total;
+        return total;*/
     }
 }]);
 

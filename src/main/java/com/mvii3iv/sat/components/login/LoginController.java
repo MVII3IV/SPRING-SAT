@@ -214,7 +214,7 @@ public class LoginController {
                 );
 
             }
-            incomesRepository.save(incomes);
+            //incomesRepository.save(incomes);
             userData.setIncomes(incomes);
         } catch (IOException e) {
             e.printStackTrace();

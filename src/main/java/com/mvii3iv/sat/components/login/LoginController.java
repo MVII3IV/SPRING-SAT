@@ -23,7 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -192,10 +195,19 @@ public class LoginController {
 
 
             List incomes = new ArrayList<Incomes>();
+            boolean firstTimeFlag = true;
+            String transformedDate = "Fecha de Emisión";
 
             for (final HtmlTableRow row : table.getRows()) {
 
+                if(!firstTimeFlag) {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                    Date date = simpleDateFormat.parse(row.getCells().get(6).asText());
 
+                    SimpleDateFormat simpleDateFormatAux = new SimpleDateFormat("dd/MM/yyyy");
+                    transformedDate = simpleDateFormatAux.format(date);
+                }
+                firstTimeFlag = false;
 
                 incomes.add(
                         new Incomes(
@@ -204,7 +216,7 @@ public class LoginController {
                                 row.getCells().get(3).asText(), //emisorName
                                 row.getCells().get(4).asText(), //receiverRFC
                                 row.getCells().get(5).asText(), //receiverName
-                                row.getCells().get(6).asText(), //emitedDate
+                                transformedDate,                //emitedDate
                                 row.getCells().get(7).asText(), //certificationDate
                                 row.getCells().get(8).asText(), //certifiedPAC
                                 row.getCells().get(9).asText(), //total
@@ -214,9 +226,11 @@ public class LoginController {
                 );
 
             }
-            //incomesRepository.save(incomes);
+            incomesRepository.save(incomes);
             userData.setIncomes(incomes);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -281,7 +295,7 @@ public class LoginController {
         if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER, "proxy.autozone.com", 8080);
             DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
-            credentialsProvider.addCredentials("edomingu", "eRICKDOM5");
+            credentialsProvider.addCredentials("edomingu", "ASDewq123!");
         } else {
             webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
         }

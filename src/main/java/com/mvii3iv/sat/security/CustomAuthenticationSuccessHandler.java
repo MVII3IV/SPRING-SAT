@@ -63,6 +63,11 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         }else{
             List<Incomes> incomes = incomesRepository.findByEmisorRFC(authentication.getName());
 
+            //remove these two lines
+            //loginController.extractData(sessionId, response);
+            //response.sendRedirect("/");
+
+
             if(incomes.size() > 0)
                 response.sendRedirect("/");
             else {

@@ -17,15 +17,16 @@
                     <script type="text/javascript">
                         $(function () {
                             $('#datetimepicker').datetimepicker({
-                                viewMode: 'years',
+                                //viewMode: 'years',
                                 format: 'DD/MM/YYYY'
                             });
+
                         });
 
                     </script>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker'>
-                            <input type='text' class="form-control" placeholder="Seleccion de Mes" ng-model="selectDate"/>
+                            <input type='text' class="form-control" id="selectDate" placeholder="Seleccion de Mes" ng-model="selectDate"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar">
                                 </span>

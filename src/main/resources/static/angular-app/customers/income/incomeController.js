@@ -72,6 +72,10 @@ angular.module('app')
         $scope.paidBills = [];
     }
 
+    $("#datetimepicker").on("dp.change", function (e) {
+         $scope.selectDate = $("#selectDate").val();
+         console.log($scope.selectDate);
+    });
 
     $scope.getTotal = function(value){
     /*

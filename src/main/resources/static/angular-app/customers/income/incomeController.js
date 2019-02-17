@@ -74,17 +74,18 @@ angular.module('app')
 
     $("#datetimepicker").on("dp.change", function (e) {
          $scope.selectDate = $("#selectDate").val();
+         $scope.$apply();
          console.log($scope.selectDate);
     });
 
     $scope.getTotal = function(value){
-    /*
+
         var total = 0;
         value.forEach(function(iteratedElement){
             total += Number(iteratedElement.total.replace(/[^0-9\.-]+/g,""))
         });
         $scope.grandTotal += total;
-        return total;*/
+        return total;
     }
 }]);
 

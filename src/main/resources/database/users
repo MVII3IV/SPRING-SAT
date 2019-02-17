@@ -1,3 +1,5 @@
+
+ mongo
 /* 1 */
 {
     "_id" : ObjectId("5b89b31b29d683ff2f885c25"),
@@ -15,3 +17,54 @@
     "common" : "",
     "pass" : "admin"
 }
+
+
+//clist databases
+show dbs
+
+//crear usar databse
+use test
+
+//insertar
+db.users.insertMany([
+{
+    "id" : "LULR860821MTA",
+    "name" : "laura",
+    "lastName" : "garcia",
+    "image" : "user_3",
+    "common" : "",
+    "pass" : "goluna21",
+    "role" : "ROLE_CUSTOMER",
+    "taxRegime" : "RIF"
+}
+,
+{
+    "id" : "admin",
+    "name" : "admin name",
+    "lastName" : "",
+    "image" : "user_1",
+    "common" : "",
+    "pass" : "admin",
+    "role" : "ROLE_ADMIN",
+    "taxRegime" : ""
+}
+,
+{
+    "id" : "CASA8412202SA",
+    "name" : "alberto",
+    "lastName" : "casas",
+    "image" : "user_3",
+    "common" : "",
+    "pass" : "17201720",
+    "role" : "ROLE_CUSTOMER",
+    "taxRegime" : "RIF"
+}
+]);
+
+
+//select
+db.users.find();
+
+//drop data
+   
+ 

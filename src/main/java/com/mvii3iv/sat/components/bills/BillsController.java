@@ -5,6 +5,7 @@ import com.mvii3iv.sat.components.anticaptcha.models.AntiCaptchaCreatedTaskRespo
 import com.mvii3iv.sat.components.user.UserRepository;
 import com.mvii3iv.sat.components.user.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,10 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.*;
 import java.util.List;
 
 @RestController
@@ -28,6 +26,9 @@ public class BillsController {
     private BillsService billsService;
     private BillsRepository billsRepository;
     private UserRepository userRepository;
+
+    @Autowired
+    private Environment env;
 
     @Autowired
     public BillsController(BillsService billsService, BillsRepository billsRepository, UserRepository userRepository){
@@ -51,10 +52,28 @@ public class BillsController {
 
         URL url = null;
         List<Bills> bills = null;
+        Proxy proxy = null;
+
         try {
 
+            if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
+
+
+                proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.autozone.com", 8080));
+
+                Authenticator authenticator = new Authenticator() {
+
+                    public PasswordAuthentication getPasswordAuthentication() {
+                        return (new PasswordAuthentication("edomingu",
+                                "asdEWQ123!".toCharArray()));
+                    }
+                };
+                Authenticator.setDefault(authenticator);
+
+            }
+
             url = new URL("http://104.248.23.45:8080/crawler/extract/data?rfc=" + rfc + "&pass=" + pass);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection(proxy);
             con.setRequestMethod("GET");
             con.setConnectTimeout(90000);
             con.setReadTimeout(90000);

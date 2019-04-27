@@ -3,7 +3,7 @@ package com.mvii3iv.sat.components.UserData;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.mvii3iv.sat.components.incomes.Incomes;
+import com.mvii3iv.sat.components.bills.Bills;
 import com.mvii3iv.sat.components.user.Users;
 
 
@@ -13,14 +13,14 @@ public class UserData {
 
     private WebClient webClient;
     private HtmlPage browser;
-    private List<Incomes> incomes;
+    private List<Bills> incomes;
     private Users users;
     private boolean ready;
 
     public UserData() {
     }
 
-    public UserData(WebClient webClient, HtmlPage browser, List<Incomes> incomes, Users users, boolean ready) {
+    public UserData(WebClient webClient, HtmlPage browser, List<Bills> incomes, Users users, boolean ready) {
         this.webClient = webClient;
         this.browser = browser;
         this.incomes = incomes;
@@ -52,11 +52,11 @@ public class UserData {
         this.browser = browser;
     }
 
-    public List<Incomes> getIncomes() {
+    public List<Bills> getIncomes() {
         return incomes;
     }
 
-    public void setIncomes(List<Incomes> incomes) {
+    public void setIncomes(List<Bills> incomes) {
         this.incomes = incomes;
     }
 

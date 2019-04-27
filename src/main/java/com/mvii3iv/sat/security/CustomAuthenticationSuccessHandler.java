@@ -2,14 +2,13 @@ package com.mvii3iv.sat.security;
 
 import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.UserData.UserDataService;
-import com.mvii3iv.sat.components.incomes.Incomes;
-import com.mvii3iv.sat.components.incomes.IncomesRepository;
+import com.mvii3iv.sat.components.bills.Bills;
+import com.mvii3iv.sat.components.bills.BillsRepository;
 import com.mvii3iv.sat.components.login.LoginController;
 import com.mvii3iv.sat.components.user.UserRepository;
 import com.mvii3iv.sat.components.user.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -24,13 +23,13 @@ import java.util.List;
 public class CustomAuthenticationSuccessHandler  implements AuthenticationSuccessHandler {
 
     private LoginController loginController;
-    private IncomesRepository incomesRepository;
+    private BillsRepository billsRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public CustomAuthenticationSuccessHandler(LoginController loginController, IncomesRepository incomesRepository, UserRepository userRepository){
+    public CustomAuthenticationSuccessHandler(LoginController loginController, BillsRepository billsRepository, UserRepository userRepository){
         this.loginController = loginController;
-        this.incomesRepository = incomesRepository;
+        this.billsRepository = billsRepository;
         this.userRepository = userRepository;
     }
 
@@ -43,7 +42,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         String sessionId = request.getSession().getId();
         sessionId = authentication.getName();
         if ( !UserDataService.usersData.containsKey(sessionId) ) {
-            UserData userData = new UserData(null, null, new ArrayList<Incomes>(), new Users(), false);
+            UserData userData = new UserData(null, null, new ArrayList<Bills>(), new Users(), false);
             UserDataService.usersData.put(sessionId, userData);
         }
 
@@ -61,7 +60,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         if(admin){
             response.sendRedirect("/admin/");
         }else{
-            List<Incomes> incomes = incomesRepository.findByEmisorRFC(authentication.getName());
+            List<Bills> incomes = billsRepository.findByEmisorRFC(authentication.getName());
 
             //remove these two lines
             //loginController.extractData(sessionId, response);

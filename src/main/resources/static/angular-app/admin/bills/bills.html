@@ -1,0 +1,68 @@
+<div class="wrapper wrapper-white">
+
+
+    <div class="wrapper wrapper-white">
+        <div class="page-subtitle">
+            <h3>{{title}}</h3>
+            <p>En esta seccion podras consultar las facturas de los usuarios</p>
+        </div>
+
+        <form class="form-horizontal col-md-4">
+
+            <input type="text" class="form-control" placeholder="RFC" ng-model="rfc">
+            <input type="password" class="form-control" placeholder="Contraseña" ng-model="pass">
+            <br>
+            <button type="submit" class="btn btn-primary" ng-click="getData()">Buscar</button>
+
+        </form>
+
+    </div>
+
+    <div class="wrapper wrapper-white">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Folio Fiscal</th>
+                        <th>Usuario</th>
+                        <th>RFC Emisor</th>
+                        <th>Nombre Emisor</th>
+                        <th>RFC Receptor</th>
+                        <th>Nombre Receptor</th>
+                        <th>Fecha de Emisión</th>
+                        <th>Fecha de Certificación</th>
+                        <th>PAC que Certificó</th>
+                        <th>Total</th>
+                        <th>Efecto del Comprobante</th>
+                        <th>Estatus de cancelación</th>
+                        <th>Estado del Comprobante</th>
+                        <th>Estatus de Proceso de Cancelación</th>
+                        <th>Fecha de Proceso de Cancelación</th>
+                        <th>Emitida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="bill in bills">
+                        <td>{{bill.fiscalId}}</td>
+                        <td>{{bill.userId}}</td>
+                        <td>{{bill.emisorRFC}}</td>
+                        <td>{{bill.emisorName}}</td>
+                        <td>{{bill.receiverRFC}}</td>
+                        <td>{{bill.receiverName}}</td>
+                        <td>{{bill.emitedDate}}</td>
+                        <td>{{bill.certificationDate}}</td>
+                        <td>{{bill.certifiedPAC}}</td>
+                        <td>{{bill.total}}</td>
+                        <td>{{bill.voucherEffect}}</td>
+                        <td>{{bill.cancelationStatus}}</td>
+                        <td>{{bill.voucherStatus}}</td>
+                        <td>{{bill.cancelationProcessStatus}}</td>
+                        <td>{{bill.cancelationProcessDate}}</td>
+                        <td>{{bill.emited}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

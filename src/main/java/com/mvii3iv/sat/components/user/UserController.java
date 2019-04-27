@@ -1,6 +1,5 @@
 package com.mvii3iv.sat.components.user;
 
-import com.mvii3iv.sat.components.incomes.Incomes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -67,12 +67,12 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
         ];
 
 
-
-    var combineMenuElements = function(adminData, customerData){
+    //THIS IS COMMENTED TO AVOID PROBLEMS, UNCOMMENT TO USER ENABLE FEATURES
+    var combineMenuElements = function(adminData, customerData){/*
         customerData.forEach(function(element){
             element.href = element.href.replace('../', '');
         });
-        Array.prototype.push.apply(adminData,customerData)
+        Array.prototype.push.apply(adminData,customerData)*/
         return adminData;
     }
 

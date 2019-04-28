@@ -50,11 +50,14 @@ public class BillsController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Bills> getIcomes(@RequestParam String rfc, @RequestParam String pass){
 
+        HttpURLConnection con = null;
         URL url = null;
         List<Bills> bills = null;
         Proxy proxy = null;
 
         try {
+
+            url = new URL("http://104.248.23.45:8080/crawler/extract/data?rfc=" + rfc + "&pass=" + pass);
 
             if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
 
@@ -69,11 +72,11 @@ public class BillsController {
                     }
                 };
                 Authenticator.setDefault(authenticator);
-
+                con = (HttpURLConnection) url.openConnection(proxy);
             }
 
-            url = new URL("http://104.248.23.45:8080/crawler/extract/data?rfc=" + rfc + "&pass=" + pass);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection(proxy);
+
+            con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setConnectTimeout(90000);
             con.setReadTimeout(90000);

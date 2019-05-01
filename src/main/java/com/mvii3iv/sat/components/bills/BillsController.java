@@ -57,7 +57,7 @@ public class BillsController {
 
         try {
 
-            url = new URL("http://104.248.23.45:8080/crawler/extract/data?rfc=" + rfc + "&pass=" + pass);
+            url = new URL("http://104.248.23.45:8080/bills?rfc=" + rfc + "&pass=" + pass);
 
             if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
 

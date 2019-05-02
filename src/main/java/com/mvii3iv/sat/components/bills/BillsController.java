@@ -2,6 +2,7 @@ package com.mvii3iv.sat.components.bills;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvii3iv.sat.components.anticaptcha.models.AntiCaptchaCreatedTaskResponse;
+import com.mvii3iv.sat.components.assets.HostValidator;
 import com.mvii3iv.sat.components.user.UserRepository;
 import com.mvii3iv.sat.components.user.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,21 +32,21 @@ public class BillsController {
     private Environment env;
 
     @Autowired
-    public BillsController(BillsService billsService, BillsRepository billsRepository, UserRepository userRepository){
+    private HostValidator hostValidator;
+
+    @Autowired
+    public BillsController(BillsService billsService, BillsRepository billsRepository, UserRepository userRepository, HostValidator hostValidator){
         this.billsService = billsService;
         this.billsRepository = billsRepository;
         this.userRepository = userRepository;
+        this.hostValidator = hostValidator;
     }
 
-    /*
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Bills> getIcomes(@RequestParam String userRFC, HttpServletRequest request, Authentication authentication){
+    @RequestMapping(value="/external", method = RequestMethod.GET)
+    public List<Bills> getIcomesExternal(@RequestParam String rfc, Authentication authentication){
         Users user = userRepository.findById(authentication.getName());
-        if(user.getRole().equals("ROLE_ADMIN"))
-            return billsRepository.findByEmisorRFC(userRFC);
-        else
-            return billsRepository.findByEmisorRFC(authentication.getName());
-    }*/
+        return getIcomes(user.getId(), user.getPass());
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Bills> getIcomes(@RequestParam String rfc, @RequestParam String pass){
@@ -56,27 +57,27 @@ public class BillsController {
         Proxy proxy = null;
 
         try {
+            String connectionString = env.getProperty("SERVER_URL") + "/bills?rfc=" + rfc + "&pass=" + pass;
+            url = new URL(connectionString);
 
-            url = new URL("http://104.248.23.45:8080/bills?rfc=" + rfc + "&pass=" + pass);
+            if (hostValidator.isProxyRequired()) {
 
-            if (Boolean.valueOf(env.getProperty("PROXY_ENABLED"))) {
-
-
-                proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.autozone.com", 8080));
+                proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(env.getProperty("PROXY_SERVER"), Integer.parseInt(env.getProperty("PROXY_PORT")) ));
 
                 Authenticator authenticator = new Authenticator() {
 
                     public PasswordAuthentication getPasswordAuthentication() {
-                        return (new PasswordAuthentication("edomingu",
-                                "asdEWQ123!".toCharArray()));
+                        return (new PasswordAuthentication(env.getProperty("PROXY_USER"),
+                                env.getProperty("PROXY_PASS").toCharArray()));
                     }
                 };
                 Authenticator.setDefault(authenticator);
                 con = (HttpURLConnection) url.openConnection(proxy);
             }
 
-
+            if (!hostValidator.isProxyRequired())
             con = (HttpURLConnection) url.openConnection();
+
             con.setRequestMethod("GET");
             con.setConnectTimeout(90000);
             con.setReadTimeout(90000);
@@ -107,3 +108,14 @@ public class BillsController {
     }
 
 }
+
+
+    /*
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Bills> getIcomes(@RequestParam String userRFC, HttpServletRequest request, Authentication authentication){
+        Users user = userRepository.findById(authentication.getName());
+        if(user.getRole().equals("ROLE_ADMIN"))
+            return billsRepository.findByEmisorRFC(userRFC);
+        else
+            return billsRepository.findByEmisorRFC(authentication.getName());
+    }*/

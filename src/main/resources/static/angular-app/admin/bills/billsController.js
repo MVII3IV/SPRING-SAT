@@ -21,13 +21,18 @@ angular.module('adminApp')
         $("body").append(loading_layer).find(".loader").animate({opacity: 1},200,"linear");
 
         $http.get("/bills?rfc=" + $scope.rfc + "&pass=" + $scope.pass).then(function mySuccess(response) {
+
+
             $scope.bills = response.data;
 
+            var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
+/*
             for(var i = 0 ; i < $scope.bills.length ; i++){
                 var dateString = $scope.bills[i].emitedDate.split('/');
-                $scope.bills[i].emitedDate = new Date(dateString[2], dateString[1] - 1, dateString[0]);
-            }
+                $scope.bills[i].emitedDate = new Date(dateString[2], dateString[1] - 1, dateString[0]).toLocaleDateString('es-ES', options);
+            }*/
+
 
             $(".loader").remove();
         }, function myError(response) {

@@ -105,14 +105,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="bill in bills | orderBy: 'emitedDate'" ng-if="$index > 0" ng-show="bill.emited" load-finished>
+                            <tr ng-repeat="bill in bills" ng-if="$index > 0" ng-show="bill.emited" load-finished>
                                 <td ng-hide="true">{{bill.fiscalId}}</td>
                                 <td ng-hide="true">{{bill.userId}}</td>
                                 <td ng-hide="true">{{bill.emisorRFC}}</td>
                                 <td ng-hide="true">{{bill.emisorName}}</td>
                                 <td>{{bill.receiverRFC}}</td>
                                 <td>{{bill.receiverName}}</td>
-                                <td>{{bill.emitedDate | date : dd-mm-yyyy}}</td>
+                                <td>{{bill.emitedDate}}</td>
                                 <td ng-hide="true">{{bill.certificationDate}}</td>
                                 <td ng-hide="true">{{bill.certifiedPAC}}</td>
                                 <td>{{bill.total}}</td>

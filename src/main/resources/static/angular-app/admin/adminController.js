@@ -46,19 +46,13 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
              class: "",
              icon: "fa fa-file-image-o",
              href: "#!/files"
-         },/*
-         {
-            section: "Usuarios",
-            class: "",
-            icon: "fa fa-archive",
-            href: "#!/users"
          },
-          {
-            section: "Clientes",
+         {
+            section: "Bills",
             class: "",
             icon: "fa fa-archive",
-            href: "#!/customers"
-          },*/
+            href: "#!/bills-admin"
+         },
           {
             section: "Visualizador de clientes",
             class: "title",
@@ -73,12 +67,12 @@ angular.module('adminApp').controller("adminController", ['$scope', 'menuService
         ];
 
 
-
-    var combineMenuElements = function(adminData, customerData){
+    //THIS IS COMMENTED TO AVOID PROBLEMS, UNCOMMENT TO USER ENABLE FEATURES
+    var combineMenuElements = function(adminData, customerData){/*
         customerData.forEach(function(element){
             element.href = element.href.replace('../', '');
         });
-        Array.prototype.push.apply(adminData,customerData)
+        Array.prototype.push.apply(adminData,customerData)*/
         return adminData;
     }
 

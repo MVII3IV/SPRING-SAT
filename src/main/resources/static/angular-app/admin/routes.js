@@ -36,10 +36,10 @@ angular.module("adminApp")
                 templateUrl: '../angular-app/admin/customers/customers.html',
                 controller: 'customersController'
             })
-
-
-
-
+            .when('/bills-admin', {
+                templateUrl: '../angular-app/admin/bills/bills.html',
+                controller: 'billsController'
+            })
             .when('/landing-page', {
                 templateUrl: '../angular-app/customers/home/home.html',
                 controller: 'mainController'

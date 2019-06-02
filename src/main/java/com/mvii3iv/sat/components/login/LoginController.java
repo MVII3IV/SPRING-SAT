@@ -6,15 +6,14 @@ import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 import com.mvii3iv.sat.components.UserData.UserData;
 import com.mvii3iv.sat.components.UserData.UserDataService;
-import com.mvii3iv.sat.components.incomes.Incomes;
-import com.mvii3iv.sat.components.incomes.IncomesRepository;
-import com.mvii3iv.sat.components.incomes.IncomesService;
+import com.mvii3iv.sat.components.bills.Bills;
+import com.mvii3iv.sat.components.bills.BillsRepository;
+import com.mvii3iv.sat.components.bills.BillsService;
 import com.mvii3iv.sat.components.captcha.CaptchaService;
 import com.mvii3iv.sat.components.user.Users;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,8 +57,8 @@ public class LoginController {
     private String HOST_PORT;
     private String HOST_SCHEME = "http://";
 
-    private IncomesService incomesService;
-    private IncomesRepository incomesRepository;
+    private BillsService billsService;
+    private BillsRepository billsRepository;
 
     private CaptchaService captchaService;
     private Environment environment;
@@ -70,10 +69,10 @@ public class LoginController {
 
 
     @Autowired
-    public LoginController(IncomesService incomesService, CaptchaService captchaService, Environment environment, UserDataService userDataService, IncomesRepository incomesRepository) {
+    public LoginController(BillsService billsService, CaptchaService captchaService, Environment environment, UserDataService userDataService, BillsRepository billsRepository) {
         try {
-            this.incomesService = incomesService;
-            this.incomesRepository = incomesRepository;
+            this.billsService = billsService;
+            this.billsRepository = billsRepository;
 
             this.captchaService = captchaService;
             this.environment = environment;
@@ -122,7 +121,7 @@ public class LoginController {
      * @throws IOException
      */
     public void extractData(String sessionId, HttpServletResponse response) throws IOException {
-
+/*
         UserData userData = null;
         try {
 
@@ -168,7 +167,7 @@ public class LoginController {
 
 
             HtmlTable table = null;
-            //incomes
+            //bills
             browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaEmisor.aspx");
             //bills
             //browser = webClient.getPage("https://portalcfdi.facturaelectronica.sat.gob.mx/ConsultaReceptor.aspx");
@@ -194,7 +193,7 @@ public class LoginController {
 
 
 
-            List incomes = new ArrayList<Incomes>();
+            List incomes = new ArrayList<Bills>();
             boolean firstTimeFlag = true;
             String transformedDate = "Fecha de Emisión";
 
@@ -210,7 +209,7 @@ public class LoginController {
                 firstTimeFlag = false;
 
                 incomes.add(
-                        new Incomes(
+                        new Bills(
                                 row.getCells().get(1).asText(), //fiscalId
                                 row.getCells().get(2).asText(), //emisorRFC
                                 row.getCells().get(3).asText(), //emisorName
@@ -226,7 +225,7 @@ public class LoginController {
                 );
 
             }
-            incomesRepository.save(incomes);
+            billsRepository.save(incomes);
             userData.setIncomes(incomes);
         } catch (IOException e) {
             e.printStackTrace();
@@ -235,7 +234,7 @@ public class LoginController {
         }
 
         //return userData.getIncomes();
-        //response.sendRedirect("/");
+        //response.sendRedirect("/");*/
     }
 
 

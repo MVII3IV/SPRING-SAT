@@ -51,7 +51,7 @@
 
 
 
-                <!-- incomes table -->
+                <!-- bills table -->
                 <div class="col-md-7" style="margin-right:10px;margin-left:10px">
 
 
@@ -85,7 +85,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15"
+                                    <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15" ng-show="!bill.emited"
                                         ng-if="$index > 0" load-finished>
                                         <td ng-if="false">{{bill.fiscalId}}</td>
                                         <td>{{bill.receiverRFC}}</td>
@@ -129,7 +129,7 @@
 
 
                 </div>
-                <!-- ./incomes table -->
+                <!-- ./bills table -->
 
 
                 <!-- total table -->

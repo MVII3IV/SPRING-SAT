@@ -48,7 +48,7 @@
             <div class="row">
 
 
-                <!-- incomes table -->
+                <!-- bills table -->
                 <div class="col-md-12">
                     <h1 style="margin-top:30px;margin-left: 10px">Tabla de Ingresos</h1>
                     <div class="tabs">
@@ -98,7 +98,7 @@
                                     </thead>
                                     <tbody>
                                         <!--<tr role="row" class="odd" ng-repeat="bill in bills | filter : selectDate | limitTo:15"-->
-                                        <tr role="row" class="odd" ng-repeat="bill in bills | filter : selectDate" load-finished id="{{bill.fiscalId}}">
+                                        <tr role="row" class="odd" ng-repeat="bill in bills | filter : selectDate" ng-if="bill.emited" load-finished id="{{bill.fiscalId}}">
                                             <td width="20px">
                                                 <div class="checkbox checkbox-inline" id="check_{{bill.fiscalId}}">
                                                     <input type="checkbox" id="check_{{$index}}"

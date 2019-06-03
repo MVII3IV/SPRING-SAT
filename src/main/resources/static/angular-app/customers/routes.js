@@ -11,11 +11,11 @@ angular.module("app")
             })
             .when('/income', {
                 templateUrl: 'angular-app/customers/income/income.html',
-                controller: 'incomeController'
+                controller: 'billsController'
             })
             .when('/outgoings', {
                 templateUrl: 'angular-app/customers/outgoings/outgoings.html',
-                controller: 'outgoingsController'
+                controller: 'billsController'
             })
             .when('/tax-simulator', {
                 templateUrl: 'angular-app/customers/tax-simulator/tax-simulator.html',

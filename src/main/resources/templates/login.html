@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" class="form-control" placeholder="RFC" name="username">
+                                    <input type="text" class="form-control" id="username" placeholder="RFC" name="username">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -40,7 +40,7 @@
 
 
                             <div class="form-group no-border margin-top-20">
-                                <button class="btn btn-success btn-block" onclick="dev_loaders_page_loader.open()">Entrar</button>
+                                <button class="btn btn-success btn-block" id="sendFormButton" onclick="dev_loaders_page_loader.open()">Entrar</button>
                             </div>
                             <p><a href="#">Olvidaste tu contraseña?</a></p>
                         </form>
@@ -49,10 +49,15 @@
         </div>
     </div>
 
-
     <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/dev-loaders.js"></script>
+
+    <script>
+        $('#sendFormButton').click(function(){
+            document.cookie = 'username=' + $("#username").val();
+        });
+    </script>
 
 </body>
 </html>

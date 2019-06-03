@@ -12,32 +12,52 @@
                 <div class="row" style="margin-top: 20px; margin-left: 20px;">
                     <script type="text/javascript">
                         $(function () {
-                            $('#datetimepicker10').datetimepicker({
+                            $('#datetimepicker').datetimepicker({
                                 viewMode: 'years',
                                 format: 'MM/YYYY'
                             });
                         });
                     </script>
 
+
+
+
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Seleccion de Mes</label>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker10'>
-                                        <input type='text' class="form-control"/>
-                                        <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar">
-                                    </span>
-                                </span>
-                                    </div>
-                                </div>
-                            </div>
+                            <label>Selecciona <span>Año</span></label>
+                            <select class="form-control" ng-model="year">
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                            </select>
+                            <span class="help-block">Seleccion de año</span>
                         </div>
                     </div>
+
                     <div class="col-md-4">
-                        <button class="btn btn-default" data-target=""> Año Completo </button>
+                        <div class="form-group">
+                            <label>Selecciona <span>Mes</span></label>
+                            <select class="form-control" ng-model="month">
+                                <option value="01">ENERO</option>
+                                <option value="02">FEBRERO</option>
+                                <option value="03">MARZO</option>
+                                <option value="04">ABRIL</option>
+                                <option value="05">MAYO</option>
+                                <option value="06" selected>JUNIO</option>
+                            </select>
+                            <span class="help-block">Seleccion de mes</span>
+                        </div>
                     </div>
+
+
+
+                    <div class="col-md-4">
+                        <div class="form-group" style="padding-top: 30px;">
+                            <button class="btn btn-primary" ng-click="filterBillsByDate(year, month)"> Filtrar </button>
+                            <span class="help-block">Haz click para filtrar</span>
+                        </div>
+                    </div>
+
+
                 </div>
 
             </div>
@@ -57,7 +77,7 @@
                                     <h2>Tus Ingresos Enero</h2>
 
 
-                                    <div class="dev-stat">$<span class="counter"></span></div>
+                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
@@ -65,7 +85,7 @@
                                     <div class="progress progress-bar-xs">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                     </div>
-                                    <p>El total de tus ingresos deacuerdo al mes de Enero</p>
+                                    <p>El total de tus ingresos deacuerdo al mes de {{month}}</p>
                                     <a href="/#!/income" class="dev-drop">Ir a tus ingresos<span class="fa fa-angle-right pull-right"></span></a>
 
                                 </div>
@@ -78,7 +98,7 @@
 
                                 <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                     <h2>Tus Gastos</h2>
-                                    <div class="dev-stat">$<span class="counter">600</span></div>
+                                    <div class="dev-stat">$<span class="counter">{{outcomesByMonth}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
@@ -86,7 +106,7 @@
                                     <div class="progress progress-bar-xs">
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                     </div>
-                                    <p>Tus gastos realizados en el mes de Febrero</p>
+                                    <p>Tus gastos realizados en el mes de {{month}}</p>
                                     <a href="/#!/outgoings" class="dev-drop">Ir a tus Gastos<span class="fa fa-angle-right pull-right"></span></a>
                                 </div>
 
@@ -98,7 +118,7 @@
 
                                 <div class="dev-widget dev-widget-transparent dev-widget-success">
                                     <h2>Diferencia</h2>
-                                    <div class="dev-stat">$<span class="counter">400</span></div>
+                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth - outcomesByMonth}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
@@ -106,7 +126,7 @@
                                     <div class="progress progress-bar-xs">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                     </div>
-                                    <p>El resultado de tus ingresos menos los gastos en Febrero</p>
+                                    <p>El resultado de tus ingresos menos los gastos en {{month}}</p>
 
 
                                 </div>

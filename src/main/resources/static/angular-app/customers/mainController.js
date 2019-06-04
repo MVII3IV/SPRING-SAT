@@ -30,6 +30,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
     */
     $http.get("../bills/external?rfc=" + getCookie('username')).then(function mySuccess(response) {
         billsService.bills = response.data;
+        billsService.orderData(billsService.bills);
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
     });

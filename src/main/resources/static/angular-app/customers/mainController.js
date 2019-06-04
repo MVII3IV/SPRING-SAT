@@ -2,8 +2,11 @@ angular.module('app').controller("mainController", ['$scope', '$http', '$timeout
 function ($scope, $http,$timeout, menuService, userService, billsService) {
 
     $scope.title = "Ingresos y Gastos";
-    $scope.incomesByMonth = 0;
-    $scope.outcomesByMonth = 0;
+    $scope.incomesByMonth01 = 0;
+    $scope.outcomesByMonth01 = 0;
+    $scope.incomesByMonth02 = 0;
+    $scope.outcomesByMonth02 = 0;
+    $scope.totalToPay = 0;
 
 
     /*
@@ -30,39 +33,52 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
     */
     $http.get("../bills/external?rfc=" + getCookie('username')).then(function mySuccess(response) {
         billsService.bills = response.data;
-        billsService.orderData(billsService.bills);
+        billsService.orderData();
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
     });
 
 
     $scope.filterBillsByDate = function(year, month){
+        $scope.incomesByMonth01 = 0;
+        $scope.outcomesByMonth01 = 0;
 
-        $scope.incomesByMonth = 0;
-        $scope.outcomesByMonth = 0;
+        $scope.incomesByMonth02 = 0;
+        $scope.outcomesByMonth02 = 0;
 
-        var billsFilteredByDate = [];
+        var nextMonth = getNextMonth(month);
 
-        for(var i = 0; i < billsService.bills.length ; i++){
-            if(billsService.bills[i].emitedDate.contains('/' + month + '/' + year)){
-                billsFilteredByDate.push(billsService.bills[i]);
-            }
+        //first month
+        billsService.billsData.emitted.find(function(bill){
+            if(bill.month === month)
+                $scope.incomesByMonth01 = bill.total;
+        });
+
+        billsService.billsData.received.find(function(bill){
+            if(bill.month === month)
+                $scope.outcomesByMonth01 =  bill.total;
+        });
+
+        //second month
+        billsService.billsData.emitted.find(function(bill){
+            if(bill.month === month)
+                $scope.incomesByMonth01 = bill.total;
+        });
+
+        billsService.billsData.received.find(function(bill){
+            if(bill.month === month)
+                $scope.outcomesByMonth01 =  bill.total;
+        });
+
+    }
+
+    function getNextMonth(month){
+        month = parseInt(month);
+        if(month > 9){
+            month = month + 1;
+        }else{
+            month = "0" + (month + 1)
         }
-
-        //bills filtered and emitted
-        for(var i = 0; i < billsFilteredByDate.length ; i++){
-            if(billsFilteredByDate[i].emited )
-                $scope.incomesByMonth +=  parseInt(billsFilteredByDate[i].total.replace('$','').replace(',',''), 10);
-        }
-
-        //bills filtered and received
-        for(var i = 0; i < billsFilteredByDate.length ; i++){
-            if(!billsFilteredByDate[i].emited )
-                $scope.outcomesByMonth +=  parseInt(billsFilteredByDate[i].total.replace('$','').replace(',',''), 10);
-        }
-
-
-        //$scope.incomesByMonth;
     }
 
 

@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label>Selecciona <span>Año</span></label>
                             <select class="form-control" ng-model="year">
-                                <option value="2019">2019</option>
+                                <option value="2019" selected>2019</option>
                                 <option value="2018">2018</option>
                             </select>
                             <span class="help-block">Seleccion de año</span>
@@ -37,12 +37,12 @@
                         <div class="form-group">
                             <label>Selecciona <span>Mes</span></label>
                             <select class="form-control" ng-model="month">
-                                <option value="01">ENERO</option>
-                                <option value="02">FEBRERO</option>
-                                <option value="03">MARZO</option>
-                                <option value="04">ABRIL</option>
-                                <option value="05">MAYO</option>
-                                <option value="06" selected>JUNIO</option>
+                                <option value="01">ENERO-FEBRERO</option>
+                                <option value="03">MARZO-ABRIL</option>
+                                <option value="05">MAYO-JUNIO</option>
+                                <option value="07">JULIO-AGOSTO</option>
+                                <option value="09">SEPTIEMBRE-OCTUBRE</option>
+                                <option value="11">NOVIEMBRE-DICIEMBRE</option>
                             </select>
                             <span class="help-block">Seleccion de mes</span>
                         </div>
@@ -77,7 +77,7 @@
                                     <h2>Tus Ingresos Enero</h2>
 
 
-                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth}}</span></div>
+                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth01 | number : 2}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
@@ -98,7 +98,7 @@
 
                                 <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                     <h2>Tus Gastos</h2>
-                                    <div class="dev-stat">$<span class="counter">{{outcomesByMonth}}</span></div>
+                                    <div class="dev-stat">$<span class="counter">{{outcomesByMonth01 | number : 2}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
@@ -118,7 +118,7 @@
 
                                 <div class="dev-widget dev-widget-transparent dev-widget-success">
                                     <h2>Diferencia</h2>
-                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth - outcomesByMonth}}</span></div>
+                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth01 - outcomesByMonth01 | number : 2}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
@@ -170,7 +170,7 @@
                             <div class="dev-widget dev-widget-success">
                                 <h2>Tus Ingresos Febrero</h2>
 
-                                <div class="dev-stat">$<span class="counter">1,300</span></div>
+                                <div class="dev-stat">$<span class="counter">{{incomesByMonth02 | number : 2}}</span></div>
                                 <div class="progress progress-bar-xs" ng-if="false">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
@@ -191,7 +191,7 @@
 
                             <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                 <h2>Tus Gastos</h2>
-                                <div class="dev-stat">$<span class="counter">850</span></div>
+                                <div class="dev-stat">$<span class="counter">{{outcomesByMonth02 | number : 2}}</span></div>
                                 <div class="progress progress-bar-xs" ng-if="false">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
@@ -211,7 +211,7 @@
 
                             <div class="dev-widget dev-widget-transparent dev-widget-success">
                                 <h2>Diferencia</h2>
-                                <div class="dev-stat">$<span class="counter">450</span></div>
+                                <div class="dev-stat">$<span class="counter">{{incomesByMonth02 - outcomesByMonth02 | number : 2}}</span></div>
                                 <div class="progress progress-bar-xs" ng-if="false">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
@@ -232,7 +232,7 @@
 
                             <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                 <h2>Impuestos por pagar al bimestre</h2>
-                                <div class="dev-stat">$<span class="counter">250</span></div>
+                                <div class="dev-stat">$<span class="counter">{{totalToPay | number : 2}}</span></div>
                                 <div class="progress progress-bar-xs" ng-if="false">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>

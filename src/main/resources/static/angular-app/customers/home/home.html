@@ -263,7 +263,7 @@
 
             <!-- table -->
             <div class="wrapper">
-                <div class="col-md-12">
+                <div class="col-md-8">
 
                     <h1 style="margin-top:30px">Totales</h1>
                     <table class="table table-bordered table-striped table-sortable dataTable no-footer">
@@ -271,26 +271,35 @@
                         <tr role="row">
                             <th>Mes</th>
                             <th>Ingresos</th>
+                            <th ng-hide="true">Gastos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                                <tr ng-repeat="emitted in billsData.emitted">
+                                    <td>{{emitted.month}}</td>
+                                    <td>{{emitted.total | number : 2}}</td>
+                                    <td ng-hide="true">{{received.total }}</td>
+                                </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <div class="col-md-2">
+
+                    <h1 style="margin-top:30px"><span>&#8203;</span></h1>
+                    <table class="table table-bordered table-striped table-sortable dataTable no-footer">
+                        <thead>
+                        <tr role="row">
                             <th>Gastos</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Enero</td>
-                            <td>$1,000.00</td>
-                            <td>$600.00</td>
-                        </tr>
-                        <tr>
-                            <td>Febrero</td>
-                            <td>$2,000.00</td>
-                            <td>$800.00</td>
-                        </tr>
-                        <tr>
-                            <td>Marzo</td>
-                            <td>$13,000.00</td>
-                            <td>$6700.00</td>
-                        </tr>
+                            <tr ng-repeat="received in billsData.received">
+                                <td>{{received.total | number : 2 }}</td>
+                            </tr>
                         </tbody>
+
                     </table>
 
                 </div>

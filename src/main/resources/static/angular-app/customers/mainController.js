@@ -7,6 +7,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
     $scope.incomesByMonth02 = 0;
     $scope.outcomesByMonth02 = 0;
     $scope.totalToPay = 0;
+    $scope.billsData = [];
 
 
     /*
@@ -33,7 +34,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
     */
     $http.get("../bills/external?rfc=" + getCookie('username')).then(function mySuccess(response) {
         billsService.bills = response.data;
-        billsService.orderData();
+        $scope.billsData = billsService.orderData();
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
     });
@@ -52,22 +53,17 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
         billsService.billsData.emitted.find(function(bill){
             if(bill.month === month)
                 $scope.incomesByMonth01 = bill.total;
+
+            if(bill.month === nextMonth)
+                $scope.incomesByMonth02 = bill.total;
         });
 
         billsService.billsData.received.find(function(bill){
             if(bill.month === month)
                 $scope.outcomesByMonth01 =  bill.total;
-        });
 
-        //second month
-        billsService.billsData.emitted.find(function(bill){
-            if(bill.month === month)
-                $scope.incomesByMonth01 = bill.total;
-        });
-
-        billsService.billsData.received.find(function(bill){
-            if(bill.month === month)
-                $scope.outcomesByMonth01 =  bill.total;
+            if(bill.month === nextMonth)
+                $scope.outcomesByMonth02 =  bill.total;
         });
 
     }
@@ -79,6 +75,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
         }else{
             month = "0" + (month + 1)
         }
+        return month;
     }
 
 

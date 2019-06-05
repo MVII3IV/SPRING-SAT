@@ -53,8 +53,8 @@ app.service('billsService', ['$http', 'userService', function($http, userService
                 totalReceived += Number( item.total.replace('$','').replace(',','') );
             });
 
-            this.billsData.emitted.push({ "month": month, "bills": emittedBillsByMonth, "total": totalEmitted });
-            this.billsData.received.push({ "month": month, "bills": receivedBillsByMonth, "total": totalReceived });
+            this.billsData.emitted.push({ "month": month, "bills": emittedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived } });
+            this.billsData.received.push({ "month": month, "bills": receivedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived } });
 
         });
 

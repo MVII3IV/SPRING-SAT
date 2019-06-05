@@ -9,6 +9,15 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
     $scope.totalToPay = 0;
     $scope.billsData = [];
 
+    $scope.years = [2019];
+    $scope.months = [
+        {"value" : 01, "name" : "ENERO-FEBRERO"},
+        {"value" : 03, "name" : "MARZO-ABRIL"},
+        {"value" : 05, "name" : "MAYO-JUNIO"},
+        {"value" : 07, "name" : "JULIO-AGOSTO"},
+        {"value" : 09, "name" : "SEPTIEMBRE-OCTUBRE"},
+        {"value" : 11, "name" : "NOVIEMBRE-DICIEMBRE"}
+    ];
 
     /*
     * Menu element object
@@ -35,6 +44,58 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
     $http.get("../bills/external?rfc=" + getCookie('username')).then(function mySuccess(response) {
         billsService.bills = response.data;
         $scope.billsData = billsService.orderData();
+
+        $scope.incomes = [];
+        $scope.outcomes = [];
+        for(var i = 0 ; i < $scope.billsData.emitted.length ; i++){
+            $scope.incomes.push(($scope.billsData.emitted[i].total.emitted).toFixed(2));
+            $scope.outcomes.push(($scope.billsData.emitted[i].total.received).toFixed(2));
+        }
+
+
+
+
+
+
+
+
+            new Chart(document.getElementById("line-chart"), {
+              type: 'line',
+              data: {
+                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                datasets: [{
+                    data: $scope.incomes,
+                    label: "Ingresos",
+                    borderColor: "#82b440",
+                    fill: false
+                  }, {
+                    data: $scope.outcomes,
+                    label: "Gastos",
+                    borderColor: "#e74e40",
+                    fill: false
+                  }
+                ]
+              },
+              options: {
+                title: {
+                  display: false,
+                  text: 'Tabla de Ingresos y Gastos'
+                }
+              }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
     });
@@ -47,26 +108,32 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
         $scope.incomesByMonth02 = 0;
         $scope.outcomesByMonth02 = 0;
 
-        var nextMonth = getNextMonth(month);
+        $scope.nextMonth = getNextMonth(month);
 
         //first month
         billsService.billsData.emitted.find(function(bill){
             if(bill.month === month)
-                $scope.incomesByMonth01 = bill.total;
+                $scope.incomesByMonth01 = bill.total.emitted;
 
-            if(bill.month === nextMonth)
-                $scope.incomesByMonth02 = bill.total;
+            if(bill.month === $scope.nextMonth)
+                $scope.incomesByMonth02 = bill.total.emitted;
         });
 
         billsService.billsData.received.find(function(bill){
             if(bill.month === month)
-                $scope.outcomesByMonth01 =  bill.total;
+                $scope.outcomesByMonth01 =  bill.total.received;
 
-            if(bill.month === nextMonth)
-                $scope.outcomesByMonth02 =  bill.total;
+            if(bill.month === $scope.nextMonth)
+                $scope.outcomesByMonth02 =  bill.total.received;
         });
 
     }
+
+
+
+
+
+
 
     function getNextMonth(month){
         month = parseInt(month);

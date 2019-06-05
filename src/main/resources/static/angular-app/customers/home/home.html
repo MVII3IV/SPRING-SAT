@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-white">
+<div class="wrapper wrapper-white" id="test">
 
     <h1>{{title}}</h1>
     <div class="table-responsive" style="margin-top:20px">
@@ -36,6 +36,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Selecciona <span>Mes</span></label>
+                            <!--
                             <select class="form-control" ng-model="month">
                                 <option value="01">ENERO-FEBRERO</option>
                                 <option value="03">MARZO-ABRIL</option>
@@ -43,6 +44,9 @@
                                 <option value="07">JULIO-AGOSTO</option>
                                 <option value="09">SEPTIEMBRE-OCTUBRE</option>
                                 <option value="11">NOVIEMBRE-DICIEMBRE</option>
+                            </select-->
+                            <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="trash">
+                                <option ng-repeat="month in months" value="{{month.value}}">{{month.name}}</option>
                             </select>
                             <span class="help-block">Seleccion de mes</span>
                         </div>
@@ -178,7 +182,7 @@
                                 <div class="progress progress-bar-xs">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                 </div>
-                                <p>El total de tus ingresos deacuerdo al mes de Febreso</p>
+                                <p>El total de tus ingresos deacuerdo al mes de {{nextMonth}}</p>
                                 <a href="/#!/income" class="dev-drop">Ir a tus ingresos<span class="fa fa-angle-right pull-right"></span></a>
 
                             </div>
@@ -199,7 +203,7 @@
                                 <div class="progress progress-bar-xs">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                 </div>
-                                <p>Tus gastos realizados en el mes de Febrero</p>
+                                <p>Tus gastos realizados en el mes de {{nextMonth}}</p>
                                 <a href="/#!/outgoings" class="dev-drop">Ir a tus ingresos<span class="fa fa-angle-right pull-right"></span></a>
                             </div>
 
@@ -219,7 +223,7 @@
                                 <div class="progress progress-bar-xs">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                 </div>
-                                <p>El resultado de tus ingresos menos los gastos en Febrero</p>
+                                <p>El resultado de tus ingresos menos los gastos en {{nextMonth}}</p>
 
 
                             </div>
@@ -263,7 +267,7 @@
 
             <!-- table -->
             <div class="wrapper">
-                <div class="col-md-8">
+                <div class="col-md-12">
 
                     <h1 style="margin-top:30px">Totales</h1>
                     <table class="table table-bordered table-striped table-sortable dataTable no-footer">
@@ -271,33 +275,15 @@
                         <tr role="row">
                             <th>Mes</th>
                             <th>Ingresos</th>
-                            <th ng-hide="true">Gastos</th>
+                            <th>Gastos</th>
                         </tr>
                         </thead>
                         <tbody>
                                 <tr ng-repeat="emitted in billsData.emitted">
                                     <td>{{emitted.month}}</td>
-                                    <td>{{emitted.total | number : 2}}</td>
-                                    <td ng-hide="true">{{received.total }}</td>
+                                    <td>{{emitted.total.emitted | number : 2}}</td>
+                                    <td>{{emitted.total.received | number : 2 }}</td>
                                 </tr>
-                        </tbody>
-
-                    </table>
-
-                </div>
-                <div class="col-md-2">
-
-                    <h1 style="margin-top:30px"><span>&#8203;</span></h1>
-                    <table class="table table-bordered table-striped table-sortable dataTable no-footer">
-                        <thead>
-                        <tr role="row">
-                            <th>Gastos</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="received in billsData.received">
-                                <td>{{received.total | number : 2 }}</td>
-                            </tr>
                         </tbody>
 
                     </table>
@@ -307,20 +293,20 @@
             <!-- ./table -->
 
 
-            <script>
-            //https://www.sitepoint.com/introduction-chart-js-2-0-six-examples/
-            //http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#2-line-chart
+            <script>/*
+            var mainController = angular.element(document.querySelector('[ng-controller="mainController"]')).scope();
+
             new Chart(document.getElementById("line-chart"), {
               type: 'line',
               data: {
                 labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
                 datasets: [{
-                    data: [1000, 1200, 1110, 1150, 1200, 1250, 950, 1100, 1150, 1000, 1500, 1100],
+                    data: mainController.incomes,
                     label: "Ingresos",
                     borderColor: "#82b440",
                     fill: false
                   }, {
-                    data: [600, 800, 1200, 1000, 635, 809, 947, 1402, 1500, 500, 500, 210],
+                    data: mainController.outcomes,
                     label: "Gastos",
                     borderColor: "#e74e40",
                     fill: false
@@ -333,7 +319,7 @@
                   text: 'Tabla de Ingresos y Gastos'
                 }
               }
-            });
+            });*/
             </script>
 
         </div>

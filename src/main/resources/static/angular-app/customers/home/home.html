@@ -25,7 +25,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Selecciona <span>Año</span></label>
-                            <select class="form-control" ng-model="year">
+                            <select class="form-control" ng-model="yearIndex">
+                                <option value='' disabled>SELECCION DE AñO</option>
                                 <option value="2019" selected>2019</option>
                                 <option value="2018">2018</option>
                             </select>
@@ -36,19 +37,11 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Selecciona <span>Mes</span></label>
-                            <!--
-                            <select class="form-control" ng-model="month">
-                                <option value="01">ENERO-FEBRERO</option>
-                                <option value="03">MARZO-ABRIL</option>
-                                <option value="05">MAYO-JUNIO</option>
-                                <option value="07">JULIO-AGOSTO</option>
-                                <option value="09">SEPTIEMBRE-OCTUBRE</option>
-                                <option value="11">NOVIEMBRE-DICIEMBRE</option>
-                            </select-->
-                            <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="trash">
+                            <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="monthIndex">
+                                <option value='' disabled>SELECCION DE BIMESTRE</option>
                                 <option ng-repeat="month in months" value="{{month.value}}">{{month.name}}</option>
                             </select>
-                            <span class="help-block">Seleccion de mes</span>
+                            <span class="help-block">Seleccion de bimestre</span>
                         </div>
                     </div>
 
@@ -56,7 +49,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group" style="padding-top: 30px;">
-                            <button class="btn btn-primary" ng-click="filterBillsByDate(year, month)"> Filtrar </button>
+                            <button class="btn btn-primary" ng-click="filterBillsByDate()"> Filtrar </button>
                             <span class="help-block">Haz click para filtrar</span>
                         </div>
                     </div>

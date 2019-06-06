@@ -101,18 +101,20 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
     });
 
 
-    $scope.filterBillsByDate = function(year, month){
+    $scope.filterBillsByDate = function(){
         $scope.incomesByMonth01 = 0;
         $scope.outcomesByMonth01 = 0;
 
         $scope.incomesByMonth02 = 0;
         $scope.outcomesByMonth02 = 0;
 
-        $scope.nextMonth = getNextMonth(month);
+        var monthIndex = formatMonth($scope.monthIndex);
+        $scope.nextMonth = getNextMonth(monthIndex);
+
 
         //first month
         billsService.billsData.emitted.find(function(bill){
-            if(bill.month === month)
+            if(bill.month === monthIndex)
                 $scope.incomesByMonth01 = bill.total.emitted;
 
             if(bill.month === $scope.nextMonth)
@@ -120,7 +122,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
         });
 
         billsService.billsData.received.find(function(bill){
-            if(bill.month === month)
+            if(bill.month === monthIndex)
                 $scope.outcomesByMonth01 =  bill.total.received;
 
             if(bill.month === $scope.nextMonth)
@@ -132,7 +134,15 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
 
 
 
-
+    function formatMonth(month){
+        month = parseInt(month);
+        if(month > 9){
+            month = month;
+        }else{
+            month = "0" + month
+        }
+        return month;
+    }
 
 
     function getNextMonth(month){

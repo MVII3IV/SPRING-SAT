@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-white" id="test">
+<div class="wrapper wrapper-white" id="test" style="height: 2100px;">
 
     <h1>{{title}}</h1>
     <div class="table-responsive" style="margin-top:20px">
@@ -10,17 +10,6 @@
             <div class="row well" style="padding-bottom: 0px; margin: 0px;">
 
                 <div class="row" style="margin-top: 20px; margin-left: 20px;">
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#datetimepicker').datetimepicker({
-                                viewMode: 'years',
-                                format: 'MM/YYYY'
-                            });
-                        });
-                    </script>
-
-
-
 
                     <div class="col-md-4">
                         <div class="form-group">
@@ -272,7 +261,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                                <tr ng-repeat="emitted in billsData.emitted">
+                                <tr ng-repeat="emitted in billsData.emitted.bills">
                                     <td>{{emitted.month}}</td>
                                     <td>{{emitted.total.emitted | number : 2}}</td>
                                     <td>{{emitted.total.received | number : 2 }}</td>

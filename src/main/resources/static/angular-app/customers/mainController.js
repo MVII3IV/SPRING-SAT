@@ -1,5 +1,5 @@
-angular.module('app').controller("mainController", ['$scope', '$http', '$timeout', 'menuService', 'userService', 'billsService',
-function ($scope, $http,$timeout, menuService, userService, billsService) {
+angular.module('app').controller("mainController", ['$scope', '$http', '$timeout', 'menuService', 'userService', 'billsService', '$q',
+function ($scope, $http,$timeout, menuService, userService, billsService, $q) {
 
     $scope.title = "Ingresos y Gastos";
     $scope.incomesByMonth01 = 0;
@@ -18,6 +18,18 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
         {"value" : 09, "name" : "SEPTIEMBRE-OCTUBRE"},
         {"value" : 11, "name" : "NOVIEMBRE-DICIEMBRE"}
     ];
+
+    if(billsService.bills.length === 0){
+        $q.all([ $http.get("../bills/external?rfc=" + getCookie('username')) ]).then(function(result){
+            billsService.bills = result[0].data;
+            $scope.billsData = billsService.orderData();
+            setGraph();
+        });
+    }else{
+        $scope.billsData = billsService.billsData;
+        setGraph();
+    }
+
 
     /*
     * Menu element object
@@ -41,23 +53,13 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
     *   then filtering by this field goes for the bills assigned to the user
     *   the bills are then stored in the billsService.bills
     */
-    $http.get("../bills/external?rfc=" + getCookie('username')).then(function mySuccess(response) {
-        billsService.bills = response.data;
-        $scope.billsData = billsService.orderData();
-
+    var setGraph = function(){
         $scope.incomes = [];
         $scope.outcomes = [];
-        for(var i = 0 ; i < $scope.billsData.emitted.length ; i++){
-            $scope.incomes.push(($scope.billsData.emitted[i].total.emitted).toFixed(2));
-            $scope.outcomes.push(($scope.billsData.emitted[i].total.received).toFixed(2));
+        for(var i = 0 ; i < $scope.billsData.emitted.bills.length ; i++){
+            $scope.incomes.push(($scope.billsData.emitted.bills[i].total.emitted).toFixed(2));
+            $scope.outcomes.push(($scope.billsData.emitted.bills[i].total.received).toFixed(2));
         }
-
-
-
-
-
-
-
 
             new Chart(document.getElementById("line-chart"), {
               type: 'line',
@@ -85,20 +87,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
             });
 
 
-
-
-
-
-
-
-
-
-
-
-
-    }, function myError(response) {
-        $scope.myWelcome = response.statusText;
-    });
+    }
 
 
     $scope.filterBillsByDate = function(){
@@ -113,7 +102,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
 
 
         //first month
-        billsService.billsData.emitted.find(function(bill){
+        billsService.billsData.emitted.bills.find(function(bill){
             if(bill.month === monthIndex)
                 $scope.incomesByMonth01 = bill.total.emitted;
 
@@ -121,7 +110,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
                 $scope.incomesByMonth02 = bill.total.emitted;
         });
 
-        billsService.billsData.received.find(function(bill){
+        billsService.billsData.received.bills.find(function(bill){
             if(bill.month === monthIndex)
                 $scope.outcomesByMonth01 =  bill.total.received;
 
@@ -180,4 +169,6 @@ function ($scope, $http,$timeout, menuService, userService, billsService) {
           }
           return "";
         }
+
+
 }]);

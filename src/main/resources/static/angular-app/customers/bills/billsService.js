@@ -6,12 +6,14 @@ app.service('billsService', ['$http', 'userService', function($http, userService
 
     this.billsData = [];
 
+    this.orderData = function(billss){
 
+        this.billsData = {
+                            "emitted"   :   { "bills": [] , "groups": [] },
+                            "received"  :   { "bills": [] , "groups": [] }
+                         };
 
-    this.orderData = function(bills){
-
-        this.billsData = {"emitted" : [], "received" : []};
-
+        //this code orders bills by date
         this.bills = this.bills.sort(function (a, b) {
             var dateAParts = a.emitedDate.split("/");
             var dateBParts = b.emitedDate.split("/");
@@ -26,9 +28,7 @@ app.service('billsService', ['$http', 'userService', function($http, userService
           return bill.emited === false;
         })
 
-
-
-
+        //this code calculates the total by month for incomes and outcomes
         months.forEach(month => {
 
             var totalEmitted = 0;
@@ -53,15 +53,24 @@ app.service('billsService', ['$http', 'userService', function($http, userService
                 totalReceived += Number( item.total.replace('$','').replace(',','') );
             });
 
-            this.billsData.emitted.push({ "month": month, "bills": emittedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived } });
-            this.billsData.received.push({ "month": month, "bills": receivedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived } });
+            this.billsData.emitted.bills.push({ "month": month, "bills": emittedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived } });
+            this.billsData.received.bills.push({ "month": month, "bills": receivedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived } });
 
         });
+
+
+        var combined = emittedBills.reduce((hash, obj) => {
+           return obj.receiverName in hash ? hash[obj.receiverName].push(obj) : hash[obj.receiverName] = [obj], hash;
+        }, Object.create(null));
+
+        //var result = Object.values(combined);
+        this.billsData.emitted.groups = combined;
 
 
         return this.billsData;
 
     }//end of function
+
 
 
 

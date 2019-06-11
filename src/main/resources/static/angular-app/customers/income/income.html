@@ -252,9 +252,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr role="row" class="odd" ng-repeat="(key, value) in billsData.emitted.groups">
-                                        <td>{{ key }}</td>
-                                        <td>{{ value | currency}}</td>
+                                    <tr role="row" class="odd" ng-repeat="group in filteredBills.groups">
+                                        <td>{{ group.name }}</td>
+                                        <td>{{ group.total | currency}}</td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL</td>

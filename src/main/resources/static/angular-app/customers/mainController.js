@@ -34,7 +34,12 @@ function ($scope, $http,$timeout, menuService, userService, billsService, $q) {
             $scope.outcomes.push(($scope.billsData.emitted.bills[i].total.received).toFixed(2));
         }
 
-            new Chart(document.getElementById("line-chart"), {
+        var chart = document.getElementById("line-chart");
+
+        if(chart == null)
+            return;
+
+            new Chart(chart, {
               type: 'line',
               data: {
                 labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],

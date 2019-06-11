@@ -19,33 +19,6 @@ function ($scope, $http,$timeout, menuService, userService, billsService, $q) {
         {"value" : 11, "name" : "NOVIEMBRE-DICIEMBRE"}
     ];
 
-    if(billsService.bills.length === 0){
-        $q.all([ $http.get("../bills/external?rfc=" + getCookie('username')) ]).then(function(result){
-            billsService.bills = result[0].data;
-            $scope.billsData = billsService.orderData();
-            setGraph();
-        });
-    }else{
-        $scope.billsData = billsService.billsData;
-        setGraph();
-    }
-
-
-    /*
-    * Menu element object
-    * Contains all the properties need to the proper functionality
-    */
-    $scope.menuElements = menuService;
-
-
-    /*
-    *   Gets user's info from the local database
-    */
-    $http.get("../user/").then(function mySuccess(response) {
-        userService.data = response.data;
-    }, function myError(response) {
-        $scope.myWelcome = response.statusText;
-    });
 
 
     /*
@@ -88,6 +61,35 @@ function ($scope, $http,$timeout, menuService, userService, billsService, $q) {
 
 
     }
+
+
+
+
+    $q.all([ $http.get("../bills/external?rfc=" + getCookie('username')) ]).then(function(result){
+        billsService.bills = result[0].data;
+        $scope.billsData = billsService.orderData();
+        setGraph();
+    });
+
+
+    /*
+    * Menu element object
+    * Contains all the properties need to the proper functionality
+    */
+    $scope.menuElements = menuService;
+
+
+    /*
+    *   Gets user's info from the local database
+    */
+    $http.get("../user/").then(function mySuccess(response) {
+        userService.data = response.data;
+    }, function myError(response) {
+        $scope.myWelcome = response.statusText;
+    });
+
+
+
 
 
     $scope.filterBillsByDate = function(){

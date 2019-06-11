@@ -3,6 +3,25 @@ angular.module('app').controller("billsController", ['$scope', '$http', 'billsSe
     $scope.title = "Facturas";
     $scope.billsData = billsService.billsData;
 
+    $scope.years = [2019];
+    $scope.months = [
+        {"value" : "01", "name" : "ENERO"},
+        {"value" : "02", "name" : "FEBRERO"},
+        {"value" : "03", "name" : "MARZO"},
+        {"value" : "04", "name" : "ABRIL"},
+        {"value" : "05", "name" : "MAYO"},
+        {"value" : "06", "name" : "JUNIO"},
+        {"value" : "07", "name" : "JULIO"},
+        {"value" : "08", "name" : "AGOSTO"},
+        {"value" : "09", "name" : "SEPTIEMBRE"},
+        {"value" : "10", "name" : "OCTUBRE"},
+        {"value" : "11", "name" : "NOVIEMBRE"},
+        {"value" : "12", "name" : "DICIEMBRE"},
+    ];
+
+    /*
+    * Initializer
+    */
     if(billsService.bills.length === 0){
         $q.all([ $http.get("../bills/external?rfc=" + getCookie('username')) ]).then(function(result){
             billsService.bills = result[0].data;
@@ -12,12 +31,40 @@ angular.module('app').controller("billsController", ['$scope', '$http', 'billsSe
         $scope.billsData = billsService.billsData;
     }
 
+
+
+    $scope.filterBillsByDate = function(){
+        $scope.incomesByMonth01 = 0;
+
+        //first month
+        $scope.filteredBills = billsService.billsData.emitted.bills.find(function(bill){
+            if(bill.month === $scope.monthIndex)
+                return bill;
+        });
+
+        console.log($scope.filteredBills);
+
+    }
+
+
+    function formatMonth(month){
+        month = parseInt(month);
+        if(month > 9){
+            month = month;
+        }else{
+            month = "0" + month
+        }
+        return month;
+    }
+
+
     $scope.showField = function(){
             if(window.location.href.contains("admin"))
                 return true;
             else
                 return false;
         }
+
 
     /*
     *   Simple code to get the cookie value

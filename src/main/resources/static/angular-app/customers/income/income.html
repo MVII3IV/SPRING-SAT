@@ -41,7 +41,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group" style="padding-top: 30px;">
-                            <button class="btn btn-primary" ng-click="filterBillsByDate()"> Filtrar </button>
+                            <button class="btn btn-primary" ng-click="filterBillsByDate(true)"> Filtrar </button>
                             <span class="help-block">Haz click para filtrar</span>
                         </div>
                     </div>
@@ -258,7 +258,7 @@
                                     </tr>
                                     <tr>
                                         <td>TOTAL</td>
-                                        <td>{{grandTotal | currency}}</td>
+                                        <td>{{groupsTotal | currency}}</td>
                                     </tr>
                                     </tbody>
                                 </table>

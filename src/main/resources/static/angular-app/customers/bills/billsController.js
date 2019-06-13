@@ -33,16 +33,29 @@ angular.module('app').controller("billsController", ['$scope', '$http', 'billsSe
 
 
 
-    $scope.filterBillsByDate = function(){
-        $scope.incomesByMonth01 = 0;
+    $scope.filterBillsByDate = function(incomesFlag){
+
+        var bills = [];
+        if(incomesFlag)
+            bills = billsService.billsData.emitted.bills;
+        else
+            bills = billsService.billsData.received.bills;
 
         //first month
-        $scope.filteredBills = billsService.billsData.emitted.bills.find(function(bill){
+        $scope.filteredBills = bills.find(function(bill){
             if(bill.month === $scope.monthIndex)
                 return bill;
         });
 
-        console.log($scope.filteredBills);
+
+        $scope.groupsTotal = 0;
+        $scope.filteredBills.groups.forEach(function(element){
+            element.bills.forEach(function(bill){
+                $scope.groupsTotal += bill.total;
+            });
+        });
+
+
 
     }
 
@@ -59,11 +72,15 @@ angular.module('app').controller("billsController", ['$scope', '$http', 'billsSe
 
 
     $scope.showField = function(){
-            if(window.location.href.contains("admin"))
-                return true;
-            else
-                return false;
-        }
+        if(window.location.href.contains("admin"))
+            return true;
+        else
+            return false;
+    }
+
+    $scope.getTotal = function(bills){
+        console.log();
+    }
 
 
     /*

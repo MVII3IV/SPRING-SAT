@@ -58,37 +58,29 @@ app.service('billsService', ['$http', 'userService', function($http, userService
             });
 
 
-
-
-
-
-
-
             var combined = emittedBillsByMonth.reduce((hash, obj) => {
                return obj.receiverName in hash ? hash[obj.receiverName].push(obj) : hash[obj.receiverName] = [obj], hash;
             }, Object.create(null));
 
+            var combinedReceived = receivedBillsByMonth.reduce((hash, obj) => {
+               return obj.emisorName in hash ? hash[obj.emisorName].push(obj) : hash[obj.emisorName] = [obj], hash;
+            }, Object.create(null));
+
             var result = Object.values(combined);
-
-            //this.billsData.emitted.groups = combined;
-
             var groups = [];
             result.forEach(function(element){
                 groups.push({"name": element[0].receiverName, "bills": element, "total": element.sum("total")});
             });
 
-            //this.billsData.emitted.groups = {"month": month, "groups", groups};
-
-
-
-
-
-
-
+            var resultReceived = Object.values(combinedReceived);
+            var groupsReceived = [];
+            resultReceived.forEach(function(element){
+                groupsReceived.push({"name": element[0].emisorName, "bills": element, "total": element.sum("total")});
+            });
 
 
             this.billsData.emitted.bills.push({ "month": month, "bills": emittedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived}, "groups": groups });
-            this.billsData.received.bills.push({ "month": month, "bills": receivedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived } });
+            this.billsData.received.bills.push({ "month": month, "bills": receivedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived }, "groups" : groupsReceived });
 
         });
 

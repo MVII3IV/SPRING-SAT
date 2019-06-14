@@ -99,11 +99,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr role="row" class="odd" ng-repeat="bill in bills | filter : search | limitTo:15" ng-show="!bill.emited"
-                                        ng-if="$index > 0" load-finished>
+                                    <tr role="row" class="odd" ng-repeat="bill in filteredBills.bills" load-finished>
                                         <td ng-if="false">{{bill.fiscalId}}</td>
-                                        <td>{{bill.receiverRFC}}</td>
-                                        <td>{{bill.receiverName}}</td>
+                                        <td>{{bill.emisorRFC}}</td>
+                                        <td>{{bill.emisorName}}</td>
                                         <td>{{bill.emitedDate}}</td>
                                         <td>{{bill.total}}</td>
                                         <td ng-if="false">
@@ -157,13 +156,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr role="row" class="odd" ng-repeat="(key, value) in bills | groupBy: 'receiverName'" ng-if="$index > 0">
-                            <td>{{ key }}</td>
-                            <td>{{ getTotal(value) | currency}}</td>
+                        <tr role="row" class="odd" ng-repeat="group in filteredBills.groups">
+                            <td>{{ group.name }}</td>
+                            <td>{{ group.total | currency}}</td>
                         </tr>
                         <tr>
                             <td>TOTAL</td>
-                            <td>{{grandTotal | currency}}</td>
+                            <td>{{groupsTotal | currency}}</td>
                         </tr>
                         </tbody>
                     </table>

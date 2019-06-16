@@ -70,7 +70,6 @@ angular.module('app').controller("billsController", ['$scope', '$http', 'billsSe
         return month;
     }
 
-
     $scope.showField = function(){
         if(window.location.href.contains("admin"))
             return true;

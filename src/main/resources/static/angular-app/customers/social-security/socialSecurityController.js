@@ -29,9 +29,49 @@ angular.module('app').controller("socialSecurityController", ['$scope', '$http',
         $('#file-input').trigger('click');
     }
 
-    $http.get("../employees").then(function(result){
+    $http.get("../employees?bossRfc=" + getCookie('username')).then(function(result){
         $scope.employees = result.data;
     });
+
+    $scope.saveEmployee = function(){
+
+        var data = {
+           "name" : $scope.name,
+           "lastName" : $scope.lastName,
+           "secondLastName" : $scope.secondLastName,
+           "securityNumber" : $scope.securityNumber,
+           "curp" : $scope.curp,
+           "dailySalary" : $scope.dailySalary,
+           "bossRfc" : getCookie('username'),
+           "statusId" : 2
+         }
+
+            /*
+         $http.post("../employees/save").then(function(res){
+            console.log(res);
+         }, function(res){
+            console.log(res);
+         });
+*/
+
+        $http({
+            url: 'employees',
+            method: "POST",
+            data: data,
+            //withCredentials: true,
+            headers : {
+                'Accept': 'application/json',
+                'Content-Type' : 'application/json'
+                //'Authorization' : 'Basic ' + btoa("LULR860821MTA:goluna21")
+            }
+        })
+        .then(function(response) {
+                $scope.employees.push(response.data);
+        },
+        function(response) { // optional
+                console.log(response)
+        });
+    }
 
     function getCookie(cname) {
       var name = cname + "=";

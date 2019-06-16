@@ -6,10 +6,9 @@ import com.mvii3iv.sat.components.assets.HostValidator;
 import com.mvii3iv.sat.components.bills.Bills;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +37,7 @@ public class EmployeesController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Employees> getEmployees(){
+    public List<Employees> getEmployeesByBossRfc(@RequestParam String bossRfc){
 
         String HOST_NAME = env.getProperty("SERVER_URL");
 
@@ -48,7 +47,7 @@ public class EmployeesController {
         Proxy proxy = null;
 
         try {
-            url = new URL(HOST_NAME  + "/employees");
+            url = new URL(HOST_NAME  + "/employees?bossRfc=" + bossRfc);
 
             if (hostValidator.isProxyRequired()) {
 
@@ -99,10 +98,11 @@ public class EmployeesController {
 
 
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public Employees saveEmployee(@RequestBody Employees employees){
-        employeesRepository.save(employees);
-        return employees;
+        System.out.println(employees);
+        //employeesRepository.save(employees);
+        return null;
     }
 
 

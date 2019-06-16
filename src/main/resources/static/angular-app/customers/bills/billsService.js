@@ -6,19 +6,29 @@ app.service('billsService', ['$http', 'userService', function($http, userService
 
     this.billsData = [];
 
-    this.orderData = function(billss){
+    this.orderBillsByDate = function(bills){
+        bills = bills.sort(function (a, b) {
+            var dateAParts = a.emitedDate.split("/");
+            var dateBParts = b.emitedDate.split("/");
+            return  (new Date(+dateAParts[2], dateAParts[1] - 1, +dateAParts[0]) < new Date(+dateBParts[2], dateBParts[1] - 1, +dateBParts[0])) ? 1 : ((new Date(+dateBParts[2], dateBParts[1] - 1, +dateBParts[0]) < new Date(+dateAParts[2], dateAParts[1] - 1, +dateAParts[0]))? -1 : 0)
+        });
+
+        return bills;
+    }
+
+
+    this.orderData = function(bills){
 
         this.billsData = {
                             "emitted"   :   { "bills": [] , "groups": [] },
                             "received"  :   { "bills": [] , "groups": [] }
                          };
 
-        //this code orders bills by date
-        this.bills = this.bills.sort(function (a, b) {
-            var dateAParts = a.emitedDate.split("/");
-            var dateBParts = b.emitedDate.split("/");
-            return  (new Date(+dateAParts[2], dateAParts[1] - 1, +dateAParts[0]) < new Date(+dateBParts[2], dateBParts[1] - 1, +dateBParts[0])) ? 1 : ((new Date(+dateBParts[2], dateBParts[1] - 1, +dateBParts[0]) < new Date(+dateAParts[2], dateAParts[1] - 1, +dateAParts[0]))? -1 : 0)
-        });
+        this.printBills(this.bills);
+
+        this.bills = this.orderBillsByDate(this.bills);
+
+        this.printBills(this.bills);
 
         this.bills.forEach(function(bill){
            bill.total = Number(bill.total.replace('$','').replace(',',''));
@@ -88,6 +98,13 @@ app.service('billsService', ['$http', 'userService', function($http, userService
 
     }//end of function
 
+
+    this.printBills = function(bills){
+        var count = 1;
+        bills.forEach(function(bill){
+            console.log(count++ + " - " + bill.emitedDate);
+        });
+    }
 
 
     Array.prototype.sum = function (prop) {

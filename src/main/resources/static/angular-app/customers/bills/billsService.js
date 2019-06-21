@@ -24,11 +24,11 @@ app.service('billsService', ['$http', 'userService', function($http, userService
                             "received"  :   { "bills": [] , "groups": [] }
                          };
 
-        this.printBills(this.bills);
+        //this.printBills(this.bills);
 
         this.bills = this.orderBillsByDate(this.bills);
 
-        this.printBills(this.bills);
+        //this.printBills(this.bills);
 
         this.bills.forEach(function(bill){
            bill.total = Number(bill.total.replace('$','').replace(',',''));

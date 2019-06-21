@@ -10,7 +10,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService, $q) {
     $scope.billsData = [];
 
     $scope.years = [2019];
-    $scope.months = [
+    $scope.monthsBimester = [
         {"value" : 01, "name" : "ENERO-FEBRERO"},
         {"value" : 03, "name" : "MARZO-ABRIL"},
         {"value" : 05, "name" : "MAYO-JUNIO"},
@@ -18,6 +18,21 @@ function ($scope, $http,$timeout, menuService, userService, billsService, $q) {
         {"value" : 09, "name" : "SEPTIEMBRE-OCTUBRE"},
         {"value" : 11, "name" : "NOVIEMBRE-DICIEMBRE"}
     ];
+
+    $scope.months = [
+            {"value" : "01", "name" : "ENERO"},
+            {"value" : "02", "name" : "FEBRERO"},
+            {"value" : "03", "name" : "MARZO"},
+            {"value" : "04", "name" : "ABRIL"},
+            {"value" : "05", "name" : "MAYO"},
+            {"value" : "06", "name" : "JUNIO"},
+            {"value" : "07", "name" : "JULIO"},
+            {"value" : "08", "name" : "AGOSTO"},
+            {"value" : "09", "name" : "SEPTIEMBRE"},
+            {"value" : "10", "name" : "OCTUBRE"},
+            {"value" : "11", "name" : "NOVIEMBRE"},
+            {"value" : "12", "name" : "DICIEMBRE"},
+        ];
 
 
 
@@ -88,7 +103,7 @@ function ($scope, $http,$timeout, menuService, userService, billsService, $q) {
     *   Gets user's info from the local database
     */
     $http.get("../user/").then(function mySuccess(response) {
-        userService.data = response.data;
+        userService.data = response.data[0];
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
     });
@@ -175,7 +190,15 @@ function ($scope, $http,$timeout, menuService, userService, billsService, $q) {
             }
           }
           return "";
-        }
+    }
+
+
+    $scope.isRifUser = function(){
+        if(userService.data.taxRegime === "RIF")
+            return true;
+        else
+            return false;
+    }
 
 
 }]);

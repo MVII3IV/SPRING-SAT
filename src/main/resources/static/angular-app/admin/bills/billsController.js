@@ -8,7 +8,7 @@ angular.module('adminApp')
       };
     })
 
-    .controller("billsController", ['$scope', '$http', function ($scope, $http) {
+    .controller("billsController", ['$scope', '$http', 'billsService', function ($scope, $http, billsService) {
 
     $scope.title = "Facturas";
     $scope.mode = "Recibidas";
@@ -22,17 +22,7 @@ angular.module('adminApp')
 
         $http.get("/bills?rfc=" + $scope.rfc + "&pass=" + $scope.pass).then(function mySuccess(response) {
 
-
-            $scope.bills = response.data;
-
-            var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-
-/*
-            for(var i = 0 ; i < $scope.bills.length ; i++){
-                var dateString = $scope.bills[i].emitedDate.split('/');
-                $scope.bills[i].emitedDate = new Date(dateString[2], dateString[1] - 1, dateString[0]).toLocaleDateString('es-ES', options);
-            }*/
-
+            $scope.bills = billsService.orderBillsByDate(response.data);
 
             $(".loader").remove();
         }, function myError(response) {

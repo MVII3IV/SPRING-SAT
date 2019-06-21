@@ -12,33 +12,42 @@
             <!-- DateTime -->
             <div class="row well" style="padding-bottom: 0px; margin: 0px;">
 
+                <div class="row" style="margin-top: 20px; margin-left: 20px;">
 
-                <div class="input-group">
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#datetimepicker').datetimepicker({
-                                viewMode: 'months',
-                                format: 'MM/YYYY'
-                            });
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Selecciona <span>Año</span></label>
+                            <select class="form-control" ng-model="yearIndex">
+                                <option value='' disabled>SELECCION DE AñO</option>
+                                <option value="2019" selected>2019</option>
+                                <option value="2018">2018</option>
+                            </select>
+                            <span class="help-block">Seleccion de año</span>
+                        </div>
+                    </div>
 
-                        });
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Selecciona <span>Mes</span></label>
+                            <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="monthIndex">
+                                <option value='' disabled>SELECCION DE MES</option>
+                                <option ng-repeat="month in months" value="{{month.value}}">{{month.name}}</option>
+                            </select>
+                            <span class="help-block">Seleccion de bimestre</span>
+                        </div>
+                    </div>
 
-                    </script>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker'>
-                            <input type='text' class="form-control" id="selectDate" placeholder="Seleccion de Mes" ng-model="selectDate"/>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar">
-                                </span>
-                            </span>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group" style="padding-top: 30px;">
+                            <button class="btn btn-primary" ng-click="filterBillsByDate(true)"> Filtrar </button>
+                            <span class="help-block">Haz click para filtrar</span>
                         </div>
                     </div>
 
 
                 </div>
-                <button class="btn btn-default" data-target="#modal" data-toggle="modal" style="margin-bottom: 13px;"> Agregar Ingreso
-                </button>
-
 
             </div>
             <!-- ./DateTime -->
@@ -96,26 +105,26 @@
                                         </th>
                                     </tr>
                                     </thead>
+                                    <tr role="row" class="odd" ng-repeat="bill in filteredBills.bills" id="{{bill.fiscalId}} load-finished ">
+                                        <td width="20px">
+                                            <div class="checkbox checkbox-inline" id="check_{{bill.fiscalId}}">
+                                                <input type="checkbox" id="check_{{$index}}"
+                                                       ng-click="noPaid(bill, $event)">
+                                                <label for="check_{{$index}}"></label>
+                                            </div>
+                                        </td>
+                                        <td ng-if="true">{{bill.fiscalId}}</td>
+                                        <td>{{bill.receiverRFC}}</td>
+                                        <td>{{bill.receiverName}}</td>
+                                        <td>{{bill.emitedDate}}</td>
+                                        <td>{{bill.total}}</td>
+                                        <td ng-if="false">
+                                            <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF
+                                            </button>
+                                        </td>
+                                    </tr>
                                     <tbody>
                                         <!--<tr role="row" class="odd" ng-repeat="bill in bills | filter : selectDate | limitTo:15"-->
-                                        <tr role="row" class="odd" ng-repeat="bill in bills | filter : selectDate" ng-if="bill.emited" load-finished id="{{bill.fiscalId}}">
-                                            <td width="20px">
-                                                <div class="checkbox checkbox-inline" id="check_{{bill.fiscalId}}">
-                                                    <input type="checkbox" id="check_{{$index}}"
-                                                           ng-click="noPaid(bill, $event)">
-                                                    <label for="check_{{$index}}"></label>
-                                                </div>
-                                            </td>
-                                            <td ng-if="true">{{bill.fiscalId}}</td>
-                                            <td>{{bill.receiverRFC}}</td>
-                                            <td>{{bill.receiverName}}</td>
-                                            <td>{{bill.emitedDate}}</td>
-                                            <td>{{bill.total}}</td>
-                                            <td ng-if="false">
-                                                <button class="btn btn-success" ng-click="downloadPDF()">Descargar PDF
-                                                </button>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
 
@@ -243,14 +252,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr role="row" class="odd" ng-repeat="(key, value) in bills | groupBy: 'receiverName'"
-                                        ng-if="$index > 0">
-                                        <td>{{ key }}</td>
-                                        <td>{{ getTotal(value) | currency}}</td>
+                                    <tr role="row" class="odd" ng-repeat="group in filteredBills.groups">
+                                        <td>{{ group.name }}</td>
+                                        <td>{{ group.total | currency}}</td>
                                     </tr>
                                     <tr>
                                         <td>TOTAL</td>
-                                        <td>{{grandTotal | currency}}</td>
+                                        <td>{{groupsTotal | currency}}</td>
                                     </tr>
                                     </tbody>
                                 </table>

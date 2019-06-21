@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/resources/static/**").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
@@ -53,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionFixation().migrateSession()
                 .invalidSessionUrl("/invalidSession.html")
-                .maximumSessions(2)
+                .maximumSessions(3)
                 .and()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()

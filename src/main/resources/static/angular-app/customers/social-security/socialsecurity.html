@@ -20,7 +20,7 @@
 
     <h1>{{title}}</h1>
 
-    <div class="row">
+    <div class="row" ng-hide="showCustomer">
         <div class="col-md-3">
             <div class="form-group">
                 <label>Modo <span>{{mode}}</span></label>
@@ -73,7 +73,29 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+
+                        <tr ng-repeat="employee in employees">
+                            <td>{{$index + 1}}</td>
+                            <td>{{employee.name}}</td>
+                            <td>{{employee.lastName}}</td>
+                            <td>{{employee.dailySalary}}</td>
+
+                            <td>
+                                <button class="btn btn-warning" >Procesando</button>
+                            </td>
+                            <td>
+                                <i aria-hidden="true" class="fa fa-file-text"></i>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-danger">Dar de baja</button>
+                            </td>
+                            <td>
+                                <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
+                            </td>
+                        </tr>
+
+                    <tr ng-hide="true">
                         <td>1</td>
                         <td>Erick</td>
                         <td>Dominguez</td>
@@ -93,7 +115,7 @@
                             <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
                         </td>
                     </tr>
-                    <tr>
+                    <tr ng-hide="true">
                         <td>2</td>
                         <td>Carlos</td>
                         <td>Contreras</td>
@@ -113,7 +135,7 @@
                             <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
                         </td>
                     </tr>
-                    <tr>
+                    <tr ng-hide="true">
                         <td>3</td>
                         <td>Edwin</td>
                         <td>Enriquez</td>
@@ -133,8 +155,7 @@
                             <i aria-hidden="true" class="fa fa-file-text fa-disabled" data-toggle="tooltip" data-placement="top" title="No disponible"></i>
                         </td>
                     </tr>
-
-                    <tr>
+                    <tr ng-hide="true">
                         <td>4</td>
                         <td>Martin</td>
                         <td>Chavez</td>
@@ -163,17 +184,13 @@
                         <div class="form-group" style="margin-top: 20px;">
 
                             <div class="col-md-2" style="margin-right: 5px;">
-                                <input type="text" class="form-control" placeholder="Nombre">
+                                <input type="text" class="form-control" placeholder="Nombre" ng-model="name">
                             </div>
                             <div class="col-md-2" style="margin-right: 5px;">
-                                <input type="text" class="form-control" placeholder="Segundo Nombre">
-                            </div>
-
-                            <div class="col-md-2" style="margin-right: 5px;">
-                                <input type="text" class="form-control" placeholder="Apellido Paterno">
+                                <input type="text" class="form-control" placeholder="Apellido Paterno" ng-model="lastName">
                             </div>
                             <div class="col-md-2" style="margin-right: 5px;">
-                                <input type="text" class="form-control" placeholder="Apellido Materno">
+                                <input type="text" class="form-control" placeholder="Apellido Materno" ng-model="secondLastName">
                             </div>
 
                         </div>
@@ -181,16 +198,16 @@
 
                         <div class="form-group" style="margin-top: 20px;">
                             <div class="col-md-3" style="margin-right: 5px;">
-                                <input type="text" class="form-control" placeholder="Numero de seguro">
+                                <input type="text" class="form-control" placeholder="Numero de seguro" ng-model="securityNumber">
                             </div>
                             <div class="col-md-2" style="margin-right: 5px;">
-                                <input type="text" class="form-control" placeholder="Curp">
+                                <input type="text" class="form-control" placeholder="Curp" ng-model="curp">
                             </div>
                             <div class="col-md-2" style="margin-right: 5px;">
-                                <input type="text" class="form-control" placeholder="Sueldo Diario">
+                                <input type="text" class="form-control" placeholder="Sueldo Diario" ng-model="dailySalary">
                             </div>
                             <div class="col-md-1" style="margin-right: 5px;">
-                                <button class="btn btn-primary">Agregar Empleado</button>
+                                <button class="btn btn-primary" ng-click="saveEmployee()">Agregar Empleado</button>
                             </div>
                         </div>
 

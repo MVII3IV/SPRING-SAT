@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-white">
+<div class="wrapper wrapper-white" id="test" style="height: 2100px;">
 
     <h1>{{title}}</h1>
     <div class="table-responsive" style="margin-top:20px">
@@ -10,53 +10,28 @@
             <div class="row well" style="padding-bottom: 0px; margin: 0px;">
 
                 <div class="row" style="margin-top: 20px; margin-left: 20px;">
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#datetimepicker').datetimepicker({
-                                viewMode: 'years',
-                                format: 'MM/YYYY'
-                            });
-                        });
-                    </script>
 
-
-
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Selecciona <span>Año</span></label>
-                            <select class="form-control" ng-model="year">
-                                <option value="2019">2019</option>
-                                <option value="2018">2018</option>
-                            </select>
-                            <span class="help-block">Seleccion de año</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
+                    <div class="col-md-4" ng-show="isRifUser()">
                         <div class="form-group">
                             <label>Selecciona <span>Mes</span></label>
-                            <select class="form-control" ng-model="month">
-                                <option value="01">ENERO</option>
-                                <option value="02">FEBRERO</option>
-                                <option value="03">MARZO</option>
-                                <option value="04">ABRIL</option>
-                                <option value="05">MAYO</option>
-                                <option value="06" selected>JUNIO</option>
+                            <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="monthIndex" ng-change="filterBillsByDate()">
+                                <option value='' disabled>SELECCION DE BIMESTRE</option>
+                                <option ng-repeat="month in monthsBimester" value="{{month.value}}">{{month.name}}</option>
                             </select>
-                            <span class="help-block">Seleccion de mes</span>
+                            <span class="help-block">Seleccion de bimestre</span>
                         </div>
                     </div>
 
-
-
-                    <div class="col-md-4">
-                        <div class="form-group" style="padding-top: 30px;">
-                            <button class="btn btn-primary" ng-click="filterBillsByDate(year, month)"> Filtrar </button>
-                            <span class="help-block">Haz click para filtrar</span>
+                    <div class="col-md-4" ng-show="!isRifUser()">
+                        <div class="form-group">
+                            <label>Selecciona <span>Mes</span></label>
+                            <select class="form-control"ng-model="monthIndex" ng-change="filterBillsByDate()">
+                                <option value='' disabled>SELECCION DE MES</option>
+                                <option ng-repeat="month in months" value="{{month.value}}">{{month.name}}</option>
+                            </select>
+                            <span class="help-block">Seleccion de bimestre</span>
                         </div>
                     </div>
-
 
                 </div>
 
@@ -77,7 +52,7 @@
                                     <h2>Tus Ingresos Enero</h2>
 
 
-                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth}}</span></div>
+                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth01 | number : 2}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
@@ -98,7 +73,7 @@
 
                                 <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                     <h2>Tus Gastos</h2>
-                                    <div class="dev-stat">$<span class="counter">{{outcomesByMonth}}</span></div>
+                                    <div class="dev-stat">$<span class="counter">{{outcomesByMonth01 | number : 2}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
@@ -118,7 +93,7 @@
 
                                 <div class="dev-widget dev-widget-transparent dev-widget-success">
                                     <h2>Diferencia</h2>
-                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth - outcomesByMonth}}</span></div>
+                                    <div class="dev-stat">$<span class="counter">{{incomesByMonth01 - outcomesByMonth01 | number : 2}}</span></div>
                                     <div class="progress progress-bar-xs" ng-if="false">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
@@ -135,7 +110,7 @@
                             <!-- ./difference-->
 
                             <!-- taxes-->
-                            <div class="col-md-3" ng-hide="true">
+                            <div class="col-md-3" ng-show="!isRifUser()">
 
                                 <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                     <h2>Impuestos Por Pagar</h2>
@@ -160,7 +135,7 @@
             <!-- ./earnings/outgoings -->
 
             <!-- earnings/outgoings -->
-            <div class="col-md-12">
+            <div class="col-md-12" ng-show="isRifUser()">
                 <div class="wrapper padding-bottom-0 padding-top-0">
                     <div class="dev-table">
 
@@ -170,7 +145,7 @@
                             <div class="dev-widget dev-widget-success">
                                 <h2>Tus Ingresos Febrero</h2>
 
-                                <div class="dev-stat">$<span class="counter">1,300</span></div>
+                                <div class="dev-stat">$<span class="counter">{{incomesByMonth02 | number : 2}}</span></div>
                                 <div class="progress progress-bar-xs" ng-if="false">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
@@ -178,7 +153,7 @@
                                 <div class="progress progress-bar-xs">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                 </div>
-                                <p>El total de tus ingresos deacuerdo al mes de Febreso</p>
+                                <p>El total de tus ingresos deacuerdo al mes de {{nextMonth}}</p>
                                 <a href="/#!/income" class="dev-drop">Ir a tus ingresos<span class="fa fa-angle-right pull-right"></span></a>
 
                             </div>
@@ -191,7 +166,7 @@
 
                             <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                 <h2>Tus Gastos</h2>
-                                <div class="dev-stat">$<span class="counter">850</span></div>
+                                <div class="dev-stat">$<span class="counter">{{outcomesByMonth02 | number : 2}}</span></div>
                                 <div class="progress progress-bar-xs" ng-if="false">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
@@ -199,7 +174,7 @@
                                 <div class="progress progress-bar-xs">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                 </div>
-                                <p>Tus gastos realizados en el mes de Febrero</p>
+                                <p>Tus gastos realizados en el mes de {{nextMonth}}</p>
                                 <a href="/#!/outgoings" class="dev-drop">Ir a tus ingresos<span class="fa fa-angle-right pull-right"></span></a>
                             </div>
 
@@ -211,7 +186,7 @@
 
                             <div class="dev-widget dev-widget-transparent dev-widget-success">
                                 <h2>Diferencia</h2>
-                                <div class="dev-stat">$<span class="counter">450</span></div>
+                                <div class="dev-stat">$<span class="counter">{{incomesByMonth02 - outcomesByMonth02 | number : 2}}</span></div>
                                 <div class="progress progress-bar-xs" ng-if="false">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
@@ -219,7 +194,7 @@
                                 <div class="progress progress-bar-xs">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
                                 </div>
-                                <p>El resultado de tus ingresos menos los gastos en Febrero</p>
+                                <p>El resultado de tus ingresos menos los gastos en {{nextMonth}}</p>
 
 
                             </div>
@@ -232,7 +207,7 @@
 
                             <div class="dev-widget dev-widget-transparent dev-widget-danger">
                                 <h2>Impuestos por pagar al bimestre</h2>
-                                <div class="dev-stat">$<span class="counter">250</span></div>
+                                <div class="dev-stat">$<span class="counter">{{totalToPay | number : 2}}</span></div>
                                 <div class="progress progress-bar-xs" ng-if="false">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 79%;"></div>
@@ -275,22 +250,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Enero</td>
-                            <td>$1,000.00</td>
-                            <td>$600.00</td>
-                        </tr>
-                        <tr>
-                            <td>Febrero</td>
-                            <td>$2,000.00</td>
-                            <td>$800.00</td>
-                        </tr>
-                        <tr>
-                            <td>Marzo</td>
-                            <td>$13,000.00</td>
-                            <td>$6700.00</td>
-                        </tr>
+                                <tr ng-repeat="emitted in billsData.emitted.bills">
+                                    <td>{{emitted.month}}</td>
+                                    <td>{{emitted.total.emitted | number : 2}}</td>
+                                    <td>{{emitted.total.received | number : 2 }}</td>
+                                </tr>
                         </tbody>
+
                     </table>
 
                 </div>
@@ -298,20 +264,20 @@
             <!-- ./table -->
 
 
-            <script>
-            //https://www.sitepoint.com/introduction-chart-js-2-0-six-examples/
-            //http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#2-line-chart
+            <script>/*
+            var mainController = angular.element(document.querySelector('[ng-controller="mainController"]')).scope();
+
             new Chart(document.getElementById("line-chart"), {
               type: 'line',
               data: {
                 labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
                 datasets: [{
-                    data: [1000, 1200, 1110, 1150, 1200, 1250, 950, 1100, 1150, 1000, 1500, 1100],
+                    data: mainController.incomes,
                     label: "Ingresos",
                     borderColor: "#82b440",
                     fill: false
                   }, {
-                    data: [600, 800, 1200, 1000, 635, 809, 947, 1402, 1500, 500, 500, 210],
+                    data: mainController.outcomes,
                     label: "Gastos",
                     borderColor: "#e74e40",
                     fill: false
@@ -324,7 +290,7 @@
                   text: 'Tabla de Ingresos y Gastos'
                 }
               }
-            });
+            });*/
             </script>
 
         </div>

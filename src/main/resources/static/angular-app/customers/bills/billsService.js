@@ -6,6 +6,10 @@ app.service('billsService', ['$http', 'userService', function($http, userService
 
     this.billsData = [];
 
+
+
+
+
     this.orderBillsByDate = function(bills){
         bills = bills.sort(function (a, b) {
             var dateAParts = a.emitedDate.split("/");
@@ -17,11 +21,11 @@ app.service('billsService', ['$http', 'userService', function($http, userService
     }
 
 
-    this.orderData = function(bills){
+    this.orderData = function(){
 
         this.billsData = {
-                            "emitted"   :   { "bills": [] , "groups": [] },
-                            "received"  :   { "bills": [] , "groups": [] }
+                            "emitted"   :   { "bills": [] , "groups": [] , "yearTotal" : 0},
+                            "received"  :   { "bills": [] , "groups": [] , "yearTotal" : 0}
                          };
 
         //this.printBills(this.bills);
@@ -93,6 +97,19 @@ app.service('billsService', ['$http', 'userService', function($http, userService
             this.billsData.received.bills.push({ "month": month, "bills": receivedBillsByMonth, "total": {"emitted" : totalEmitted, "received": totalReceived }, "groups" : groupsReceived });
 
         });
+
+        var yearTotalEmitted = 0;
+        var yearTotalReceived = 0;
+        this.billsData.emitted.bills.forEach(function(bill){
+                yearTotalEmitted += bill.total.emitted;
+        });
+
+        this.billsData.received.bills.forEach(function(bill){
+                yearTotalReceived += bill.total.received;
+        });
+
+        this.billsData.emitted.yearTotal = yearTotalEmitted;
+        this.billsData.received.yearTotal = yearTotalReceived;
 
         return this.billsData;
 

@@ -12,6 +12,7 @@ angular.module('adminApp')
 
     $scope.title = "Facturas";
     $scope.mode = "Recibidas";
+    //working
     //http://104.248.23.45:8080/crawler/extract/data?rfc=LULR860821MTA&pass=goluna21
 
 

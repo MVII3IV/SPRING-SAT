@@ -105,7 +105,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="bill in bills" ng-if="$index > 0" ng-show="bill.emited" load-finished>
+                            <tr ng-repeat="bill in bills" ng-show="bill.emited" load-finished>
                                 <td ng-hide="true">{{bill.fiscalId}}</td>
                                 <td ng-hide="true">{{bill.userId}}</td>
                                 <td ng-hide="true">{{bill.emisorRFC}}</td>
@@ -151,7 +151,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="bill in bills" ng-if="$index > 0" ng-show="!bill.emited" load-finished>
+                            <tr ng-repeat="bill in bills" ng-show="!bill.emited" load-finished>
                                 <td ng-hide="true">{{bill.fiscalId}}</td>
                                 <td ng-hide="true">{{bill.userId}}</td>
                                 <td>{{bill.emisorRFC}}</td>
